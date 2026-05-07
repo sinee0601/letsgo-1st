@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyScheduleDAO {
+public class MyScheduleDAO implements MyScheduleDAOInterface {
 	private Connection conn;
 
 	public MyScheduleDAO(Connection conn) {
