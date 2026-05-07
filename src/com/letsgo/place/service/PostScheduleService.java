@@ -43,14 +43,68 @@ public class PostScheduleService {
 		}
 		return result;
 	}
-	
-	
-	public List<PostScheduleVO> getPostScheduleList(String keyword, String sortType) {
-		return dao.getPostScheduleList(keyword, sortType);
+	public List<PostScheduleVO> getPostScheduleListLike() {
+		return dao.getPostScheduleListLike();
 	}
 	
-	public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String sortType) {
-		return dao.getUserPostScheduleList(userId, keyword, sortType);
+	public List<PostScheduleVO> getPostScheduleListView() {
+		return dao.getPostScheduleListView();
+	}
+	
+	public List<PostScheduleVO> getPostScheduleListTitle() {
+		return dao.getPostScheduleListTitle();
+	}
+	
+	public List<PostScheduleVO> getPostScheduleListLatest() {
+		return dao.getPostScheduleListLatest();
+	}
+	
+	public List<PostScheduleVO> getPostScheduleListLike(String keyword) {
+		return dao.getPostScheduleListLike(keyword);
+	}
+	
+	public List<PostScheduleVO> getPostScheduleListView(String keyword) {
+		return dao.getPostScheduleListView(keyword);
+	}
+	
+	public List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
+		return dao.getPostScheduleListTitle(keyword);
+	}
+	
+	public List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
+		return dao.getPostScheduleListLatest(keyword);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
+		return dao.getUserPostScheduleListLike(userId);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListView(String userId) {
+		return dao.getUserPostScheduleListView(userId);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
+		return dao.getUserPostScheduleListTitle(userId);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
+		return dao.getUserPostScheduleListLatest(userId);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
+		return dao.getUserPostScheduleListLike(userId, keyword);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
+		return dao.getUserPostScheduleListView(userId, keyword);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
+		return dao.getUserPostScheduleListTitle(userId, keyword);
+	}
+	
+	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
+		return dao.getUserPostScheduleListLatest(userId, keyword);
 	}
 	
 	public String getBudgetDetail(String postId) {

@@ -30,7 +30,33 @@ public class PostScheduleMyListUIAction implements Action {
 	
 		PostScheduleService service = new PostScheduleService();
 		List<PostScheduleVO> list = null;
-		list = service.getUserPostScheduleList(userId, title, sortOrder);
+		
+		// 1. 검색어(title/keyword)가 있는 경우
+        if (title != null && !title.trim().isEmpty()) {
+            if ("like".equals(sortOrder)) {
+                list = service.getUserPostScheduleListLike(userId, title);
+            } else if ("view".equals(sortOrder)) {
+                list = service.getUserPostScheduleListView(userId, title);
+            } else if ("title".equals(sortOrder)) {
+                list = service.getUserPostScheduleListTitle(userId, title);
+            } else {
+                // 기본값: latest (최신순)
+                list = service.getUserPostScheduleListLatest(userId, title);
+            }
+        } 
+        // 2. 검색어(title/keyword)가 없는 경우
+        else {
+            if ("like".equals(sortOrder)) {
+                list = service.getUserPostScheduleListLike(userId);
+            } else if ("view".equals(sortOrder)) {
+                list = service.getUserPostScheduleListView(userId);
+            } else if ("title".equals(sortOrder)) {
+                list = service.getUserPostScheduleListTitle(userId);
+            } else {
+                // 기본값: latest (최신순)
+                list = service.getUserPostScheduleListLatest(userId);
+            }
+        }
 		
 		Map<String, PostScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (PostScheduleVO vo : list) {
@@ -42,6 +68,7 @@ public class PostScheduleMyListUIAction implements Action {
 		        String combinedPlaces = existingVO.getPlaceTitle() + " / " + vo.getPlaceTitle();
 		        existingVO.setPlaceTitle(combinedPlaces);
 			}
+			
 		}
 
 		request.setAttribute("postScheduleList", new ArrayList<>(uniqueMap.values()));

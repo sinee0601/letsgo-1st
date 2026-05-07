@@ -29,13 +29,69 @@ public class TestPostScheduleService {
 	}
 	
 	@Test
-	public void getPostScheduleList() {
-		assertNotNull(service.getPostScheduleList("", "latest"));
+	public void getPostScheduleListLike() {
+		assertNotNull(service.getPostScheduleListLike());
+	}
+	@Test
+	public void getPostScheduleListView() {
+		assertNotNull(service.getPostScheduleListView());
+	}
+	@Test
+	public void getPostScheduleListTitle() {
+		assertNotNull(service.getPostScheduleListTitle());
+	}
+	@Test
+	public void getPostScheduleListLatest() {
+		assertNotNull(service.getPostScheduleListLatest());
+	}
+	@Test
+	public void getPostScheduleListLikeKeyword() {
+		assertNotNull(service.getPostScheduleListLike("다래"));
+	}
+	@Test
+	public void getPostScheduleListViewKeyword() {
+		assertNotNull(service.getPostScheduleListView());
+	}
+	@Test
+	public void getPostScheduleListTitleKeyword() {
+		assertNotNull(service.getPostScheduleListTitle());
+	}
+	@Test
+	public void getPostScheduleListLatestKeyword() {
+		assertNotNull(service.getPostScheduleListLatest());
 	}
 	
 	@Test
-	public void getUserPostScheduleList() {
-		assertNotNull(service.getUserPostScheduleList("user01","", "latest"));
+	public void getUserPostScheduleListLike() {
+		assertNotNull(service.getUserPostScheduleListLike("user01"));
+	}
+	@Test
+	public void getUserPostScheduleListView() {
+		assertNotNull(service.getUserPostScheduleListView("user01"));
+	}
+	@Test
+	public void getUserPostScheduleListTitle() {
+		assertNotNull(service.getUserPostScheduleListTitle("user01"));
+	}
+	@Test
+	public void getUserPostScheduleListLatest() {
+		assertNotNull(service.getUserPostScheduleListLatest("user01"));
+	}
+	@Test
+	public void getUserPostScheduleListLikeKeyword() {
+		assertNotNull(service.getUserPostScheduleListLike("user01",""));
+	}
+	@Test
+	public void getUserPostScheduleListViewKeyword() {
+		assertNotNull(service.getUserPostScheduleListView("user01",""));
+	}
+	@Test
+	public void getUserPostScheduleListTitleKeyword() {
+		assertNotNull(service.getUserPostScheduleListTitle("user01",""));
+	}
+	@Test
+	public void getUserPostScheduleListLatestKeyword() {
+		assertNotNull(service.getUserPostScheduleListLatest("user01",""));
 	}
 	
 	@Test

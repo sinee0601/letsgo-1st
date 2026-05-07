@@ -21,8 +21,8 @@ public class PostScheduleListUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
-		String title = (String) request.getParameter("searchTitle");
 		String sortOrder = (String) request.getParameter("sortOrder");
+		String title = (String) request.getParameter("searchTitle");
 		
 		if (userId == null) {
 			return "login.jsp";
@@ -30,7 +30,35 @@ public class PostScheduleListUIAction implements Action {
 	
 		PostScheduleService service = new PostScheduleService();
 		List<PostScheduleVO> list = null;
-		list = service.getPostScheduleList(title, sortOrder);
+	
+
+		// 1. 검색어(keyword)가 있는 경우
+        if (title != null && !title.trim().isEmpty()) {
+            if ("like".equals(sortOrder)) {
+                list = service.getPostScheduleListLike(title);
+            } else if ("view".equals(sortOrder)) {
+                list = service.getPostScheduleListView(title);
+            } else if ("title".equals(sortOrder)) {
+                list = service.getPostScheduleListTitle(title);
+            } else {
+                // 기본값: latest (최신순)
+                list = service.getPostScheduleListLatest(title);
+            }
+        } 
+        // 2. 검색어(keyword)가 없는 경우
+        else {
+            if ("like".equals(sortOrder)) {
+                list = service.getPostScheduleListLike();
+            } else if ("view".equals(sortOrder)) {
+                list = service.getPostScheduleListView();
+            } else if ("title".equals(sortOrder)) {
+                list = service.getPostScheduleListTitle();
+            } else {
+                // 기본값: latest (최신순)
+                list = service.getPostScheduleListLatest();
+            }
+        }
+		
 		
 		Map<String, PostScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (PostScheduleVO vo : list) {

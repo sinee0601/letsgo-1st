@@ -16,39 +16,12 @@ public class PostScheduleDAO {
 		this.conn = conn;
 	}
 	
-	
-	public List<PostScheduleVO> getPostScheduleList(String keyword, String sortType) {
+	//게시물 불러오기(like)
+	public List<PostScheduleVO> getPostScheduleListLike() {
 		List<PostScheduleVO> tmp = null;
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append(PostScheduleQuery.GET_POST_SCHEDULE_LIST);
-		
-		if (keyword != null && !keyword.trim().isEmpty()) {
-				sql.append(PostScheduleQuery.SEARCH_TYPE_FILTER);
-		}
-		
-		if ("like".equals(sortType)) {
-			sql.append(PostScheduleQuery.ORDER_BY_LIKE);
-		}else if("view".equals(sortType)){
-			sql.append(PostScheduleQuery.ORDER_BY_VIEW);
-		}else if("title".equals(sortType)) {
-			sql.append(PostScheduleQuery.ORDER_BY_TITLE);
-		}else if("latest".equals(sortType)) {
-			sql.append(PostScheduleQuery.ORDER_BY_TITLE);
-		}else {
-			sql.append(PostScheduleQuery.ORDER_BY_LATEST);
-		}
-
-
 		try {
-			PreparedStatement stmt = conn.prepareStatement(sql.toString());
-			int idx = 1;
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_LIKE);
 
-			if (keyword != null && !keyword.trim().isEmpty()) {
-				String searchKey = "%" + keyword + "%";
-				stmt.setString(idx++, searchKey);
-				stmt.setString(idx++, searchKey);
-			}
 			ResultSet rs = stmt.executeQuery();
 			tmp = new ArrayList<>();
 			while (rs.next()) {
@@ -62,40 +35,260 @@ public class PostScheduleDAO {
 		return tmp;
 		}
 	
-		public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String sortType) {
-			List<PostScheduleVO> tmp = null;
+	//게시물 불러오기(view)
+	public List<PostScheduleVO> getPostScheduleListView() {
+		List<PostScheduleVO> tmp = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_VIEW);
 
-			StringBuilder sql = new StringBuilder();
-			sql.append(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST);
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	//게시물 불러오기(title)
+	public List<PostScheduleVO> getPostScheduleListTitle() {
+		List<PostScheduleVO> tmp = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_TITLE);
+
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	//게시물 불러오기(latest)
+	public List<PostScheduleVO> getPostScheduleListLatest() {
+		List<PostScheduleVO> tmp = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_LATEST);
+
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	
+	//게시물 검색어 (like)
+	public List<PostScheduleVO> getPostScheduleListLike(String keyword) {
+		List<PostScheduleVO> tmp = null;
 		
-			if (keyword != null && !keyword.trim().isEmpty()) {
-					sql.append(PostScheduleQuery.SEARCH_TYPE_USER_FILTER);
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_SEARCH_LIKE);
+
+			String searchKey = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword + "%";
+			stmt.setString(1, searchKey);
+			stmt.setString(2, searchKey);
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
 			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	//게시물 검색어 (view)
+	public List<PostScheduleVO> getPostScheduleListView(String keyword) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_SEARCH_VIEW);
+
+			String searchKey = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword + "%";
+			stmt.setString(1, searchKey);
+			stmt.setString(2, searchKey);
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	//게시물 검색어 (title)
+	public List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_SEARCH_TITLE);
+
+			String searchKey = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword + "%";
+			stmt.setString(1, searchKey);
+			stmt.setString(2, searchKey);
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	//게시물 검색어 (latest)
+	public List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_POST_SCHEDULE_LIST_SEARCH_LATEST);
 			
-			if ("like".equals(sortType)) {
-				sql.append(PostScheduleQuery.ORDER_BY_LIKE);
-			}else if("view".equals(sortType)){
-				sql.append(PostScheduleQuery.ORDER_BY_VIEW);
-			}else if("latest".equals(sortType)){
-				sql.append(PostScheduleQuery.ORDER_BY_LATEST);
-			}else if("title".equals(sortType)) {
-				sql.append(PostScheduleQuery.ORDER_BY_TITLE);
+			String searchKey = "%" + keyword + "%";
+			stmt.setString(1, searchKey);
+			stmt.setString(2, searchKey);
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
 			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+		
+	
+		//내 게시물 불러오기(like)
+		public List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_LIKE);
+			stmt.setString(1, userId);
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+		
+		//내 게시물 불러오기(view)
+		public List<PostScheduleVO> getUserPostScheduleListView(String userId) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_VIEW);
+			stmt.setString(1, userId);
 
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+		
+		//내 게시물 불러오기(title)
+		public List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_TITLE);
+			stmt.setString(1, userId);
+
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+		
+		//내 게시물 불러오기(latest)
+		public List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
+		List<PostScheduleVO> tmp = null;
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_LATEST);
+			stmt.setString(1, userId);
+
+			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
+			while (rs.next()) {
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+		}
+	
+	
+	
+	
+	
+	
+		//내 게시물 좋아요순
+		public List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
+			List<PostScheduleVO> tmp = null;
+			
 			try {
-				PreparedStatement stmt = conn.prepareStatement(sql.toString());
-				int idx = 1;
-				stmt.setString(idx++, userId);
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_SEARCH_LIKE);
+				stmt.setString(1, userId);
 
-				if (keyword != null && !keyword.trim().isEmpty()) {
-					String searchKey = "%" + keyword + "%";
-					stmt.setString(idx++, searchKey);
-					stmt.setString(idx++, searchKey);
-				}
+				String searchKey = "%" + keyword + "%";
+				stmt.setString(2, searchKey);
+				stmt.setString(3, searchKey);
 				ResultSet rs = stmt.executeQuery();
 				tmp = new ArrayList<>();
 				while (rs.next()) {
-					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
+					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
 				}
 				rs.close();
 				stmt.close();
@@ -104,6 +297,79 @@ public class PostScheduleDAO {
 			}
 			return tmp;
 			}
+		
+		//내 게시물 조회요순
+		public List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
+			List<PostScheduleVO> tmp = null;
+			
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_SEARCH_VIEW);
+				stmt.setString(1, userId);
+					
+				String searchKey = "%" + keyword + "%";
+				stmt.setString(2, searchKey);
+				stmt.setString(3, searchKey);
+				ResultSet rs = stmt.executeQuery();
+				tmp = new ArrayList<>();
+				while (rs.next()) {
+					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return tmp;
+			}
+		
+		//내 게시물 제목순
+		public List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
+			List<PostScheduleVO> tmp = null;
+			
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_SEARCH_TITLE);
+				stmt.setString(1, userId);
+
+				String searchKey = "%" + keyword + "%";
+				stmt.setString(2, searchKey);
+				stmt.setString(3, searchKey);
+				ResultSet rs = stmt.executeQuery();
+				tmp = new ArrayList<>();
+				while (rs.next()) {
+					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return tmp;
+			}
+		
+		//내 게시물 최신순
+		public List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
+			List<PostScheduleVO> tmp = null;
+			
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST_SEARCH_LATEST);
+				stmt.setString(1, userId);
+
+				String searchKey = "%" + keyword + "%";
+				stmt.setString(2, searchKey);
+				stmt.setString(3, searchKey);
+				ResultSet rs = stmt.executeQuery();
+				tmp = new ArrayList<>();
+				while (rs.next()) {
+					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return tmp;
+			}
+		
 		
 		public String getBudgetDetail(String postId) {
 			String str = null;
@@ -248,7 +514,7 @@ public class PostScheduleDAO {
 		public int getViewCount(String postId) {
 			int viewCount = 0; 
 			try {
-				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_LIKE_COUNT);
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_VIEW_COUNT);
 				stmt.setString(1, postId);
 				ResultSet rs = stmt.executeQuery();
 				if (rs.next()) {

@@ -39,38 +39,45 @@ public class TestPostScheduleDAO {
 	@Test
 	public void getPostScheduleList() {
 		List<PostScheduleVO> list;
-		assertNotNull(dao.getPostScheduleList("", "latest")); //게시물 일정 전체 불러오기
-		assertNotNull(dao.getPostScheduleList("서울", "like")); ///게시물 일정 이름으로 검색하기
-		assertNotNull(dao.getPostScheduleList("다래", "view")); //게시물 일정 상세 플레이스명(장소)으로 검색하기
-		assertNotNull(dao.getPostScheduleList("", "title")); //게시물 이름으로 정렬하기
-		assertNotNull(dao.getPostScheduleList("", "view")); //게시물 조회순으로 정렬하기
-		assertNotNull(dao.getPostScheduleList("", "like")); //게시물 좋아요순으로 정렬하기
-		assertNotNull(dao.getPostScheduleList("", "latest")); //게시물 등록순으로 정렬하기
-		System.out.println(list = dao.getPostScheduleList("", "latest"));
-		System.out.println(list = dao.getPostScheduleList("서울", "like"));
-		System.out.println(list = dao.getPostScheduleList("다래", "view"));
-		System.out.println(list = dao.getPostScheduleList("", "title"));
-		System.out.println(list = dao.getPostScheduleList("", "view"));
-		System.out.println(list = dao.getPostScheduleList("", "like"));		
-		System.out.println(list = dao.getPostScheduleList("", "latest"));
+		assertNotNull(dao.getPostScheduleListLike()); //게시물 일정 전체 불러오기
+		assertNotNull(dao.getPostScheduleListView()); //게시물 일정 전체 불러오기
+		assertNotNull(dao.getPostScheduleListTitle()); //게시물 일정 전체 불러오기
+		assertNotNull(dao.getPostScheduleListLatest()); //게시물 일정 전체 불러오기
+		assertNotNull(dao.getPostScheduleListLike("서울")); ///게시물 일정 이름으로 검색하기
+		assertNotNull(dao.getPostScheduleListView("다래")); //게시물 일정 상세 플레이스명(장소)으로 검색하기
+		assertNotNull(dao.getPostScheduleListTitle("다래")); //게시물 이름으로 정렬하기
+		assertNotNull(dao.getPostScheduleListLatest("다래")); //게시물 조회순으로 정렬하기
+		
+		System.out.println(list = dao.getPostScheduleListLike());
+		System.out.println(list = dao.getPostScheduleListView());
+		System.out.println(list = dao.getPostScheduleListTitle());
+		System.out.println(list = dao.getPostScheduleListLatest());
+		System.out.println(list = dao.getPostScheduleListLike("서울"));
+		System.out.println(list = dao.getPostScheduleListView("다래"));
+		System.out.println(list = dao.getPostScheduleListTitle("다래"));
+		System.out.println(list = dao.getPostScheduleListLatest("다래"));
+
 		}
 	@Test
 	public void getUserPostScheduleList() {
 		List<PostScheduleVO> list;
-		assertNotNull(dao.getUserPostScheduleList("user01", "", "latest")); //내가 올린 게시물 일정 전체 불러오기
-		assertNotNull(dao.getUserPostScheduleList("user01", "서울", "title")); //내가 올린 게시물 일정 이름으로 검색하기
-		assertNotNull(dao.getUserPostScheduleList("user01", "다래", "title")); //내가 올린 게시물 일정 상세 플레이스명(장소)으로 검색하기
-		assertNotNull(dao.getUserPostScheduleList("user01", "", "title")); //내가 올린 게시물 이름으로 정렬하기
-		assertNotNull(dao.getUserPostScheduleList("user01", "", "view")); //내가 올린 게시물 조회순으로 정렬하기
-		assertNotNull(dao.getUserPostScheduleList("user01", "", "like")); //내가 올린 게시물 좋아요순으로 정렬하기
-		assertNotNull(dao.getUserPostScheduleList("user01", "", "latest")); //내가 올린 게시물 등록순으로 정렬하기
-		System.out.println(dao.getUserPostScheduleList("user01", "", "latest"));
-		System.out.println(dao.getUserPostScheduleList("user01", "서울", "title"));
-		System.out.println(dao.getUserPostScheduleList("user01", "다래", "title"));
-		System.out.println(dao.getUserPostScheduleList("user01", "", "title"));
-		System.out.println(dao.getUserPostScheduleList("user01", "", "view"));
-		System.out.println(dao.getUserPostScheduleList("user01", "", "like"));
-		System.out.println(dao.getUserPostScheduleList("user01", "", "latest"));
+		assertNotNull(dao.getUserPostScheduleListLike("user01")); //내가 올린 게시물 일정 전체 불러오기
+		assertNotNull(dao.getUserPostScheduleListView("user01")); //내가 올린 게시물 일정 전체 불러오기
+		assertNotNull(dao.getUserPostScheduleListTitle("user01")); //내가 올린 게시물 일정 전체 불러오기
+		assertNotNull(dao.getUserPostScheduleListLatest("user01")); //내가 올린 게시물 일정 전체 불러오기
+		assertNotNull(dao.getUserPostScheduleListLike("user01", "서울")); //내가 올린 게시물 일정 이름으로 검색하기
+		assertNotNull(dao.getUserPostScheduleListView("user01", "다래")); //내가 올린 게시물 일정 상세 플레이스명(장소)으로 검색하기
+		assertNotNull(dao.getUserPostScheduleListTitle("user01", "서울")); //내가 올린 게시물 이름으로 정렬하기
+		assertNotNull(dao.getUserPostScheduleListLatest("user01", "서울")); //내가 올린 게시물 조회순으로 정렬하기
+		
+		System.out.println(dao.getUserPostScheduleListLike("user01"));
+		System.out.println(dao.getUserPostScheduleListView("user01"));
+		System.out.println(dao.getUserPostScheduleListTitle("user01"));
+		System.out.println(dao.getUserPostScheduleListLatest("user01"));
+		System.out.println(dao.getUserPostScheduleListLike("user01", "서울"));
+		System.out.println(dao.getUserPostScheduleListView("user01", "서울"));
+		System.out.println(dao.getUserPostScheduleListTitle("user01", "다래"));
+		System.out.println(dao.getUserPostScheduleListLatest("user01", "서울"));
 	}
 	
 	@Test

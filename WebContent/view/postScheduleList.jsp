@@ -17,16 +17,16 @@
             <div class="search-area">
             <form method="post" action="controller">
             <input type="hidden" name="cmd" value="${param.cmd == 'postScheduleListUI' ? 'postScheduleListUI' : 'postScheduleMyListUI'}">
-            	<input type="text" placeholder="장소 이름이나 게시물 이름을 검색하세요" name = "searchTitle" />
+            	<input type="text" placeholder="장소 이름이나 게시물 이름을 검색하세요" name = "searchTitle" value="${param.searchTitle}" />
                		 <button type="submit" >
                 		검색하기
                 	 </button>
              	   		<div class="sort-area">
-                    		<select name="sortOrder">
-                        		<option value="latest">날짜순</option>
-                        		<option value="title">이름순</option>
-                        		<option value="like">좋아요순</option>
-                        		<option value="view">조회순</option>
+                    		<select name="sortOrder" value="${param.sortOrder}">
+                        		<option value="latest" ${param.sortOrder == 'latest' ? 'selected' : ''}>날짜순</option>
+   								<option value="title" ${param.sortOrder == 'title' ? 'selected' : ''}>이름순</option>
+    							<option value="like" ${param.sortOrder == 'like' ? 'selected' : ''}>좋아요순</option>
+    							<option value="view" ${param.sortOrder == 'view' ? 'selected' : ''}>조회순</option>
                     </select>
                 </div>
             </form>
