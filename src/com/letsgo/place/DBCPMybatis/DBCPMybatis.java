@@ -8,15 +8,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class DBCPMybatis {//싱글톤
-	private static DBCPMybatis dbcp;
+public class DBCPMybatis {
+
 	private static SqlSessionFactory factory;
-	private DBCPMybatis(){
-	}
+
 	
 	public static SqlSessionFactory getSqlSessionFactory(){
-		if(dbcp == null) 
-			dbcp = new DBCPMybatis();
 		InputStream in = null;
 		if(factory == null){
 			String resource = "config/mybatis-Config.xml";			
