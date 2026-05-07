@@ -31,4 +31,11 @@ public class DBCPMybatis {//싱글톤
 		}
 		return factory;
 	}
+	public static SqlSession getSqlSession(){
+		if(factory == null){
+			getSqlSessionFactory();
+		}
+		return factory.openSession();
+	}
+	
 }

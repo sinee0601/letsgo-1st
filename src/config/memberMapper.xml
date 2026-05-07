@@ -7,10 +7,9 @@
 	where member_id = #{memberId}
 	</select>
 	
-	<insert id="addMember" parameterType="com.oopsw.shop.vo.MemberVO">insert into members 
-	(member_id, pw, name, in_date, state) 
-	values (#{memberId}, #{pw}, #{name}, sysdate, '가입')</insert>
-	
-	<select id="selectMemberList" > select member_id as member_id, name from members </select>
+	<select id="getMyScheduleListAllByDate" parameterType="String"
+	resultType="com.letsgo.place.model.MyScheduleVO"> 
+	SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED, p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE, v.VISIT_ORDER FROM MY_SCHEDULE s JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID WHERE s.USER_ID = #{user_id} UNION SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED, p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE, v.VISIT_ORDER FROM MY_SCHEDULE s JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID WHERE ssu.SHARED_USER_ID = #{user_id} ORDER BY START_AT DESC, VISIT_ORDER ASC
+	</select>
 	
 </mapper>

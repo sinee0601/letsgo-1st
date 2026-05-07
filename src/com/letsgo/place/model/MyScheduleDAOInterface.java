@@ -5,6 +5,22 @@ import java.util.List;
 
 public interface MyScheduleDAOInterface {
 
+    List<MyScheduleVO> getMyScheduleListAllByDate(String userId);
+
+    List<MyScheduleVO> getMyScheduleListAllByTitle(String userId);
+
+    List<MyScheduleVO> getMyScheduleListSharedByDate(String userId);
+
+    List<MyScheduleVO> getMyScheduleListSharedByTitle(String userId);
+
+    List<MyScheduleVO> getMyScheduleListSearchByDate(String userId, String keyword);
+
+    List<MyScheduleVO> getMyScheduleListSearchByTitle(String userId, String keyword);
+
+    List<MyScheduleVO> getMyScheduleListSearchSharedByDate(String userId, String keyword);
+
+    List<MyScheduleVO> getMyScheduleListSearchSharedByTitle(String userId, String keyword);
+
     List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter);
 
     boolean deleteMySchedule(String scheduleId);

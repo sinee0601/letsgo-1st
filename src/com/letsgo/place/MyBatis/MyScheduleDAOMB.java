@@ -3,9 +3,6 @@ package com.letsgo.place.MyBatis;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
-import com.letsgo.place.DBCPMybatis.DBCPMybatis;
 import com.letsgo.place.model.ColleagueVO;
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.MyScheduleDAOInterface;
@@ -14,7 +11,55 @@ import com.letsgo.place.model.RouteScheduleVO;
 
 public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 
-	@Override//이건 빡세니까 나중에
+	@Override
+	public List<MyScheduleVO> getMyScheduleListAllByDate(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListAllByTitle(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListSharedByDate(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListSharedByTitle(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListSearchByDate(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListSearchByTitle(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListSearchSharedByDate(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MyScheduleVO> getMyScheduleListSearchSharedByTitle(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
 		// TODO Auto-generated method stub
 		return null;
@@ -22,8 +67,7 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 
 	@Override
 	public boolean deleteMySchedule(String scheduleId) {
-		SqlSession session=
-				DBCPMybatis.getSqlSessionFactory().openSession();
+		// TODO Auto-generated method stub
 		return false;
 	}
 
