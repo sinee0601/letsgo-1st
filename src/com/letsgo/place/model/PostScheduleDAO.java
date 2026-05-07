@@ -494,6 +494,24 @@ public class PostScheduleDAO {
 
 		}
 		
+		
+		public boolean deleteVisitItem(String postId) {
+			boolean flag = false;
+			try {
+
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.DELETE_VISIT_ITEM);
+				stmt.setString(1, postId);
+				stmt.executeUpdate();
+		
+				stmt.close();
+				flag = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return flag;
+
+		}
+		
 		public int getLikeCount(String postId) {
 			int likeCount = 0; 
 			try {

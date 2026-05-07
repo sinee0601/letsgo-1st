@@ -23,26 +23,41 @@ public class PostScheduleService {
 		dao = new PostScheduleDAO(conn);
 	}
 	
-	public boolean deletePostSchedule(String scheduleId) {
-		boolean result = false;
-		try {
-			conn.setAutoCommit(false);
-			result = dao.deletePostSchedule(scheduleId);
-			if (result)
-				conn.commit();
-			else
-				conn.rollback();
+	public boolean deletePostScheduleAndVisitItem(String scheduleId) {
+		boolean finalResult = false;
+	    try {
+	        conn.setAutoCommit(false);
+
+	        boolean resultVi = dao.deleteVisitItem(scheduleId);
+	        boolean resultPs = false;
+	        
+	        if (resultVi) {
+	        	resultPs = dao.deletePostSchedule(scheduleId);
+	        }
+
+	        if (resultVi && resultPs) {
+	            conn.commit();
+	            finalResult = true;
+	        } else {
+	            conn.rollback();
+	        }
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				if (conn != null) 
+					conn.rollback(); 
+				} catch (SQLException ex) {}
 		} finally {
 			try {
 				conn.setAutoCommit(true);
 			} catch (SQLException e) {
 				e.printStackTrace();
+				
 			}
 		}
-		return result;
+		return finalResult;
 	}
+	
 	public List<PostScheduleVO> getPostScheduleListLike() {
 		return dao.getPostScheduleListLike();
 	}

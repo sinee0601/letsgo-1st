@@ -20,7 +20,7 @@ public class DeletePostScheduleAction implements Action {
 		String postId = request.getParameter("postId");
 		
 		PostScheduleService service = new PostScheduleService();
-		boolean result = service.deletePostSchedule(postId);
+		boolean result = service.deletePostScheduleAndVisitItem(postId);
 		
 		request.setAttribute("result", result);
 		return "controller?cmd=postScheduleMyListUI";

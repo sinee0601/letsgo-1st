@@ -25,7 +25,7 @@ public class TestPostScheduleService {
 	
 	@Test
 	public void deletePostSchedule() {
-		assertTrue(service.deletePostSchedule("P002"));
+		assertTrue(service.deletePostScheduleAndVisitItem("P002"));
 	}
 	
 	@Test
