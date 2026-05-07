@@ -340,5 +340,57 @@ public class PlaceDAO implements PlaceDAOInterface {
         }
         return vo;
     }
+    // 장소명,지역 검색 거리, 좋아요순 정렬 모두 적용
+    public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
+        List<PlaceVO> list = new ArrayList<>();
+        
+        StringBuilder sql = new StringBuilder(PlaceQuery.GET_PLACE); 
+        
+        if (category != null && !category.trim().isEmpty()) {
+            sql.append(PlaceQuery.BY_CATEGORY);
+        }
+        
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("AND (title LIKE ? OR addr1 LIKE ?) ");
+        }
+        
+        if ("popular".equals(sortType)) {
+            sql.append(PlaceQuery.ORDER_BY_LIKE);
+        } else {
+            sql.append(PlaceQuery.ORDER_BY_TITLE);
+        }
 
+        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int idx = 1;
+            stmt.setString(idx++, placeType); 
+
+            if (category != null && !category.trim().isEmpty()) {
+                stmt.setString(idx++, category);
+            }
+            
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String searchPattern = "%" + keyword + "%";
+                stmt.setString(idx++, searchPattern);
+                stmt.setString(idx++, searchPattern);
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(
+                        rs.getString("place_id"),
+                        rs.getString("title"),
+                        rs.getString("addr1"),
+                        rs.getString("mapx"),
+                        rs.getString("mapy"),
+                        rs.getString("first_image"),
+                        rs.getInt("like_count"),
+                        placeType
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
