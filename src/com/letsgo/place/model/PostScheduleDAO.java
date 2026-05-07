@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -597,35 +598,59 @@ public class PostScheduleDAO {
 			return str;
 		}
 		
-		public String copyToMySchedule(String title, String budgetDetail, String todoDetail, String userId) throws SQLException {
-		    try (PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_MY_SCHEDULE, new String[]{"MY_SCHEDULE_ID"})) {
+		public String copyToMySchedule(String title, String budgetDetail, String todoDetail, String userId) {
+		    String generatedId = null;
+		    PreparedStatement stmt = null;
+		    ResultSet rs = null;
+		    
+		    try {
+		    	stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_MY_SCHEDULE, Statement.RETURN_GENERATED_KEYS);
 		        stmt.setString(1, title);
 		        stmt.setString(2, budgetDetail);
 		        stmt.setString(3, todoDetail);
 		        stmt.setString(4, userId);
 
 		        if (stmt.executeUpdate() == 1) {
-		            try (ResultSet rs = stmt.getGeneratedKeys()) {
-		                if (rs.next()) return rs.getString(1);
+		        	rs = stmt.getGeneratedKeys();
+		            if (rs != null && rs.next()) {
+		                generatedId = rs.getString(1);
 		            }
 		        }
-		        throw new SQLException("일정 생성 실패");
-		    }
-		}
-		
-		public void copyToVisitItem(String myScheduleId, RouteScheduleVO route) throws SQLException {
-		    int idx = 1;
-		    try (PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_VISIT_ITEM)) {
-		        stmt.setString(idx++, route.getVisitOrder());
-		        stmt.setDouble(idx++, route.getDistanceToNext());
-		        stmt.setString(idx++, route.getPlaceId());
-		        stmt.setString(idx++, myScheduleId);
-		        stmt.setString(idx++, "MY_SCH"); 
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (rs != null) rs.close();
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
 		        
-		        if (stmt.executeUpdate() != 1) {
-		            throw new SQLException("방문지항목 생성 실패");
+		        try {
+		            if (stmt != null) stmt.close();
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
 		        }
 		    }
+		    
+		    return generatedId;
+		}
+		
+		public boolean copyToVisitItem(String myScheduleId, RouteScheduleVO route) {
+		    boolean flag = false;
+		    try (PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_VISIT_ITEM)) {
+		        stmt.setString(1, route.getVisitOrder());
+		        stmt.setDouble(2, route.getDistanceToNext());
+		        stmt.setString(3, route.getPlaceId());
+		        stmt.setString(4, myScheduleId);
+		        stmt.setString(5, "MY_SCH");
+		        
+		        if (stmt.executeUpdate() == 1) {
+		            flag = true;
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return flag;
 		}
 	}
 

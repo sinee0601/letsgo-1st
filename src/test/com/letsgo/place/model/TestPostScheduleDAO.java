@@ -142,11 +142,7 @@ public class TestPostScheduleDAO {
 	
 	@Test
 	public void copyToMySchedule()  {
-		try {
-			assertNotNull(dao.copyToMySchedule("", "", "", "user02"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		assertNotNull(dao.copyToMySchedule("", "", "", "user02"));
 	}
 	
 	@Test

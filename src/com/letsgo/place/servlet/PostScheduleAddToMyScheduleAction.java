@@ -33,6 +33,9 @@ public class PostScheduleAddToMyScheduleAction implements Action {
 		boolean result = service.addToMySchedule(postId, userId);
 		request.setAttribute("addResult", result);
 		
+		System.out.println("등록 결과: " + result);
+		System.out.println("현재 세션 아이디: " + userId);
+		System.out.println("이동할 목적지: controller?cmd=postScheduleDetailUI&postId=" + postId);
 		
 		return "controller?cmd=postScheduleRouteManageUI";
 	}

@@ -164,28 +164,52 @@ public class PostScheduleService {
 	
 	public boolean addToMySchedule(String postId, String userId) {
 		List<RouteScheduleVO> routes = dao.getScheduleRoute(postId);
-		String title = dao.getScheduleTitle(postId);
-		String budgetDetail = dao.getBudgetDetail(postId);
-		String todoDetail = dao.getTodoDetail(postId);
-	    
-		try {
+	    String title = dao.getScheduleTitle(postId);
+	    String budgetDetail = dao.getBudgetDetail(postId);
+	    String todoDetail = dao.getTodoDetail(postId);
+
+	    boolean result = false;
+
+	    try {
 	        conn.setAutoCommit(false);
-	        String MyScheduleId = dao.copyToMySchedule(title, budgetDetail, todoDetail, userId);
-	        if (routes != null) {
-	            for (RouteScheduleVO route : routes) {
-	                dao.copyToVisitItem(MyScheduleId, route);
+	        String myScheduleId = dao.copyToMySchedule(title, budgetDetail, todoDetail, userId);
+	        if (myScheduleId != null) {
+	            boolean resultVi = true;
+	            
+	            if (routes != null && !routes.isEmpty()) {
+	                for (RouteScheduleVO route : routes) {
+	                    if (!dao.copyToVisitItem(myScheduleId, route)) {
+	                    	resultVi = false;
+	                        break; 
+	                    }
+	                }
 	            }
+
+	            if (resultVi) {
+	                conn.commit();
+	                result = true;
+	            } else {
+	                conn.rollback();
+	            }
+	        } else {
+	            conn.rollback();
 	        }
 
-	        conn.commit();
-	        return true;
-
 	    } catch (Exception e) {
-	        try { if (conn != null) conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+	        try {
+	            if (conn != null) conn.rollback();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
 	        e.printStackTrace();
-	        return false;
+	        result = false;
 	    } finally {
-	        try { if (conn != null) conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+	        try {
+	            if (conn != null) conn.setAutoCommit(true);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	    }
+	    return result;
 	}
 }
