@@ -22,17 +22,54 @@ public class MyScheduleListUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
-		String title = (String) request.getParameter("searchTitle");
-		String sortOrder = (String) request.getParameter("sortOrder");
+		String keyword = request.getParameter("searchTitle");
+		String sortOrder = request.getParameter("sortOrder");
+		String sharedFilter = request.getParameter("sharedFilter");
+
 		if (userId == null) {
 			return "login.jsp";
 		}
 
+		boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+		boolean isSortTitle = "title".equals(sortOrder);
+		boolean isShared = "true".equals(sharedFilter);
+
 		MyScheduleService service = new MyScheduleService();
 		List<MyScheduleVO> list = null;
 
-		list = service.getMyScheduleList(userId, title, sortOrder, false);
+		if (isShared) {
+			if (hasKeyword) {
+				if (isSortTitle) {
+					list = service.getMyScheduleListSearchSharedByTitle(userId, keyword);
+				} else {
+					list = service.getMyScheduleListSearchSharedByDate(userId, keyword);
+				}
+			} else {
+				if (isSortTitle) {
+					list = service.getMyScheduleListSharedByTitle(userId);
+				} else {
+					list = service.getMyScheduleListSharedByDate(userId);
+				}
+			}
+		} else {
+			if (hasKeyword) {
+				if (isSortTitle) {
+					list = service.getMyScheduleListSearchByTitle(userId, keyword);
+				} else {
+					list = service.getMyScheduleListSearchByDate(userId, keyword);
+				}
+			} else {
+				if (isSortTitle) {
+					list = service.getMyScheduleListAllByTitle(userId);
+				} else {
+					list = service.getMyScheduleListAllByDate(userId);
+				}
+			}
+		}
 
+		if (list == null) {
+			list = new ArrayList<>();
+		}
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (MyScheduleVO vo : list) {
@@ -43,12 +80,9 @@ public class MyScheduleListUIAction implements Action {
 				if (existingVO.getFirstImage() == null) {
 					existingVO.setFirstImage(vo.getFirstImage());
 				}
-		        String combinedPlaces = existingVO.getPlaceTitle() + " / " + vo.getPlaceTitle();
-		        existingVO.setPlaceTitle(combinedPlaces);
+				String combinedPlaces = existingVO.getPlaceTitle() + " / " + vo.getPlaceTitle();
+				existingVO.setPlaceTitle(combinedPlaces);
 			}
-//			if (!uniqueMap.containsKey(vo.getMyScheduleId())) {
-//				uniqueMap.put(vo.getMyScheduleId(), vo);
-//			}
 		}
 		request.setAttribute("myScheduleList", new ArrayList<>(uniqueMap.values()));
 
