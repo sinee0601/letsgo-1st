@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceDAO {
+public class PlaceDAO implements PlaceDAOInterface {
     private Connection conn;
 
     public PlaceDAO(Connection conn){
