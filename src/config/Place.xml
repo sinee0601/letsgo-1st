@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="memberMapper">
-	<select id="getplacebytitle">
-		SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM
-		place WHERE place_type=#{} AND title=#{}
+<mapper namespace="PlaceMapper">
+
+	<select id="getPlaceByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		title,
+		first_image AS firstImage,
+		addr1,
+		mapx,
+		mapy,
+		like_count AS likeCount
+		FROM place
+		WHERE place_type =
+		#{placeType}
+		AND title = #{title}
 	</select>
 
+	<select id="getPlaceByCategory" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+    SELECT place_id AS placeId,
+           title,
+           first_image AS firstImage,
+           addr1,
+           mapx,
+           mapy,
+           like_count AS likeCount
+    FROM place
+    WHERE place_type = #{placetype}
+      AND lclssystm3 = #{lclssystm3}
+</select>
 
+<select id="getPlaceOrderByLike" parameterType="string" resultType="com.letsgo.place.model.PlaceVO">
+    SELECT place_id AS placeId,
+           title,
+           first_image AS firstImage,
+           addr1,
+           mapx,
+           mapy,
+           like_count AS likeCount
+    FROM place
+    WHERE place_type = #{placeType}
+    ORDER BY like_count DESC
+</select>
 </mapper>
