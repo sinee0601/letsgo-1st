@@ -3,6 +3,10 @@ package com.letsgo.place.MyBatis;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.letsgo.place.DBCPMybatis.DBCPMybatis;
+import com.letsgo.place.model.ColleagueVO;
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.MyScheduleDAOInterface;
 import com.letsgo.place.model.MyScheduleVO;
@@ -10,7 +14,7 @@ import com.letsgo.place.model.RouteScheduleVO;
 
 public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 
-	@Override
+	@Override//이건 빡세니까 나중에
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
 		// TODO Auto-generated method stub
 		return null;
@@ -18,7 +22,8 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 
 	@Override
 	public boolean deleteMySchedule(String scheduleId) {
-		// TODO Auto-generated method stub
+		SqlSession session=
+				DBCPMybatis.getSqlSessionFactory().openSession();
 		return false;
 	}
 

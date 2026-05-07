@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<select id="getmyschedulelist">
+		SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED,
+		p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE, v.VISIT_ORDER FROM
+		MY_SCHEDULE s JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID
+		JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID WHERE s.USER_ID = #{userID}
+	</select>
+
+
+</mapper>
