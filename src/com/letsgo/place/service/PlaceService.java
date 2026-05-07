@@ -140,10 +140,7 @@ public class PlaceService {
 		return dao.getPlaceByPlaceId(placeId);
 	}
 	
-	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
-		return dao.searchPlaces(placeType, category, keyword, sortType);
-	}
-	
+
 	
 
 }

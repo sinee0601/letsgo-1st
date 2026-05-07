@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<select id="getMemberId" parameterType="String" 
+	resultType="String" >
+	select member_id from members
+	where member_id = #{memberId}
+	</select>
+	
+	<insert id="addMember" parameterType="com.oopsw.shop.vo.MemberVO">insert into members 
+	(member_id, pw, name, in_date, state) 
+	values (#{memberId}, #{pw}, #{name}, sysdate, '가입')</insert>
+	
+	<select id="selectMemberList" > select member_id as member_id, name from members </select>
+	
+</mapper>
