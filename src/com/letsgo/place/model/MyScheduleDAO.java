@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,178 @@ public class MyScheduleDAO implements MyScheduleDAOInterface {
 
 	public MyScheduleDAO(Connection conn) {
 		this.conn = conn;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListAllByDate(String userId) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_ALL_DATE);
+			stmt.setString(1, userId);
+			stmt.setString(2, userId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListAllByTitle(String userId) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_ALL_TITLE);
+			stmt.setString(1, userId);
+			stmt.setString(2, userId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSharedByDate(String userId) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_SHARED_DATE);
+			stmt.setString(1, userId);
+			stmt.setString(2, userId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSharedByTitle(String userId) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_SHARED_TITLE);
+			stmt.setString(1, userId);
+			stmt.setString(2, userId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchByDate(String userId, String keyword) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		String title = "%" + keyword + "%";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_SEARCH_DATE);
+			stmt.setString(1, userId);
+			stmt.setString(2, title);
+			stmt.setString(3, title);
+			stmt.setString(4, userId);
+			stmt.setString(5, title);
+			stmt.setString(6, title);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchByTitle(String userId, String keyword) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		String title = "%" + keyword + "%";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_SEARCH_TITLE);
+			stmt.setString(1, userId);
+			stmt.setString(2, title);
+			stmt.setString(3, title);
+			stmt.setString(4, userId);
+			stmt.setString(5, title);
+			stmt.setString(6, title);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchSharedByDate(String userId, String keyword) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		String title = "%" + keyword + "%";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_SEARCH_SHARED_DATE);
+			stmt.setString(1, userId);
+			stmt.setString(2, title);
+			stmt.setString(3, title);
+			stmt.setString(4, userId);
+			stmt.setString(5, title);
+			stmt.setString(6, title);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchSharedByTitle(String userId, String keyword) {
+		List<MyScheduleVO> tmp = new ArrayList<>();
+		String title = "%" + keyword + "%";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_LIST_SEARCH_SHARED_TITLE);
+			stmt.setString(1, userId);
+			stmt.setString(2, title);
+			stmt.setString(3, title);
+			stmt.setString(4, userId);
+			stmt.setString(5, title);
+			stmt.setString(6, title);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
 	}
 
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
@@ -24,12 +195,15 @@ public class MyScheduleDAO implements MyScheduleDAOInterface {
 
 		// 내가 소유한 일정
 		sql.append(MyScheduleQuery.GET_MY_SCHEDULE_LIST_SQL);
-		if (sharedFilter) sql.append(MyScheduleQuery.SHARED_FILTER);
-		if (hasKeyword) sql.append(MyScheduleQuery.KEYWORD_FILTER);
+		if (sharedFilter)
+			sql.append(MyScheduleQuery.SHARED_FILTER);
+		if (hasKeyword)
+			sql.append(MyScheduleQuery.KEYWORD_FILTER);
 
 		// 나를 동반자로 추가한 일정 (UNION으로 중복 제거)
 		sql.append(MyScheduleQuery.GET_SHARED_WITH_ME_SQL);
-		if (hasKeyword) sql.append(MyScheduleQuery.KEYWORD_FILTER);
+		if (hasKeyword)
+			sql.append(MyScheduleQuery.KEYWORD_FILTER);
 
 		if ("title".equals(sortType)) {
 			sql.append(MyScheduleQuery.ORDER_BY_TITLE);
@@ -306,14 +480,16 @@ public class MyScheduleDAO implements MyScheduleDAOInterface {
 				String id = rs.next() ? rs.getString(1) : null;
 				rs.close();
 				stmt.close();
-				if (id == null) break;
+				if (id == null)
+					break;
 				PreparedStatement check = conn.prepareStatement(MyScheduleQuery.CHECK_MY_SCHEDULE_ID_EXISTS);
 				check.setString(1, id);
 				ResultSet cr = check.executeQuery();
 				boolean exists = cr.next();
 				cr.close();
 				check.close();
-				if (!exists) return id;
+				if (!exists)
+					return id;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

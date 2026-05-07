@@ -25,6 +25,38 @@ public class MyScheduleService {
 		dao = new MyScheduleDAO(conn);
 	}
 
+	public List<MyScheduleVO> getMyScheduleListAllByDate(String userId) {
+		return dao.getMyScheduleListAllByDate(userId);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListAllByTitle(String userId) {
+		return dao.getMyScheduleListAllByTitle(userId);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSharedByDate(String userId) {
+		return dao.getMyScheduleListSharedByDate(userId);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSharedByTitle(String userId) {
+		return dao.getMyScheduleListSharedByTitle(userId);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchByDate(String userId, String keyword) {
+		return dao.getMyScheduleListSearchByDate(userId, keyword);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchByTitle(String userId, String keyword) {
+		return dao.getMyScheduleListSearchByTitle(userId, keyword);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchSharedByDate(String userId, String keyword) {
+		return dao.getMyScheduleListSearchSharedByDate(userId, keyword);
+	}
+
+	public List<MyScheduleVO> getMyScheduleListSearchSharedByTitle(String userId, String keyword) {
+		return dao.getMyScheduleListSearchSharedByTitle(userId, keyword);
+	}
+
 	// JTA - Spring AOP 개념
 	public boolean deleteMySchedule(String scheduleId) {
 		boolean result = false;
@@ -68,9 +100,10 @@ public class MyScheduleService {
 		return result;
 	}
 
-	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
-		return dao.getMyScheduleList(userId, keyword, sortType, sharedFilter);
-	}
+	// public List<MyScheduleVO> getMyScheduleList(String userId, String
+	// keyword, String sortType, boolean sharedFilter) {
+	// return dao.getMyScheduleList(userId, keyword, sortType, sharedFilter);
+	// }
 
 	public boolean setMySchedule(String[] visitItemId, int[] visitOrder, String[] distanceToNext, String scheduleId,
 			String scheduleTitle, String startAt, String budgetDetail, String todoDetail, String userId, int isShared) {
@@ -310,7 +343,7 @@ public class MyScheduleService {
 		String result = dao.getBudgetDetail(scheduleId);
 		return result;
 	}
-	
+
 	public boolean setBudgetDetail(String scheduleId, String budgetDetail) {
 		boolean flag = dao.setBudgetDetail(scheduleId, budgetDetail);
 		return flag;
@@ -342,7 +375,8 @@ public class MyScheduleService {
 		}
 	}
 
-	public NewScheduleFromCartResult createNewScheduleFromCartPlaces(String userId, List<String> placeIds, String title) {
+	public NewScheduleFromCartResult createNewScheduleFromCartPlaces(String userId, List<String> placeIds,
+			String title) {
 		List<String> ordered = new ArrayList<>();
 		if (placeIds != null) {
 			for (String pid : placeIds) {
@@ -392,7 +426,6 @@ public class MyScheduleService {
 		}
 	}
 
-	
 	public List<String> addCartPlacesToSchedule(String userId, String scheduleId, List<String> placeIds) {
 		List<String> addedIds = new ArrayList<>();
 		if (scheduleId == null || scheduleId.trim().isEmpty() || placeIds == null || placeIds.isEmpty()) {
@@ -455,5 +488,5 @@ public class MyScheduleService {
 		}
 		return addedIds;
 	}
-	
+
 }
