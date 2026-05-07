@@ -111,10 +111,4 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		return null;
 	}
 
-	@Override
-	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

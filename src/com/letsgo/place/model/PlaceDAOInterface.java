@@ -55,7 +55,5 @@ public interface PlaceDAOInterface {
     // PLACE_ID로 장소 단건 조회
     PlaceVO getPlaceByPlaceId(String placeId);
 
-    // 장소명, 지역 검색 + 거리, 좋아요순 정렬 복합 조회
-    List<PlaceVO> searchPlaces(String placeType, String category,
-            String keyword, String sortType);
+   
 }
