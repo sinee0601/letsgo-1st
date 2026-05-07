@@ -18,10 +18,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   
   <mappers>
     <mapper resource="config/memberMapper.xml"/>
-   <!--     ml
-    <mapper resource="config/memberMapper.xml"/>
-    <mapper resource="config/memberMapper.xml"/>  
-    -->
+    <mapper resource="config/Place.xml"/>
+  
   </mappers>
   
 </configuration>

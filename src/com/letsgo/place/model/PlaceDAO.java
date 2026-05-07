@@ -14,7 +14,7 @@ public class PlaceDAO implements PlaceDAOInterface {
         this.conn = conn;
     }
     
-    // 이름으로 플레이스 조회
+    // 이름으로 플레이스 조회 
     public List<PlaceVO> getPlaceByTitle(String placeType, String title) {
         List<PlaceVO> list = new ArrayList<>();
         try {
