@@ -28,9 +28,20 @@ public class MyScheduleSharedListUIAction implements Action {
 		}
 
 		MyScheduleService service = new MyScheduleService();
-		List<MyScheduleVO> list = null;
+		List<MyScheduleVO> list;
 
-		list = service.getMyScheduleList(userId, title, sortOrder, true);
+		boolean hasKeyword = title != null && !title.trim().isEmpty();
+		boolean byTitle = "title".equals(sortOrder);
+
+		if (hasKeyword) {
+			list = byTitle
+				? service.getMyScheduleListSearchSharedByTitle(userId, title)
+				: service.getMyScheduleListSearchSharedByDate(userId, title);
+		} else {
+			list = byTitle
+				? service.getMyScheduleListSharedByTitle(userId)
+				: service.getMyScheduleListSharedByDate(userId);
+		}
 
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();

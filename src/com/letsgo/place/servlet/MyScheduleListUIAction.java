@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.PostScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
 public class MyScheduleListUIAction implements Action {
@@ -35,35 +34,27 @@ public class MyScheduleListUIAction implements Action {
 		boolean isShared = "true".equals(sharedFilter);
 
 		MyScheduleService service = new MyScheduleService();
-		List<MyScheduleVO> list = null;
+		List<MyScheduleVO> list;
 
 		if (isShared) {
 			if (hasKeyword) {
-				if (isSortTitle) {
-					list = service.getMyScheduleListSearchSharedByTitle(userId, keyword);
-				} else {
-					list = service.getMyScheduleListSearchSharedByDate(userId, keyword);
-				}
+				list = isSortTitle
+					? service.getMyScheduleListSearchSharedByTitle(userId, keyword)
+					: service.getMyScheduleListSearchSharedByDate(userId, keyword);
 			} else {
-				if (isSortTitle) {
-					list = service.getMyScheduleListSharedByTitle(userId);
-				} else {
-					list = service.getMyScheduleListSharedByDate(userId);
-				}
+				list = isSortTitle
+					? service.getMyScheduleListSharedByTitle(userId)
+					: service.getMyScheduleListSharedByDate(userId);
 			}
 		} else {
 			if (hasKeyword) {
-				if (isSortTitle) {
-					list = service.getMyScheduleListSearchByTitle(userId, keyword);
-				} else {
-					list = service.getMyScheduleListSearchByDate(userId, keyword);
-				}
+				list = isSortTitle
+					? service.getMyScheduleListSearchByTitle(userId, keyword)
+					: service.getMyScheduleListSearchByDate(userId, keyword);
 			} else {
-				if (isSortTitle) {
-					list = service.getMyScheduleListAllByTitle(userId);
-				} else {
-					list = service.getMyScheduleListAllByDate(userId);
-				}
+				list = isSortTitle
+					? service.getMyScheduleListAllByTitle(userId)
+					: service.getMyScheduleListAllByDate(userId);
 			}
 		}
 

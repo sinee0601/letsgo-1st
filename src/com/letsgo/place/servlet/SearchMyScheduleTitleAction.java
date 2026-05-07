@@ -25,7 +25,10 @@ public class SearchMyScheduleTitleAction implements Action {
 		String userId = (String) session.getAttribute("loginOK");
 
 		MyScheduleService service = new MyScheduleService();
-		List<MyScheduleVO> list = service.getMyScheduleList(userId, title, "title", false);
+		boolean hasKeyword = title != null && !title.trim().isEmpty();
+		List<MyScheduleVO> list = hasKeyword
+			? service.getMyScheduleListSearchByTitle(userId, title)
+			: service.getMyScheduleListAllByTitle(userId);
 //		System.out.println(list);
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();
