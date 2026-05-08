@@ -4,12 +4,28 @@ import java.util.List;
 
 public interface PostScheduleDAOInterface {
 
-	// 1. 전체 일정 리스트 조회
-    List<PostScheduleVO> getPostScheduleList(String keyword, String sortType);
-
-    // 2. 사용자별 일정 리스트 조회
-    List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String sortType);
-
+	// 1, 2. 일정 리스트 조회
+	List<PostScheduleVO> getPostScheduleListLike();
+	List<PostScheduleVO> getPostScheduleListView();
+	List<PostScheduleVO> getPostScheduleListTitle();
+	List<PostScheduleVO> getPostScheduleListLatest();
+	
+	List<PostScheduleVO> getPostScheduleListLike(String keyword);
+	List<PostScheduleVO> getPostScheduleListView(String keyword);
+	List<PostScheduleVO> getPostScheduleListTitle(String keyword);
+	List<PostScheduleVO> getPostScheduleListLatest(String keyword);
+	
+	List<PostScheduleVO> getUserPostScheduleListLike(String userId);
+	List<PostScheduleVO> getUserPostScheduleListView(String userId);
+	List<PostScheduleVO> getUserPostScheduleListTitle(String userId);
+	List<PostScheduleVO> getUserPostScheduleListLatest(String userId);
+	
+	List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword);
+	List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword);
+	List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword);
+	List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword);
+	
+    
     // 3. 예산 및 할일 상세 조회
     String getBudgetDetail(String postId);
     String getTodoDetail(String postId);
@@ -23,6 +39,7 @@ public interface PostScheduleDAOInterface {
 
     // 6. 일정 삭제 (VisitItem과 SchedulePost 연쇄 삭제 대응)
     boolean deletePostSchedule(String postId);
+    boolean deleteVisitItem(String postId);
 
     // 7. 좋아요 및 조회수 조회
     int getLikeCount(String postId);
@@ -39,5 +56,5 @@ public interface PostScheduleDAOInterface {
     String copyToMySchedule(String title, String budgetDetail, String todoDetail, String userId);
 
     // 11. 방문 항목 복사 (void 유지)
-    void copyToVisitItem(String myScheduleId, RouteScheduleVO route);
+    boolean copyToVisitItem(String myScheduleId, RouteScheduleVO route);
 }

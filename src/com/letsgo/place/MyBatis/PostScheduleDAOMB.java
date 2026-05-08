@@ -2,21 +2,108 @@ package com.letsgo.place.MyBatis;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.PostScheduleDAOInterface;
 import com.letsgo.place.model.PostScheduleVO;
 import com.letsgo.place.model.RouteScheduleVO;
+import com.oopsw.shop.model.DBCPMybatis;
 
 public class PostScheduleDAOMB implements PostScheduleDAOInterface {
 
 	@Override
-	public List<PostScheduleVO> getPostScheduleList(String keyword, String sortType) {
+	public List<PostScheduleVO> getPostScheduleListLike() {
+		SqlSession session = DBCPMybatis.getSqlSessionFactiory().openSession();
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getPostScheduleListView() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String sortType) {
+	public List<PostScheduleVO> getPostScheduleListTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getPostScheduleListLatest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getPostScheduleListLike(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getPostScheduleListView(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListView(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -58,6 +145,12 @@ public class PostScheduleDAOMB implements PostScheduleDAOInterface {
 	}
 
 	@Override
+	public boolean deleteVisitItem(String postId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public int getLikeCount(String postId) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -94,9 +187,11 @@ public class PostScheduleDAOMB implements PostScheduleDAOInterface {
 	}
 
 	@Override
-	public void copyToVisitItem(String myScheduleId, RouteScheduleVO route) {
+	public boolean copyToVisitItem(String myScheduleId, RouteScheduleVO route) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
+
+	
 
 }

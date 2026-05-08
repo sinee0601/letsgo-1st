@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PostScheduleDAO {
+public class PostScheduleDAO implements PostScheduleDAOInterface {
 	private Connection conn;
 
 	
