@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.PostScheduleDAOInterface;
 import com.letsgo.place.model.PostScheduleVO;
@@ -12,9 +11,14 @@ import com.letsgo.place.model.RouteScheduleVO;
 
 public class PostScheduleDAOMB implements PostScheduleDAOInterface {
 
+	private SqlSession session;
+	
+	public PostScheduleDAOMB(SqlSession session){
+		this.session = session;
+	}
+		
 	@Override
 	public List<PostScheduleVO> getPostScheduleListLike() {
-		SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession();
 		return null;
 	}
 
