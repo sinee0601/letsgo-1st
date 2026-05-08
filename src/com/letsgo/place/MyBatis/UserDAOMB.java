@@ -2,7 +2,7 @@ package com.letsgo.place.MyBatis;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMybatis.DBCPMybatis;
+import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
 import com.letsgo.place.model.UserDAOInterface;
 import com.letsgo.place.model.UserVO;
 

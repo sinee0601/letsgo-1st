@@ -1,4 +1,4 @@
-package com.letsgo.place.DBCPMybatis;
+package com.letsgo.place.DBCPMyBatis;
 
 import java.io.IOException;
 import java.io.InputStream;

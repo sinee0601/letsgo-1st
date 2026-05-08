@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMybatis.DBCPMybatis;
+import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
 import com.letsgo.place.model.PlaceDAOInterface;
 import com.letsgo.place.model.PlaceVO;
 import com.letsgo.place.model.VisitItemVO;

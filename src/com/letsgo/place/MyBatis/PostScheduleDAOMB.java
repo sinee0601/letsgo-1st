@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMybatis.DBCPMybatis;
+import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.PostScheduleDAOInterface;
 import com.letsgo.place.model.PostScheduleVO;
