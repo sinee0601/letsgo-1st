@@ -3,6 +3,8 @@ package com.letsgo.place.MyBatis;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.letsgo.place.model.ColleagueVO;
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.MyScheduleDAOInterface;
@@ -11,10 +13,16 @@ import com.letsgo.place.model.RouteScheduleVO;
 
 public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 
+	private SqlSession session;
+	
+	public MyScheduleDAOMB(SqlSession session) {
+		this.session = session;
+	}
+	
+	
 	@Override
 	public List<MyScheduleVO> getMyScheduleListAllByDate(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectList(userId);
 	}
 
 	@Override

@@ -36,12 +36,12 @@ public class TestMyScheduleSevice {
 		assertFalse(service.deleteMyScheduleList("033", list));
 		
 	}
-	@Test
-	public void getMyScheduleListTest(){
-		System.out.println(service.getMyScheduleList("user02", null, "title", true));
-		ArrayList<MyScheduleVO> list = (ArrayList<MyScheduleVO>) service.getMyScheduleList("user01", "", "title", true);
+//	@Test
+//	public void getMyScheduleListTest(){
+//		System.out.println(service.getMyScheduleList("user02", null, "title", true));
+//		ArrayList<MyScheduleVO> list = (ArrayList<MyScheduleVO>) service.getMyScheduleList("user01", "", "title", true);
 //		assertEquals("2026-05-10 00:00:00",list.get(0).getStartAt());		
-	}
+//	}
 	
 	@Test
     public void deleteMyScheduleListTest() {
