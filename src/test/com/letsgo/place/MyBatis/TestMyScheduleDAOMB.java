@@ -44,7 +44,7 @@ public class TestMyScheduleDAOMB {
 	@Test
 	public void getMyScheduleListAllByDate_existingUser_returnsItems() {
 		List<MyScheduleVO> result = dao.getMyScheduleListAllByDate("user01");
-		assertFalse("user01의 일정 목록이 비어 있으면 안 됩니다", result.isEmpty());
+		assertFalse("user01", result.isEmpty());
 	}
 
 	@Test

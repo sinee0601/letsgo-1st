@@ -7,19 +7,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
+import com.letsgo.place.MyBatis.MyScheduleDAOMB;
 import com.letsgo.place.model.ColleagueVO;
 import com.letsgo.place.model.DBCP;
 import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.MyScheduleDAO;
+import com.letsgo.place.model.MyScheduleDAOInterface;
 import com.letsgo.place.model.MyScheduleVO;
 import com.letsgo.place.model.RouteScheduleVO;
 
-public class MyScheduleService {
+public class MyScheduleService implements MyScheduleServiceInterface {
 
-	private MyScheduleDAO dao;
+	private MyScheduleDAOInterface dao;
 
 	private Connection conn;
-
+	
 	public MyScheduleService() throws ClassNotFoundException, SQLException {
 		conn = DBCP.getConnection();
 		dao = new MyScheduleDAO(conn);
