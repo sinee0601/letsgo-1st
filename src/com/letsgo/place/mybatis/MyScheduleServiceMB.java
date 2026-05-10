@@ -1,4 +1,6 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.mybatis;
+
+import com.letsgo.place.service.MyScheduleServiceInterface;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,13 +10,11 @@ import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.MyScheduleDAOMB;
-import com.letsgo.place.model.ColleagueVO;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.MyScheduleDAOInterface;
-import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.MyScheduleDAOInterface;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService.NewScheduleFromCartResult;
 
 public class MyScheduleServiceMB implements MyScheduleServiceInterface {
@@ -290,3 +290,7 @@ public class MyScheduleServiceMB implements MyScheduleServiceInterface {
 		return addedIds;
 	}
 }
+
+
+
+

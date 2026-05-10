@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.query;
 
 public interface PlaceQuery {
 	
@@ -56,3 +56,4 @@ public interface PlaceQuery {
 
 	String INSERT_VISIT_ITEM_SQL = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE) VALUES ((SELECT NVL(MAX(VISIT_ITEM_ID), 0) + 1 FROM VISIT_ITEM), ?, ?, ?, ?, ?)";
 }
+

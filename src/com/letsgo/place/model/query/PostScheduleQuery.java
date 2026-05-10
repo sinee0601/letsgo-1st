@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.query;
 
 public interface PostScheduleQuery {
 	
@@ -40,4 +40,5 @@ public interface PostScheduleQuery {
 	String COPY_TO_MY_SCHEDULE = "INSERT INTO MY_SCHEDULE (MY_SCHEDULE_ID, TITLE, START_AT, BUDGET_DETAILS, TODO_DETAILS, USER_ID, IS_SHARED) VALUES ('SCH' || LPAD(SEQ_MY_SCHEDULE.NEXTVAL, 3, '0'), ?, SYSDATE, ?, ?, ?, 0)";
 	String COPY_TO_VISIT_ITEM = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE) VALUES (SEQ_VISIT_ITEM.NEXTVAL, ?, ?, ?, ?, ?)";
 }
+
 

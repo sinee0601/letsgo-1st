@@ -1,4 +1,4 @@
-package com.letsgo.place.MyBatis;
+﻿package com.letsgo.place.mybatis;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.model.PlaceDAOInterface;
-import com.letsgo.place.model.PlaceVO;
-import com.letsgo.place.model.VisitItemVO;
+import com.letsgo.place.model.dao.PlaceDAOInterface;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public class PlaceDAOMB implements PlaceDAOInterface {
 
@@ -112,3 +112,4 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		return null;
 	}
 }
+

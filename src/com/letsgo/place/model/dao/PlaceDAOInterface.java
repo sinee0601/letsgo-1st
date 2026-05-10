@@ -1,6 +1,9 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.dao;
 
 import java.util.List;
+
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public interface PlaceDAOInterface {
     List<PlaceVO> getPlaceByTitle(String placeType, String title);

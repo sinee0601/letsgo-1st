@@ -1,4 +1,4 @@
-package com.letsgo.place.MyBatis;
+﻿package com.letsgo.place.mybatis;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.PostScheduleDAOInterface;
-import com.letsgo.place.model.PostScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.PostScheduleDAOInterface;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public class PostScheduleDAOMB implements PostScheduleDAOInterface {
 
@@ -200,3 +200,4 @@ public class PostScheduleDAOMB implements PostScheduleDAOInterface {
 		return session.insert("postScheduleMapper.copyToVisitItem", params) == 1;
 	}
 }
+

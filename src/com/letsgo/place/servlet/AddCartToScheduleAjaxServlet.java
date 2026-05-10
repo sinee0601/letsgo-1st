@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.model.PlaceVO;
+import com.letsgo.place.model.vo.PlaceVO;
 import com.letsgo.place.service.MyScheduleService;
 import com.letsgo.place.util.JsonStrings;
 
@@ -117,3 +117,4 @@ public class AddCartToScheduleAjaxServlet extends HttpServlet {
 		}
 	}
 }
+

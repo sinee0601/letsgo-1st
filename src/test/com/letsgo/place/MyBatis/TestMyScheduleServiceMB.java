@@ -1,4 +1,4 @@
-package test.com.letsgo.place.MyBatis;
+﻿package test.com.letsgo.place.mybatis;
 
 import static org.junit.Assert.*;
 
@@ -8,12 +8,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.model.ColleagueVO;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService.NewScheduleFromCartResult;
-import com.letsgo.place.service.MyScheduleServiceMB;
+import com.letsgo.place.mybatis.MyScheduleServiceMB;
 
 public class TestMyScheduleServiceMB {
 
@@ -253,3 +253,4 @@ public class TestMyScheduleServiceMB {
 	}
 
 }
+

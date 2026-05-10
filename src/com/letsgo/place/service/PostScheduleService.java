@@ -1,15 +1,15 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.PostScheduleDAO;
-import com.letsgo.place.model.PostScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.PostScheduleDAO;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 
 public class PostScheduleService implements PostScheduleServiceInterface {
@@ -213,3 +213,4 @@ public class PostScheduleService implements PostScheduleServiceInterface {
 	    return result;
 	}
 }
+

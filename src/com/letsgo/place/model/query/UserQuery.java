@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.query;
 
 public interface UserQuery {
 	String LOGIN_SQL = "SELECT NAME, EMAIL FROM USERS WHERE USER_ID = ? AND PASSWORD = ?";
@@ -8,3 +8,4 @@ public interface UserQuery {
 	String FIND_USER_ID_BY_NAME_EMAIL_SQL = "SELECT USER_ID FROM USERS WHERE NAME = ? AND EMAIL = ?";
 
 }
+

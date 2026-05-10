@@ -1,4 +1,4 @@
-package test.com.letsgo.place.model;
+﻿package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 
@@ -9,10 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.PlaceDAO;
-import com.letsgo.place.model.PlaceVO;
-import com.letsgo.place.model.VisitItemVO;
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.dao.PlaceDAO;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public class TestPlaceDAO2 {
 
@@ -81,6 +81,7 @@ public class TestPlaceDAO2 {
    
 
 }
+
 
 
 

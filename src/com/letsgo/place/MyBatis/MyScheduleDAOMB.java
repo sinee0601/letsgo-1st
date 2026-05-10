@@ -1,4 +1,4 @@
-package com.letsgo.place.MyBatis;
+﻿package com.letsgo.place.mybatis;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.model.ColleagueVO;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.MyScheduleDAOInterface;
-import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.MyScheduleDAOInterface;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 
@@ -291,3 +291,4 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 		return myScheduleId;
 	}
 }
+

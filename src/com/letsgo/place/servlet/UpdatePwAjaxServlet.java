@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.letsgo.place.model.UserDAO;
+import com.letsgo.place.model.dao.UserDAO;
 
 @WebServlet("/updatePwAjax")
 public class UpdatePwAjaxServlet extends HttpServlet {
@@ -51,3 +51,4 @@ public class UpdatePwAjaxServlet extends HttpServlet {
 		}
 	}
 }
+

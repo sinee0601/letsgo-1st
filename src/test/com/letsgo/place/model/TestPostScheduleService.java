@@ -1,4 +1,4 @@
-package test.com.letsgo.place.model;
+﻿package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 import com.letsgo.place.service.PostScheduleService;
 
 
@@ -155,3 +155,4 @@ public class TestPostScheduleService {
 	}
 
 }
+

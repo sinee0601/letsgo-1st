@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.letsgo.place.model.query.PlaceQuery;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public class PlaceDAO implements PlaceDAOInterface {
     private Connection conn;

@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.letsgo.place.model.PlaceVO;
+import com.letsgo.place.model.vo.PlaceVO;
 import com.letsgo.place.service.PlaceService;
 import com.letsgo.place.util.JsonStrings;
 
@@ -66,3 +66,4 @@ public class LeisureListAjaxServlet extends HttpServlet {
 		}
 	}
 }
+

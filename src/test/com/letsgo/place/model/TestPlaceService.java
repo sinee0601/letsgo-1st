@@ -1,4 +1,4 @@
-package test.com.letsgo.place.model;
+﻿package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.model.PlaceVO;
-import com.letsgo.place.model.VisitItemVO;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 import com.letsgo.place.service.PlaceService;
 import com.letsgo.place.service.PostScheduleService;
 
@@ -157,3 +157,4 @@ public class TestPlaceService {
 	    assertEquals(new ArrayList<PlaceVO>(), service.searchPlaces("LEISURE", null, "도쿄", "title"));
 	}
 }
+

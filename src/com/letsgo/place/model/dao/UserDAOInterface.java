@@ -1,4 +1,6 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.dao;
+
+import com.letsgo.place.model.vo.UserVO;
 
 public interface UserDAOInterface {
 
@@ -12,3 +14,4 @@ public interface UserDAOInterface {
 
     String findUserIdByNameAndEmail(String name, String email);
 }
+

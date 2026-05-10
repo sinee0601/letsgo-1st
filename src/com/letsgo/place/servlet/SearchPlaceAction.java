@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.model.PlaceVO;
+import com.letsgo.place.model.vo.PlaceVO;
 import com.letsgo.place.service.PlaceService;
 
 public class SearchPlaceAction implements Action {
@@ -46,3 +46,4 @@ public class SearchPlaceAction implements Action {
         }
 	}
 }
+

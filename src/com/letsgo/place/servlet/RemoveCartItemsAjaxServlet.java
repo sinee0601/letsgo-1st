@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.model.PlaceVO;
+import com.letsgo.place.model.vo.PlaceVO;
 
 /**
  * 플로팅 카트에서 항목 삭제 시 세션 placeCartList 와 맞춥니다.
@@ -55,3 +55,4 @@ public class RemoveCartItemsAjaxServlet extends HttpServlet {
 		response.getWriter().print("{\"ok\":true}");
 	}
 }
+

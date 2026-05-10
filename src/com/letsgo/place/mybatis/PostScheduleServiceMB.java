@@ -1,15 +1,15 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.mybatis;
+
+import com.letsgo.place.service.PostScheduleServiceInterface;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.PostScheduleDAOMB;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.PostScheduleDAOInterface;
-import com.letsgo.place.model.PostScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.PostScheduleDAOInterface;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 
@@ -191,3 +191,7 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 		return true;
 	}
 }
+
+
+
+

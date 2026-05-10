@@ -1,11 +1,11 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.mybatis;
+
+import com.letsgo.place.service.UserServiceInterface;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.UserDAOMB;
-import com.letsgo.place.model.UserDAOInterface;
-import com.letsgo.place.model.UserVO;
+import com.letsgo.place.model.dao.UserDAOInterface;
+import com.letsgo.place.model.vo.UserVO;
 
 public class UserServiceMB implements UserServiceInterface {
 
@@ -48,3 +48,7 @@ public class UserServiceMB implements UserServiceInterface {
 		return dao.findUserIdByNameAndEmail(name, email);
 	}
 }
+
+
+
+

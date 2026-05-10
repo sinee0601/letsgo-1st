@@ -1,10 +1,10 @@
-package test.com.letsgo.place.model;
+﻿package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import com.letsgo.place.model.UserDAO;
-import com.letsgo.place.model.UserVO;
+import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.model.vo.UserVO;
 
 public class TestUserDAO {
 
@@ -41,3 +41,4 @@ public class TestUserDAO {
     }
 
 }
+

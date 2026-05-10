@@ -1,7 +1,12 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public interface MyScheduleDAOInterface {
 
@@ -72,3 +77,4 @@ public interface MyScheduleDAOInterface {
 
     String shareToPost(String myScheduleId, String userId, int isAnonymous) throws SQLException;
 }
+

@@ -1,9 +1,12 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.letsgo.place.model.query.UserQuery;
+import com.letsgo.place.model.vo.UserVO;
 
 public class UserDAO implements UserQuery {
 
@@ -101,3 +104,4 @@ public class UserDAO implements UserQuery {
         return userId;
     }
 }
+

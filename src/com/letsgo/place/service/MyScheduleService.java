@@ -1,4 +1,4 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,15 +9,15 @@ import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.MyScheduleDAOMB;
-import com.letsgo.place.model.ColleagueVO;
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.MyScheduleDAO;
-import com.letsgo.place.model.MyScheduleDAOInterface;
-import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.mybatis.DBCPMybatis;
+import com.letsgo.place.mybatis.MyScheduleDAOMB;
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.MyScheduleDAO;
+import com.letsgo.place.model.dao.MyScheduleDAOInterface;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public class MyScheduleService implements MyScheduleServiceInterface {
 
@@ -495,3 +495,4 @@ public class MyScheduleService implements MyScheduleServiceInterface {
 	}
 
 }
+

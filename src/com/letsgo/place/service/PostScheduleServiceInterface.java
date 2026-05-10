@@ -1,9 +1,9 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
 import java.util.List;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.PostScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public interface PostScheduleServiceInterface {
 

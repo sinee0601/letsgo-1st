@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.vo;
 
 public class PlaceVO {
 	private String placeId;
@@ -96,3 +96,4 @@ public class PlaceVO {
 
 	
 }
+

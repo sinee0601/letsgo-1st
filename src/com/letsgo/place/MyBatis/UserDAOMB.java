@@ -1,9 +1,9 @@
-package com.letsgo.place.MyBatis;
+﻿package com.letsgo.place.mybatis;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.model.UserDAOInterface;
-import com.letsgo.place.model.UserVO;
+import com.letsgo.place.model.dao.UserDAOInterface;
+import com.letsgo.place.model.vo.UserVO;
 
 public class UserDAOMB implements UserDAOInterface {
 
@@ -39,3 +39,4 @@ public class UserDAOMB implements UserDAOInterface {
 	}
 
 }
+

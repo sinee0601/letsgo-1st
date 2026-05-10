@@ -1,14 +1,14 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.mybatis;
+
+import com.letsgo.place.service.PlaceServiceInterface;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.PlaceDAOMB;
-import com.letsgo.place.model.PlaceDAOInterface;
-import com.letsgo.place.model.PlaceVO;
-import com.letsgo.place.model.VisitItemVO;
+import com.letsgo.place.model.dao.PlaceDAOInterface;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public class PlaceServiceMB implements PlaceServiceInterface {
 
@@ -120,3 +120,7 @@ public class PlaceServiceMB implements PlaceServiceInterface {
 		return null;
 	}
 }
+
+
+
+

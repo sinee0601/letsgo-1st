@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.vo;
 
 public class UserVO {
 	private String userID;
@@ -48,3 +48,4 @@ public class UserVO {
 	
 	
 }
+

@@ -1,6 +1,6 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
-import com.letsgo.place.model.UserVO;
+import com.letsgo.place.model.vo.UserVO;
 
 public interface UserServiceInterface {
 
@@ -14,3 +14,4 @@ public interface UserServiceInterface {
 
     String findUserIdByNameAndEmail(String name, String email);
 }
+

@@ -1,13 +1,13 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.PlaceDAO;
-import com.letsgo.place.model.PlaceVO;
-import com.letsgo.place.model.VisitItemVO;
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.dao.PlaceDAO;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public class PlaceService implements PlaceServiceInterface {
 	
@@ -147,3 +147,4 @@ public class PlaceService implements PlaceServiceInterface {
 	
 
 }
+

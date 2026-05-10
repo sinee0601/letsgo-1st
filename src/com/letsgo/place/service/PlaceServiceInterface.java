@@ -1,9 +1,9 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
 import java.util.List;
 
-import com.letsgo.place.model.PlaceVO;
-import com.letsgo.place.model.VisitItemVO;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
 
 public interface PlaceServiceInterface {
 
@@ -44,3 +44,4 @@ public interface PlaceServiceInterface {
 
     List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType);
 }
+

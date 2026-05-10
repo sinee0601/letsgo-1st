@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.letsgo.place.model.query.PostScheduleQuery;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 
 public class PostScheduleDAO implements PostScheduleDAOInterface {
@@ -653,4 +658,5 @@ public class PostScheduleDAO implements PostScheduleDAOInterface {
 		    return flag;
 		}
 	}
+
 

@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+﻿package com.letsgo.place.model.vo;
 
 public class VisitItemVO {
     private long visitItemId;
@@ -68,3 +68,4 @@ public class VisitItemVO {
         this.placeId = placeId;
     }
 }
+
