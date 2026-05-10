@@ -18,81 +18,86 @@ public class UserDAO implements UserQuery {
     }
 
     public UserVO login(String userID, String password) {
-
         UserVO user = null;
-
-        try (PreparedStatement pstmt = conn.prepareStatement(LOGIN_SQL)) {
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(LOGIN_SQL);
             pstmt.setString(1, userID);
             pstmt.setString(2, password);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    String name = rs.getString("NAME");
-                    String email = rs.getString("EMAIL");
-                    user = new UserVO(userID, email, name, password);
-                }
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String name = rs.getString("NAME");
+                String email = rs.getString("EMAIL");
+                user = new UserVO(userID, email, name, password);
             }
-        } catch (SQLException e) {
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return user;
     }
 
     public boolean signup(String userID, String email, String name, String password) {
-
-        try (PreparedStatement pstmt = conn.prepareStatement(SIGNUP_SQL)) {
+        boolean result = false;
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(SIGNUP_SQL);
             pstmt.setString(1, userID);
             pstmt.setString(2, email);
             pstmt.setString(3, name);
             pstmt.setString(4, password);
-
-            int result = pstmt.executeUpdate();
-            return result > 0;
-
-        } catch (SQLException e) {
+            result = pstmt.executeUpdate() > 0;
+            pstmt.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return result;
     }
 
     public boolean idcheck(String userID) {
-
-        try (PreparedStatement pstmt = conn.prepareStatement(IDCHECK_SQL)) {
+        boolean result = false;
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(IDCHECK_SQL);
             pstmt.setString(1, userID);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                return rs.next();
-            }
-        } catch (SQLException e) {
+            ResultSet rs = pstmt.executeQuery();
+            result = rs.next();
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return result;
     }
 
     public boolean updatePassword(String userID, String email, String newPassword) {
-        try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_PASSWORD_BY_ID_EMAIL_SQL)) {
+        boolean result = false;
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(UPDATE_PASSWORD_BY_ID_EMAIL_SQL);
             pstmt.setString(1, newPassword);
             pstmt.setString(2, userID);
             pstmt.setString(3, email);
-            return pstmt.executeUpdate() == 1;
-        } catch (SQLException e) {
+            result = pstmt.executeUpdate() == 1;
+            pstmt.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return result;
     }
 
     public String findUserIdByNameAndEmail(String name, String email) {
-        try (PreparedStatement pstmt = conn.prepareStatement(FIND_USER_ID_BY_NAME_EMAIL_SQL)) {
+        String userId = null;
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(FIND_USER_ID_BY_NAME_EMAIL_SQL);
             pstmt.setString(1, name);
             pstmt.setString(2, email);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("USER_ID");
-                }
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                userId = rs.getString("USER_ID");
             }
-        } catch (SQLException e) {
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return userId;
     }
 }
