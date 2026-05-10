@@ -12,8 +12,8 @@ import com.letsgo.place.model.vo.ColleagueVO;
 import com.letsgo.place.model.vo.MapScheduleVO;
 import com.letsgo.place.model.vo.MyScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 import com.letsgo.place.service.MyScheduleService.NewScheduleFromCartResult;
-import com.letsgo.place.mybatis.MyScheduleServiceMB;
 
 public class TestMyScheduleServiceMB {
 

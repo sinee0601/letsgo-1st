@@ -9,12 +9,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.mybatis.DBCPMybatis;
-import com.letsgo.place.mybatis.MyScheduleDAOMB;
 import com.letsgo.place.model.vo.ColleagueVO;
 import com.letsgo.place.model.vo.MapScheduleVO;
 import com.letsgo.place.model.vo.MyScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.MyScheduleDAOMB;
 
 public class TestMyScheduleDAOMB {
 

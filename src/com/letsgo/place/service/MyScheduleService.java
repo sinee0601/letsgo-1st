@@ -9,8 +9,6 @@ import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.letsgo.place.mybatis.DBCPMybatis;
-import com.letsgo.place.mybatis.MyScheduleDAOMB;
 import com.letsgo.place.model.vo.ColleagueVO;
 import com.letsgo.place.model.dao.DBCP;
 import com.letsgo.place.model.vo.MapScheduleVO;
@@ -18,6 +16,8 @@ import com.letsgo.place.model.dao.MyScheduleDAO;
 import com.letsgo.place.model.dao.MyScheduleDAOInterface;
 import com.letsgo.place.model.vo.MyScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.MyScheduleDAOMB;
 
 public class MyScheduleService implements MyScheduleServiceInterface {
 

@@ -1,4 +1,4 @@
-package com.letsgo.place.mybatis;
+package com.letsgo.place.mybatis.dao;
 
 import java.io.IOException;
 import java.io.InputStream;

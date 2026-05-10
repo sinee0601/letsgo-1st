@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis;
+﻿package com.letsgo.place.mybatis.dao;
 
 import org.apache.ibatis.session.SqlSession;
 

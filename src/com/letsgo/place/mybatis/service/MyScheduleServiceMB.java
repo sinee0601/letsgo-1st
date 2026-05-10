@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis;
+﻿package com.letsgo.place.mybatis.service;
 
 import com.letsgo.place.service.MyScheduleServiceInterface;
 
@@ -15,6 +15,8 @@ import com.letsgo.place.model.vo.MapScheduleVO;
 import com.letsgo.place.model.dao.MyScheduleDAOInterface;
 import com.letsgo.place.model.vo.MyScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.MyScheduleDAOMB;
 import com.letsgo.place.service.MyScheduleService.NewScheduleFromCartResult;
 
 public class MyScheduleServiceMB implements MyScheduleServiceInterface {

@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis;
+﻿package com.letsgo.place.mybatis.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis;
+﻿package com.letsgo.place.mybatis.service;
 
 import com.letsgo.place.service.PlaceServiceInterface;
 
@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.letsgo.place.model.dao.PlaceDAOInterface;
 import com.letsgo.place.model.vo.PlaceVO;
 import com.letsgo.place.model.vo.VisitItemVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.PlaceDAOMB;
 
 public class PlaceServiceMB implements PlaceServiceInterface {
 

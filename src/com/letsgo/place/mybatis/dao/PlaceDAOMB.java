@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis;
+﻿package com.letsgo.place.mybatis.dao;
 
 import java.util.HashMap;
 import java.util.List;

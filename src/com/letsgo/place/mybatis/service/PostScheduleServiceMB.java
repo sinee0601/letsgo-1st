@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis;
+﻿package com.letsgo.place.mybatis.service;
 
 import com.letsgo.place.service.PostScheduleServiceInterface;
 
@@ -10,6 +10,8 @@ import com.letsgo.place.model.vo.MapScheduleVO;
 import com.letsgo.place.model.dao.PostScheduleDAOInterface;
 import com.letsgo.place.model.vo.PostScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.PostScheduleDAOMB;
 
 public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 
