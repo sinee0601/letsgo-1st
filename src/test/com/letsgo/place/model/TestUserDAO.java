@@ -1,4 +1,4 @@
-package UserTest;
+package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.letsgo.place.model.UserDAO;
 import com.letsgo.place.model.UserVO;
 
-public class 유저테스트 {
+public class TestUserDAO {
 
     public void 로그인테스트() throws Exception {
         String userID = "user01";

@@ -111,24 +111,24 @@
 	<select id="getMyScheduleListSearchByDate" parameterType="map" resultMap="myScheduleResultMap">
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
-		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		ORDER BY START_AT DESC, VISIT_ORDER ASC
 	</select>
 
 	<select id="getMyScheduleListSearchByTitle" parameterType="map" resultMap="myScheduleResultMap">
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
-		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		ORDER BY SCH_TITLE ASC, VISIT_ORDER ASC
 	</select>
 
@@ -136,12 +136,12 @@
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		WHERE s.USER_ID = #{userId} AND s.IS_SHARED = 1
-		AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		ORDER BY START_AT DESC, VISIT_ORDER ASC
 	</select>
 
@@ -149,12 +149,12 @@
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		WHERE s.USER_ID = #{userId} AND s.IS_SHARED = 1
-		AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		ORDER BY SCH_TITLE ASC, VISIT_ORDER ASC
 	</select>
 
@@ -164,7 +164,7 @@
 		WHERE s.USER_ID = #{userId}
 		<if test="sharedFilter == true">AND s.IS_SHARED = 1</if>
 		<if test="keyword != null and keyword != ''">
-			AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+			AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
@@ -172,7 +172,7 @@
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
 		WHERE ssu.SHARED_USER_ID = #{userId}
 		<if test="keyword != null and keyword != ''">
-			AND (s.TITLE LIKE #{likeKeyword} OR p.TITLE LIKE #{likeKeyword})
+			AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
 		</if>
 		<choose>
 			<when test="sortType == 'title'">ORDER BY SCH_TITLE ASC, VISIT_ORDER ASC</when>

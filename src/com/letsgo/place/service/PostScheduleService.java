@@ -12,7 +12,7 @@ import com.letsgo.place.model.PostScheduleVO;
 import com.letsgo.place.model.RouteScheduleVO;
 
 
-public class PostScheduleService {
+public class PostScheduleService implements PostScheduleServiceInterface {
 
 	private PostScheduleDAO dao;
 	private Connection conn;

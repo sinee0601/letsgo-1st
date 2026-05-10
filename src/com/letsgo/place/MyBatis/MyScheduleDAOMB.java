@@ -46,7 +46,7 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 	public List<MyScheduleVO> getMyScheduleListSearchByDate(String userId, String keyword) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
-		params.put("likeKeyword", "%" + keyword + "%");
+		params.put("keyword", keyword);
 		return session.selectList("myScheduleMapper.getMyScheduleListSearchByDate", params);
 	}
 
@@ -54,7 +54,7 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 	public List<MyScheduleVO> getMyScheduleListSearchByTitle(String userId, String keyword) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
-		params.put("likeKeyword", "%" + keyword + "%");
+		params.put("keyword", keyword);
 		return session.selectList("myScheduleMapper.getMyScheduleListSearchByTitle", params);
 	}
 
@@ -62,7 +62,7 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 	public List<MyScheduleVO> getMyScheduleListSearchSharedByDate(String userId, String keyword) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
-		params.put("likeKeyword", "%" + keyword + "%");
+		params.put("keyword", keyword);
 		return session.selectList("myScheduleMapper.getMyScheduleListSearchSharedByDate", params);
 	}
 
@@ -70,7 +70,7 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 	public List<MyScheduleVO> getMyScheduleListSearchSharedByTitle(String userId, String keyword) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
-		params.put("likeKeyword", "%" + keyword + "%");
+		params.put("keyword", keyword);
 		return session.selectList("myScheduleMapper.getMyScheduleListSearchSharedByTitle", params);
 	}
 
@@ -80,7 +80,6 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
 		params.put("keyword", hasKeyword ? keyword : null);
-		params.put("likeKeyword", hasKeyword ? "%" + keyword + "%" : null);
 		params.put("sharedFilter", sharedFilter);
 		params.put("sortType", sortType);
 		return session.selectList("myScheduleMapper.getMyScheduleList", params);
@@ -291,5 +290,4 @@ public class MyScheduleDAOMB implements MyScheduleDAOInterface {
 		session.insert("myScheduleMapper.shareVisitItemsToPost", myScheduleId);
 		return myScheduleId;
 	}
-
 }

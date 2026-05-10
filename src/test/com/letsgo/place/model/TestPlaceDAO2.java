@@ -1,4 +1,4 @@
-package UserTest;
+package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +14,7 @@ import com.letsgo.place.model.PlaceDAO;
 import com.letsgo.place.model.PlaceVO;
 import com.letsgo.place.model.VisitItemVO;
 
-public class 플레이스Test {
+public class TestPlaceDAO2 {
 
 	private Connection conn;
 

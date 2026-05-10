@@ -289,5 +289,4 @@ public class MyScheduleServiceMB implements MyScheduleServiceInterface {
 		session.commit();
 		return addedIds;
 	}
-
 }

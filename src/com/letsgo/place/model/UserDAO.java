@@ -5,23 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO implements UserQury {
+public class UserDAO implements UserQuery {
 
     private Connection conn;
-    
+
     public UserDAO() throws Exception {
         this.conn = DBCP.getConnection();
     }
-    
+
     public UserDAO(Connection conn) throws Exception {
         this.conn = conn;
     }
 
-    // 로그인
     public UserVO login(String userID, String password) {
 
         UserVO user = null;
-
 
         try (PreparedStatement pstmt = conn.prepareStatement(LOGIN_SQL)) {
             pstmt.setString(1, userID);
@@ -40,9 +38,7 @@ public class UserDAO implements UserQury {
         return user;
     }
 
-    // 회원가입
     public boolean signup(String userID, String email, String name, String password) {
-
 
         try (PreparedStatement pstmt = conn.prepareStatement(SIGNUP_SQL)) {
             pstmt.setString(1, userID);
@@ -59,9 +55,7 @@ public class UserDAO implements UserQury {
         return false;
     }
 
-    // 아이디 체크
     public boolean idcheck(String userID) {
-
 
         try (PreparedStatement pstmt = conn.prepareStatement(IDCHECK_SQL)) {
             pstmt.setString(1, userID);
@@ -75,7 +69,6 @@ public class UserDAO implements UserQury {
         return false;
     }
 
-    // 비밀번호 변경
     public boolean updatePassword(String userID, String email, String newPassword) {
         try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_PASSWORD_BY_ID_EMAIL_SQL)) {
             pstmt.setString(1, newPassword);
@@ -88,7 +81,6 @@ public class UserDAO implements UserQury {
         return false;
     }
 
-    /** 이름·이메일로 아이디 조회 */
     public String findUserIdByNameAndEmail(String name, String email) {
         try (PreparedStatement pstmt = conn.prepareStatement(FIND_USER_ID_BY_NAME_EMAIL_SQL)) {
             pstmt.setString(1, name);
