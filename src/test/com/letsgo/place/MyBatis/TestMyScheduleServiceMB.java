@@ -24,8 +24,6 @@ public class TestMyScheduleServiceMB {
 		service = new MyScheduleServiceMB();
 	}
 
-	// ---- 목록 조회 ----
-
 	@Test
 	public void getMyScheduleListAllByDate_returnsNonNull() {
 		assertNotNull(service.getMyScheduleListAllByDate("user01"));
@@ -82,8 +80,6 @@ public class TestMyScheduleServiceMB {
 	public void getMyScheduleListSearchSharedByTitle_returnsNonNull() {
 		assertNotNull(service.getMyScheduleListSearchSharedByTitle("user01", ""));
 	}
-
-	// ---- 단건 조회 ----
 
 	@Test
 	public void getStartAt_returnsNonNull() {
