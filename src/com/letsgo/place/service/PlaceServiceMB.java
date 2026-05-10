@@ -1,149 +1,122 @@
 package com.letsgo.place.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.PlaceDAO;
+import org.apache.ibatis.session.SqlSession;
+
+import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
+import com.letsgo.place.MyBatis.PlaceDAOMB;
+import com.letsgo.place.model.PlaceDAOInterface;
 import com.letsgo.place.model.PlaceVO;
 import com.letsgo.place.model.VisitItemVO;
 
-public class PlaceService implements PlaceServiceInterface {
-	
-	private PlaceDAO dao;
-	
-	private Connection conn;
+public class PlaceServiceMB implements PlaceServiceInterface {
 
-	public PlaceService() throws ClassNotFoundException, SQLException {
-		conn = DBCP.getConnection();
-		dao = new PlaceDAO(conn);
+	private PlaceDAOInterface dao;
+	private SqlSession session;
+
+	public PlaceServiceMB() {
+		session = DBCPMybatis.getSqlSession();
+		dao = new PlaceDAOMB(session);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlaceByTitle(String placeType, String title) {
 		return dao.getPlaceByTitle(placeType, title);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlaceByCategory(String placeType, String lclssystm3) {
 		return dao.getPlaceByCategory(placeType, lclssystm3);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlaceOrderByLike(String placeType) {
 		return dao.getPlaceOrderByLike(placeType);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlaceOrderByTitle(String placeType) {
 		return dao.getPlaceOrderByTitle(placeType);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlaceByAddr(String placeType, String addr) {
 		return dao.getPlaceByAddr(placeType, addr);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlace(String placeId) {
 		return dao.getPlace(placeId);
 	}
-	
+
+	@Override
 	public int getPlaceCount(String placeType) {
 		return dao.getPlaceCount(placeType);
 	}
-	
+
+	@Override
 	public boolean setPlaceLikeCount(String placeId) {
-		boolean result = false;
-		try {
-			conn.setAutoCommit(false);
-			result = dao.setPlaceLikeCount(placeId);
-			if (result)
-				conn.commit();
-			else
-				conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		boolean result = dao.setPlaceLikeCount(placeId);
+		if (result) session.commit();
+		else session.rollback();
 		return result;
 	}
-	
+
+	@Override
 	public int getPlaceLikeCount(String placeType, String placeId) {
 		return dao.getPlaceLikeCount(placeType, placeId);
 	}
-	
+
+	@Override
 	public List<PlaceVO> getPlaces() {
 		return dao.getPlaces();
 	}
-	
+
+	@Override
 	public boolean insertVisitItem(int visitOrder, int distanceToNext,
-            String placeId, String scheduleId, String scheduleType) {
-		boolean result = false;
-		try {
-			conn.setAutoCommit(false);
-			result = dao.insertVisitItem(visitOrder, distanceToNext, placeId, scheduleId, scheduleType);
-			if (result)
-				conn.commit();
-			else
-				conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+			String placeId, String scheduleId, String scheduleType) {
+		boolean result = dao.insertVisitItem(visitOrder, distanceToNext, placeId, scheduleId, scheduleType);
+		if (result) session.commit();
+		else session.rollback();
 		return result;
 	}
-	//좋아요 정렬
+
+	@Override
 	public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
 		return dao.getLeisurePlacesOrderByLikeDesc();
 	}
-	//레저만 보여주기
-	public List<PlaceVO> getLeisurePlaces(){
+
+	@Override
+	public List<PlaceVO> getLeisurePlaces() {
 		return dao.getLeisurePlaces();
 	}
-	
+
+	@Override
 	public boolean setCounting(String postId) {
-		boolean result = false;
-		try {
-			conn.setAutoCommit(false);
-			result = dao.setCounting(postId);
-			if (result)
-				conn.commit();
-			else
-				conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		boolean result = dao.setCounting(postId);
+		if (result) session.commit();
+		else session.rollback();
 		return result;
 	}
-	
+
+	@Override
 	public PlaceVO getPlaceById(String placeId) {
 		return dao.getPlaceById(placeId);
 	}
-	
+
+	@Override
 	public List<VisitItemVO> getVisitItemsByScheduleId(String scheduleId) {
 		return dao.getVisitItemsByScheduleId(scheduleId);
 	}
-	
+
+	@Override
 	public PlaceVO getPlaceByPlaceId(String placeId) {
 		return dao.getPlaceByPlaceId(placeId);
 	}
-	
-	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
-		return dao.searchPlaces(placeType, category, keyword, sortType);
-	}
-	
-	
 
+	@Override
+	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
+		return null;
+	}
 }
