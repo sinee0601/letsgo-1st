@@ -6,6 +6,8 @@ public class UserVO {
 	private String name;
 	private String password;
 	
+	public UserVO() {}
+	
 	public UserVO(String userID, String email, String name, String password) {
 		setUserID(userID);
 		setEmail(email);
@@ -48,4 +50,3 @@ public class UserVO {
 	
 	
 }
-
