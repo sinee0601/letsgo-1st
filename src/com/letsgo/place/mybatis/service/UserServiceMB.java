@@ -11,44 +11,57 @@ import com.letsgo.place.mybatis.dao.UserDAOMB;
 
 public class UserServiceMB implements UserServiceInterface {
 
-	private UserDAOInterface dao;
-	private SqlSession session;
-
 	public UserServiceMB() {
-		session = DBCPMybatis.getSqlSession();
-		dao = new UserDAOMB(session);
-	}
+    }
 
-	@Override
-	public UserVO login(String userID, String password) {
-		return dao.login(userID, password);
-	}
+    @Override
+    public UserVO login(String userID, String password) {
+        SqlSession session = DBCPMybatis.getSqlSession();
+        UserDAOInterface dao = new UserDAOMB(session);
+        UserVO result = dao.login(userID, password);
+        session.close();
+        return result;
+    }
 
-	@Override
-	public boolean signup(String userID, String email, String name, String password) {
-		boolean result = dao.signup(userID, email, name, password);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
-	}
+    @Override
+    public boolean signup(String userID, String email, String name, String password) {
+        SqlSession session = DBCPMybatis.getSqlSession();
+        UserDAOInterface dao = new UserDAOMB(session);
+        boolean result = dao.signup(userID, email, name, password);
+        if (result) session.commit();
+        else        session.rollback();
+        session.close();
+        return result;
+    }
 
-	@Override
-	public boolean idcheck(String userID) {
-		return dao.idcheck(userID);
-	}
+    @Override
+    public boolean idcheck(String userID) {
+        SqlSession session = DBCPMybatis.getSqlSession();
+        UserDAOInterface dao = new UserDAOMB(session);
+        boolean result = dao.idcheck(userID);
+        session.close();
+        return result;
+    }
 
-	@Override
-	public boolean updatePassword(String userID, String email, String newPassword) {
-		boolean result = dao.updatePassword(userID, email, newPassword);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
-	}
+    @Override
+    public boolean updatePassword(String userID, String email, String newPassword) {
+        SqlSession session = DBCPMybatis.getSqlSession();
+        UserDAOInterface dao = new UserDAOMB(session);
+        boolean result = dao.updatePassword(userID, email, newPassword);
+        if (result) session.commit();
+        else        session.rollback();
+        session.close();
+        return result;
+    }
 
-	@Override
-	public String findUserIdByNameAndEmail(String name, String email) {
-		return dao.findUserIdByNameAndEmail(name, email);
-	}
+    @Override
+    public String findUserIdByNameAndEmail(String name, String email) {
+        SqlSession session = DBCPMybatis.getSqlSession();
+        UserDAOInterface dao = new UserDAOMB(session);
+        String result = dao.findUserIdByNameAndEmail(name, email);
+        session.close();
+        return result;
+    }
 }
 
 
