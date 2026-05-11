@@ -4,14 +4,24 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.PostScheduleDAOMB;
 
 
 public class TestPostScheduleDAOMB {
-
+	
+	SqlSession session;
+	PostScheduleDAOMB dao;
+	
+	
 	@Before
 	public void setup() throws Exception {
 		session = DBCPMybatis.getSqlSession();
