@@ -3,9 +3,7 @@
 
 <mapper namespace="PostSchedule">
 
-    <!-- ================================================================ -->
-    <!-- ResultMaps                                                        -->
-    <!-- ================================================================ -->
+
 
     <resultMap id="postScheduleResultMap" type="com.letsgo.place.model.vo.PostScheduleVO">
         <result property="postId"       column="POST_ID"/>
@@ -38,9 +36,7 @@
         <result property="distanceToNext"  column="DISTANCE_TO_NEXT"/>
     </resultMap>
 
-    <!-- ================================================================ -->
-    <!-- 공통 SQL 조각                                                     -->
-    <!-- ================================================================ -->
+
 
     <sql id="postScheduleColumns">
         p.POST_ID,
@@ -65,9 +61,7 @@
         JOIN USERS      u  ON p.user_id   = u.user_id
     </sql>
 
-    <!-- ================================================================ -->
-    <!-- 전체 게시물 조회 (정렬 4종)                                       -->
-    <!-- ================================================================ -->
+
 
     <select id="getPostScheduleListLike" resultMap="postScheduleResultMap">
         SELECT <include refid="postScheduleColumns"/>
@@ -93,10 +87,7 @@
         ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
     </select>
 
-    <!-- ================================================================ -->
-    <!-- 전체 게시물 키워드 검색 (정렬 4종)                                -->
-    <!-- DAOMb에서 %keyword% 로 pre-format 후 전달                        -->
-    <!-- ================================================================ -->
+
 
     <select id="getPostScheduleListSearchLike" parameterType="String" resultMap="postScheduleResultMap">
         SELECT <include refid="postScheduleColumns"/>
@@ -126,9 +117,7 @@
         ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
     </select>
 
-    <!-- ================================================================ -->
-    <!-- 내 게시물 조회 (정렬 4종)                                         -->
-    <!-- ================================================================ -->
+
 
     <select id="getUserPostScheduleListLike" parameterType="String" resultMap="postScheduleResultMap">
         SELECT <include refid="postScheduleColumns"/>
@@ -158,10 +147,6 @@
         ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
     </select>
 
-    <!-- ================================================================ -->
-    <!-- 내 게시물 키워드 검색 (정렬 4종)                                  -->
-    <!-- parameterType="map" : userId + keyword(%keyword%)                -->
-    <!-- ================================================================ -->
 
     <select id="getUserPostScheduleListSearchLike" parameterType="map" resultMap="postScheduleResultMap">
         SELECT <include refid="postScheduleColumns"/>
@@ -195,9 +180,6 @@
         ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
     </select>
 
-    <!-- ================================================================ -->
-    <!-- 상세 데이터 조회                                                  -->
-    <!-- ================================================================ -->
 
     <select id="getBudgetDetail" parameterType="String" resultType="String">
         SELECT BUDGET_DETAILS FROM SCHEDULE_POST WHERE POST_ID = #{postId}
@@ -241,9 +223,6 @@
         SELECT USER_ID FROM SCHEDULE_POST WHERE POST_ID = #{postId}
     </select>
 
-    <!-- ================================================================ -->
-    <!-- 좋아요 / 조회수 증가                                              -->
-    <!-- ================================================================ -->
 
     <update id="plusLike" parameterType="String">
         UPDATE SCHEDULE_POST SET LIKE_COUNT = LIKE_COUNT + 1 WHERE POST_ID = #{postId}
@@ -253,11 +232,8 @@
         UPDATE SCHEDULE_POST SET VIEW_COUNT = VIEW_COUNT + 1 WHERE POST_ID = #{postId}
     </update>
 
-    <!-- ================================================================ -->
-    <!-- 삭제                                                             -->
-    <!-- ================================================================ -->
 
-    <!-- FK 제약 때문에 SCHEDULE_POST 삭제 전 VISIT_ITEM 먼저 삭제 필요   -->
+
     <delete id="deleteVisitItem" parameterType="String">
         DELETE FROM visit_item WHERE schedule_id = #{postId}
     </delete>
@@ -266,11 +242,6 @@
         DELETE FROM schedule_post WHERE post_ID = #{postId}
     </delete>
 
-    <!-- ================================================================ -->
-    <!-- 내 일정으로 복사                                                  -->
-    <!-- selectKey : INSERT 전에 Oracle 시퀀스 PK를 선취득하여             -->
-    <!--             CopyToMyScheduleParam.setGeneratedId()로 자동 주입   -->
-    <!-- ================================================================ -->
 
     <insert id="copyToMySchedule" parameterType="com.letsgo.place.model.dto.CopyToMyScheduleDTO">
         <selectKey keyProperty="generatedId" resultType="String" order="BEFORE">
@@ -282,7 +253,6 @@
             (#{generatedId}, #{title}, SYSDATE, #{budgetDetail}, #{todoDetail}, #{userId}, 0)
     </insert>
 
-    <!-- 방문 항목 복사 : scheduleType 은 CopyToVisitItemParam에서 "MY_SCH" 고정 -->
     <insert id="copyToVisitItem" parameterType="com.letsgo.place.model.dto.CopyToVisitItemDTO">
         INSERT INTO VISIT_ITEM
             (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE)

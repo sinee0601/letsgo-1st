@@ -6,8 +6,10 @@ public class MapScheduleVO {
 	private String mapX;
 	private String mapY;
 	private String distanceToNext;
-
-
+		
+	public MapScheduleVO() {
+	}
+	
 	public MapScheduleVO(String visitOrder, String title, String mapX, String mapY, String distanceToNext) {
 		this.visitOrder = visitOrder;
 		this.title = title;

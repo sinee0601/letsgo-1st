@@ -8,6 +8,9 @@ public class RouteScheduleVO {
 	private String title;
 	private double distanceToNext;
 	private String scheduleType;
+	
+	public RouteScheduleVO(){
+	}
 
 	public RouteScheduleVO(String visitId, String visitOrder, String placeId, String title) {
 

@@ -147,7 +147,7 @@ public class TestPostScheduleDAOMB {
 	
 	@Test
 	public void copyToVisitItem() {
-	    String myScheduleId = dao.copyToMySchedule("테스트", "", "", "user01");
+	    String myScheduleId = dao.copyToMySchedule("새 제목 테스트", "삼겹살 마구 먹기", "햄부기 사냥하기", "mskk0410");
 	    List<RouteScheduleVO> rt = dao.getScheduleRoute("P091");
 	    for (RouteScheduleVO route : rt) {
 	        assertTrue(dao.copyToVisitItem(myScheduleId, route));

@@ -16,6 +16,9 @@ public class PostScheduleVO {
 	private String firstImage;
 	private String placeType;
 	
+	public PostScheduleVO(){
+	}
+	
 	public PostScheduleVO(String postId, String title, int likeCount, int viewCount, int isAnonymous,
 			String userName, int visitItemId, int visitOrder, String scheduleType, String placeTitle,
 			String addr1, String firstImage, String placeType) {
