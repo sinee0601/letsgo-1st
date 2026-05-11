@@ -80,27 +80,27 @@ public class TestMyScheduleServiceMB {
 
 	@Test
 	public void getStartAt_returnsNonNull() {
-		assertNotNull(service.getStartAt("SCH001"));
+		assertNotNull(service.getStartAt("SCH092"));
 	}
 
 	@Test
 	public void getScheduleTitle_returnsNonNull() {
-		assertNotNull(service.getScheduleTitle("SCH001"));
+		assertNotNull(service.getScheduleTitle("SCH092"));
 	}
 
 	@Test
 	public void getScheduleRoute_returnsNonNull() {
-		assertNotNull(service.getScheduleRoute("SCH001"));
+		assertNotNull(service.getScheduleRoute("SCH092"));
 	}
 
 	@Test
 	public void getMapSchedule_returnsNonNull() {
-		assertNotNull(service.getMapSchedule("SCH001"));
+		assertNotNull(service.getMapSchedule("SCH092"));
 	}
 
 	@Test
 	public void getCompanionList_returnsNonNull() {
-		assertNotNull(service.getCompanionList("SCH001"));
+		assertNotNull(service.getCompanionList("SCH092"));
 	}
 
 	@Test
@@ -114,24 +114,24 @@ public class TestMyScheduleServiceMB {
 
 	@Test
 	public void setAndGetTodoDetail() {
-		assertTrue(service.setTodoDetail("SCH002", "햄부기 사냥함부기"));
-		assertEquals("햄부기 사냥함부기", service.getTodoDetail("SCH002"));
+		assertTrue(service.setTodoDetail("SCH092", "햄부기 사냥함부기"));
+		assertEquals("햄부기 사냥함부기", service.getTodoDetail("SCH092"));
 	}
 
 	@Test
 	public void setAndGetBudgetDetail() {
-		assertTrue(service.setBudgetDetail("SCH002", "1인당 2만원"));
-		assertEquals("1인당 2만원", service.getBudgetDetail("SCH002"));
+		assertTrue(service.setBudgetDetail("SCH092", "1인당 2만원"));
+		assertEquals("1인당 2만원", service.getBudgetDetail("SCH092"));
 	}
 
 	@Test
 	public void setMyScheduleTitle_success() {
-		assertTrue(service.setMyScheduleTitle("새 제목 테스트", "SCH002", "user01"));
+		assertTrue(service.setMyScheduleTitle("새 제목 테스트", "SCH092", "mskk0410"));
 	}
 
 	@Test
 	public void setStartAt_success() {
-		assertTrue(service.setStartAt("SCH002", "2026-05-15", "user01"));
+		assertTrue(service.setStartAt("SCH092", "2026-05-15", "mskk0410"));
 	}
 
 	@Test
@@ -140,8 +140,8 @@ public class TestMyScheduleServiceMB {
 		int[] visitOrders = {3, 2, 1};
 		String[] distanceToNexts = {"64", "23", "35"};
 		assertTrue(service.setMySchedule(visitItemIds, visitOrders, distanceToNexts,
-				"SCH002", "여의도 대탐방", "26/05/15",
-				"삼겹살 마구 먹기", "햄부기 사냥하기", "user01", 1));
+				"SCH092", "여의도 대탐방", "26/05/15",
+				"삼겹살 마구 먹기", "햄부기 사냥하기", "mskk0410", 1));
 	}
 
 	@Test
@@ -166,7 +166,7 @@ public class TestMyScheduleServiceMB {
 
 	@Test
 	public void addCompanion_success() {
-		assertTrue(service.addCompanion("SCH002", "user06"));
+		assertTrue(service.addCompanion("SCH092", "frog9032"));
 	}
 
 	@Test
@@ -189,8 +189,8 @@ public class TestMyScheduleServiceMB {
 
 	@Test
 	public void shareToPost_success() {
-		String result = service.shareToPost("SCH002", "user01", 0);
-		assertEquals("SCH002", result);
+		String result = service.shareToPost("SCH092", "mskk0410", 0);
+		assertEquals("SCH092", result);
 	}
 
 

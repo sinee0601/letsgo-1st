@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 import com.letsgo.place.util.JsonStrings;
 
 @WebServlet("/getIdAjax")
@@ -29,7 +29,7 @@ public class GetIdAjaxServlet extends HttpServlet {
 		}
 
 		try {
-			String userId = new UserDAO().findUserIdByNameAndEmail(name.trim(), email.trim());
+			String userId = new UserServiceMB().findUserIdByNameAndEmail(name.trim(), email.trim());
 			if (userId == null) {
 				response.getWriter().print("{\"result\":\"fail\",\"message\":\"일치하는 회원 정보가 없습니다.\"}");
 				return;
