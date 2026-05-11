@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 
 public class UpdatepwAction implements Action{
 
@@ -31,7 +31,7 @@ public class UpdatepwAction implements Action{
 		}
 
 		try {
-			boolean updated = new UserDAO().updatePassword(userId, email, newPassword);
+			boolean updated = new UserServiceMB().updatePassword(userId, email, newPassword);
 			if (!updated) {
 				request.setAttribute("errorMessage", "아이디 또는 이메일이 일치하지 않습니다.");
 				return "updatepw.jsp";

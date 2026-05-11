@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 
 public class GetIdAction implements Action {
 
@@ -23,7 +23,7 @@ public class GetIdAction implements Action {
 		}
 
 		try {
-			String userId = new UserDAO().findUserIdByNameAndEmail(name.trim(), email.trim());
+			String userId = new UserServiceMB().findUserIdByNameAndEmail(name.trim(), email.trim());
 			if (userId == null) {
 				request.setAttribute("errorMessage", "일치하는 회원 정보가 없습니다.");
 				request.removeAttribute("foundUserId");

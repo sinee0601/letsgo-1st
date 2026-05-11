@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 
 public class SignupAction implements Action {
 
@@ -31,7 +31,7 @@ public class SignupAction implements Action {
 		}
 
 		try {
-			UserDAO dao = new UserDAO();
+			UserServiceMB dao = new UserServiceMB();
 
 			if (dao.idcheck(userId)) {
 				request.setAttribute("errorMessage", "이미 사용 중인 아이디입니다.");

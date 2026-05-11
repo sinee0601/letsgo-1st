@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.model.dao.UserDAO;
 import com.letsgo.place.model.vo.UserVO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 
 @WebServlet("/loginAjax")
 public class LoginAjaxServlet extends HttpServlet {
@@ -30,7 +30,7 @@ public class LoginAjaxServlet extends HttpServlet {
 		}
 
 		try {
-			UserVO user = new UserDAO().login(userId, password);
+			UserVO user = new UserServiceMB().login(userId, password);
 			if (user == null) {
 				response.getWriter().print("{\"result\":\"fail\",\"message\":\"아이디/비밀번호를 다시 입력하세요.\"}");
 				return;
