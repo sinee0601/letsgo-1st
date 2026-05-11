@@ -39,116 +39,113 @@ public class TestPostScheduleDAO {
 	@Test
 	public void getPostScheduleList() {
 		List<PostScheduleVO> list;
-		assertNotNull(dao.getPostScheduleListLike()); //게시물 일정 전체 불러오기
-		assertNotNull(dao.getPostScheduleListView()); //게시물 일정 전체 불러오기
-		assertNotNull(dao.getPostScheduleListTitle()); //게시물 일정 전체 불러오기
-		assertNotNull(dao.getPostScheduleListLatest()); //게시물 일정 전체 불러오기
-		assertNotNull(dao.getPostScheduleListLike("서울")); ///게시물 일정 이름으로 검색하기
-		assertNotNull(dao.getPostScheduleListView("다래")); //게시물 일정 상세 플레이스명(장소)으로 검색하기
-		assertNotNull(dao.getPostScheduleListTitle("다래")); //게시물 이름으로 정렬하기
-		assertNotNull(dao.getPostScheduleListLatest("다래")); //게시물 조회순으로 정렬하기
-		
-		System.out.println(list = dao.getPostScheduleListLike());
-		System.out.println(list = dao.getPostScheduleListView());
-		System.out.println(list = dao.getPostScheduleListTitle());
-		System.out.println(list = dao.getPostScheduleListLatest());
-		System.out.println(list = dao.getPostScheduleListLike("서울"));
-		System.out.println(list = dao.getPostScheduleListView("다래"));
-		System.out.println(list = dao.getPostScheduleListTitle("다래"));
-		System.out.println(list = dao.getPostScheduleListLatest("다래"));
+		assertNotNull(dao.getPostScheduleListLike());
+		assertNotNull(dao.getPostScheduleListView()); 
+		assertNotNull(dao.getPostScheduleListTitle()); 
+		assertNotNull(dao.getPostScheduleListLatest()); 
+		assertNotNull(dao.getPostScheduleListLike("서울")); 
+		assertNotNull(dao.getPostScheduleListView("다래")); 
+		assertNotNull(dao.getPostScheduleListTitle("다래")); 
+		assertNotNull(dao.getPostScheduleListLatest("다래")); 
 
 		}
 	@Test
 	public void getUserPostScheduleList() {
 		List<PostScheduleVO> list;
-		assertNotNull(dao.getUserPostScheduleListLike("user01")); //내가 올린 게시물 일정 전체 불러오기
-		assertNotNull(dao.getUserPostScheduleListView("user01")); //내가 올린 게시물 일정 전체 불러오기
-		assertNotNull(dao.getUserPostScheduleListTitle("user01")); //내가 올린 게시물 일정 전체 불러오기
-		assertNotNull(dao.getUserPostScheduleListLatest("user01")); //내가 올린 게시물 일정 전체 불러오기
-		assertNotNull(dao.getUserPostScheduleListLike("user01", "서울")); //내가 올린 게시물 일정 이름으로 검색하기
-		assertNotNull(dao.getUserPostScheduleListView("user01", "다래")); //내가 올린 게시물 일정 상세 플레이스명(장소)으로 검색하기
-		assertNotNull(dao.getUserPostScheduleListTitle("user01", "서울")); //내가 올린 게시물 이름으로 정렬하기
-		assertNotNull(dao.getUserPostScheduleListLatest("user01", "서울")); //내가 올린 게시물 조회순으로 정렬하기
+		assertNotNull(dao.getUserPostScheduleListLike("user01")); 
+		assertNotNull(dao.getUserPostScheduleListView("user01")); 
+		assertNotNull(dao.getUserPostScheduleListTitle("user01")); 
+		assertNotNull(dao.getUserPostScheduleListLatest("user01")); 
+		assertNotNull(dao.getUserPostScheduleListLike("user01", "여의도")); 
+		assertNotNull(dao.getUserPostScheduleListView("user01", "여의도"));
+		assertNotNull(dao.getUserPostScheduleListTitle("user01", "여의도")); 
+		assertNotNull(dao.getUserPostScheduleListLatest("user01", "여의도")); 
 		
-		System.out.println(dao.getUserPostScheduleListLike("user01"));
-		System.out.println(dao.getUserPostScheduleListView("user01"));
-		System.out.println(dao.getUserPostScheduleListTitle("user01"));
-		System.out.println(dao.getUserPostScheduleListLatest("user01"));
-		System.out.println(dao.getUserPostScheduleListLike("user01", "서울"));
-		System.out.println(dao.getUserPostScheduleListView("user01", "서울"));
-		System.out.println(dao.getUserPostScheduleListTitle("user01", "다래"));
-		System.out.println(dao.getUserPostScheduleListLatest("user01", "서울"));
 	}
 	
 	@Test
 	public void getBudgetDetailTest() throws Exception {
-		assertEquals("삼겹살 마구 먹기", dao.getBudgetDetail("P023"));
-		assertNotEquals("삼겹살 마구 먹기", dao.getBudgetDetail("P023"));
+		assertEquals("삼겹살 마구 먹기", dao.getBudgetDetail("P027"));
 	}
 	
 	@Test
-	public void getTodoDetailTest() throws Exception {
-		assertEquals("햄부기 사냥함부기", dao.getTodoDetail("P023"));
-		assertNotEquals("햄부기 사냥햄부기", dao.getTodoDetail("P023"));
+	public void getTodoDetailTest() {
+		assertEquals("햄부기 사냥함부기", dao.getTodoDetail("P027"));
 	}
 
 	@Test
-	public void getScheduleRouteTest() throws Exception {
-		assertEquals(new ArrayList<RouteScheduleVO>(), dao.getScheduleRoute("P023"));
-		
-		assertNotNull(dao.getScheduleRoute("P023"));
+	public void getScheduleRoute() {
+		List<RouteScheduleVO> list = dao.getScheduleRoute("P091");
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
 	}
 
 	@Test
-	public void getMapScheduleVOTest() throws Exception {
-		List<MapScheduleVO> mapList = dao.getMapSchedule("P023");
+	public void getMapSchedule() {
+		List<MapScheduleVO> mapList = dao.getMapSchedule("P091");
 		assertNotNull(mapList);
+		assertFalse(mapList.isEmpty());
 	}
 	
 	@Test
 	public void getScheduleTitle() {
-		assertNotNull(dao.getScheduleTitle("P001"));
+		assertNotNull(dao.getScheduleTitle("P012"));
 	}
 	
-	@Test
-	public void deletePostSchedule() {
-	assertTrue(dao.deletePostSchedule("P002"));
-	}
+
 	
 	@Test
 	public void getLikeCount() {
-		assertNotNull(dao.getLikeCount("P001"));
+		assertTrue(dao.getLikeCount("P091") >= 0);
 	}
 	
+
 	@Test
 	public void getViewCount() {
-		assertNotNull(dao.getViewCount("P001"));
-	}
-	
-	@Test
-	public void plusLike() {
-		assertTrue(dao.plusLike("P003"));
-	}
-	
-	@Test
-	public void plusView() {
-		assertTrue(dao.plusView("P003"));
+		assertTrue(dao.getViewCount("P091") >= 0); 
 	}
 	
 	@Test
 	public void getUserId() {
-		assertNotNull(dao.getUserId("P001"));
+		assertNotNull(dao.getUserId("P091"));
 	}
 	
 	@Test
+	public void deletePostSchedule() {
+	assertTrue(dao.deletePostSchedule("P012"));
+	}
+	
+	@Test
+	public void plusLike() {
+		int before = dao.getLikeCount("P091");
+		assertTrue(dao.plusLike("P091"));
+		assertEquals(before + 1, dao.getLikeCount("P091"));
+	}
+	
+	@Test
+	public void plusView() {
+		int before = dao.getViewCount("P091");
+		assertTrue(dao.plusView("P091"));
+		assertEquals(before + 1, dao.getViewCount("P091"));
+	}
+	
+	
+	@Test
 	public void copyToMySchedule()  {
-		assertNotNull(dao.copyToMySchedule("", "", "", "user02"));
+		String generatedId = dao.copyToMySchedule("여의도 대탐방", "삼겹살 마구 먹기", "햄부기 사냥함부기", "user01");
+		assertNotNull(generatedId);
+		assertTrue(generatedId.startsWith("SCH"));
 	}
 	
 	@Test
 	public void copyToVisitItem() {
-		RouteScheduleVO route;
-		//assertNotNull(dao.copyToVisitItem(null, null));
+		String myScheduleId = dao.copyToMySchedule("새 제목 테스트", "삼겹살 마구 먹기", "햄부기 사냥하기", "mskk0410");
+		assertNotNull(myScheduleId);
+		List<RouteScheduleVO> routes = dao.getScheduleRoute("P091");
+		assertFalse(routes.isEmpty());
+		for (RouteScheduleVO route : routes) {
+			assertTrue(dao.copyToVisitItem(myScheduleId, route));
+		}
 	}
 	
 
