@@ -272,9 +272,9 @@ public class PlaceDAO implements PlaceDAOInterface {
     
 
     // 홈 레저 플레이스 좋아요 카운트 증가
-    public boolean setCounting(String postId) {
+    public boolean setCounting(String placeId) {
         try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.SET_COUNTING_SQL)) {
-            pstmt.setString(1, postId);
+            pstmt.setString(1, placeId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -344,52 +344,168 @@ public class PlaceDAO implements PlaceDAOInterface {
         }
         return vo;
     }
-     // 메서드 분리 해야함.. 장소명,지역 검색 거리, 좋아요순 정렬 모두 적용
-    public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
+    // 전체 장소를 제목순으로 조회
+    public List<PlaceVO> searchPlacesOrderByTitle(String placeType) {
         List<PlaceVO> list = new ArrayList<>();
-        
-        StringBuilder sql = new StringBuilder(PlaceQuery.GET_PLACE); 
-        
-        if (category != null && !category.trim().isEmpty()) {
-            sql.append(PlaceQuery.BY_CATEGORY);
-        }
-        
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            sql.append("AND (title LIKE ? OR addr1 LIKE ?) ");
-        }
-        
-        if ("popular".equals(sortType)) {
-            sql.append(PlaceQuery.ORDER_BY_LIKE);
-        } else {
-            sql.append(PlaceQuery.ORDER_BY_TITLE);
-        }
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-            int idx = 1;
-            stmt.setString(idx++, placeType); 
-
-            if (category != null && !category.trim().isEmpty()) {
-                stmt.setString(idx++, category);
-            }
-            
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                String searchPattern = "%" + keyword + "%";
-                stmt.setString(idx++, searchPattern);
-                stmt.setString(idx++, searchPattern);
-            }
-
+        try (PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE + PlaceQuery.ORDER_BY_TITLE)) {
+            stmt.setString(1, placeType);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new PlaceVO(
-                        rs.getString("place_id"),
-                        rs.getString("title"),
-                        rs.getString("addr1"),
-                        rs.getString("mapx"),
-                        rs.getString("mapy"),
-                        rs.getString("first_image"),
-                        rs.getInt("like_count"),
-                        placeType
-                    ));
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 전체 장소를 좋아요순으로 조회
+    public List<PlaceVO> searchPlacesOrderByLike(String placeType) {
+        List<PlaceVO> list = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE + PlaceQuery.ORDER_BY_LIKE)) {
+            stmt.setString(1, placeType);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 카테고리에 해당하는 장소를 제목순으로 조회
+    public List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category) {
+        List<PlaceVO> list = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(
+                PlaceQuery.GET_PLACE + PlaceQuery.BY_CATEGORY + PlaceQuery.ORDER_BY_TITLE)) {
+            stmt.setString(1, placeType);
+            stmt.setString(2, category);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 카테고리에 해당하는 장소를 좋아요순으로 조회
+    public List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category) {
+        List<PlaceVO> list = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(
+                PlaceQuery.GET_PLACE + PlaceQuery.BY_CATEGORY + PlaceQuery.ORDER_BY_LIKE)) {
+            stmt.setString(1, placeType);
+            stmt.setString(2, category);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 키워드가 포함된 장소를 제목순으로 조회
+    public List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword) {
+        List<PlaceVO> list = new ArrayList<>();
+        String searchPattern = "%" + keyword + "%";
+        try (PreparedStatement stmt = conn.prepareStatement(
+                PlaceQuery.GET_PLACE + PlaceQuery.GET_BY_TITLE_OR_ADDR + PlaceQuery.ORDER_BY_TITLE)) {
+            stmt.setString(1, placeType);
+            stmt.setString(2, searchPattern);
+            stmt.setString(3, searchPattern);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 키워드가 포함된 장소를 좋아요순으로 조회
+    public List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword) {
+        List<PlaceVO> list = new ArrayList<>();
+        String searchPattern = "%" + keyword + "%";
+        try (PreparedStatement stmt = conn.prepareStatement(
+                PlaceQuery.GET_PLACE + PlaceQuery.GET_BY_TITLE_OR_ADDR + PlaceQuery.ORDER_BY_LIKE)) {
+            stmt.setString(1, placeType);
+            stmt.setString(2, searchPattern);
+            stmt.setString(3, searchPattern);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 카테고리와 키워드 조건을 모두 만족하는 장소를 제목순으로 조회
+    public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category,
+            String keyword) {
+        List<PlaceVO> list = new ArrayList<>();
+        String searchPattern = "%" + keyword + "%";
+        try (PreparedStatement stmt = conn.prepareStatement(
+                PlaceQuery.GET_PLACE + PlaceQuery.BY_CATEGORY + PlaceQuery.GET_BY_TITLE_OR_ADDR
+                        + PlaceQuery.ORDER_BY_TITLE)) {
+            stmt.setString(1, placeType);
+            stmt.setString(2, category);
+            stmt.setString(3, searchPattern);
+            stmt.setString(4, searchPattern);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 카테고리와 키워드 조건을 모두 만족하는 장소를 좋아요순으로 조회
+    public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category,
+            String keyword) {
+        List<PlaceVO> list = new ArrayList<>();
+        String searchPattern = "%" + keyword + "%";
+        try (PreparedStatement stmt = conn.prepareStatement(
+                PlaceQuery.GET_PLACE + PlaceQuery.BY_CATEGORY + PlaceQuery.GET_BY_TITLE_OR_ADDR
+                        + PlaceQuery.ORDER_BY_LIKE)) {
+            stmt.setString(1, placeType);
+            stmt.setString(2, category);
+            stmt.setString(3, searchPattern);
+            stmt.setString(4, searchPattern);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
                 }
             }
         } catch (SQLException e) {
