@@ -23,174 +23,190 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 		dao = new PostScheduleDAOMB(session);
 	}
 
-	@Override
 	public boolean deletePostScheduleAndVisitItem(String scheduleId) {
-		boolean result = dao.deletePostSchedule(scheduleId);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListLike() {
-		return dao.getPostScheduleListLike();
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListView() {
-		return dao.getPostScheduleListView();
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListTitle() {
-		return dao.getPostScheduleListTitle();
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListLatest() {
-		return dao.getPostScheduleListLatest();
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListLike(String keyword) {
-		return dao.getPostScheduleListLike(keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListView(String keyword) {
-		return dao.getPostScheduleListView(keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
-		return dao.getPostScheduleListTitle(keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
-		return dao.getPostScheduleListLatest(keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
-		return dao.getUserPostScheduleListLike(userId);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListView(String userId) {
-		return dao.getUserPostScheduleListView(userId);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
-		return dao.getUserPostScheduleListTitle(userId);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
-		return dao.getUserPostScheduleListLatest(userId);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
-		return dao.getUserPostScheduleListLike(userId, keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
-		return dao.getUserPostScheduleListView(userId, keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
-		return dao.getUserPostScheduleListTitle(userId, keyword);
-	}
-
-	@Override
-	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
-		return dao.getUserPostScheduleListLatest(userId, keyword);
-	}
-
-	@Override
-	public String getBudgetDetail(String postId) {
-		return dao.getBudgetDetail(postId);
-	}
-
-	@Override
-	public String getTodoDetail(String postId) {
-		return dao.getTodoDetail(postId);
-	}
-
-	@Override
-	public List<RouteScheduleVO> getScheduleRoute(String postId) {
-		return dao.getScheduleRoute(postId);
-	}
-
-	@Override
-	public List<MapScheduleVO> getMapSchedule(String postId) {
-		return dao.getMapSchedule(postId);
-	}
-
-	@Override
-	public String getScheduleTitle(String postId) {
-		return dao.getScheduleTitle(postId);
-	}
-
-	@Override
-	public int getLikeCount(String postId) {
-		return dao.getLikeCount(postId);
-	}
-
-	@Override
-	public int getViewCount(String postId) {
-		return dao.getViewCount(postId);
-	}
-
-	@Override
-	public boolean plusLike(String postId) {
-		boolean result = dao.plusLike(postId);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
-	}
-
-	@Override
-	public boolean plusView(String postId) {
-		boolean result = dao.plusView(postId);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
-	}
-
-	@Override
-	public String getUserId(String postId) {
-		return dao.getUserId(postId);
-	}
-
-	@Override
-	public boolean addToMySchedule(String postId, String userId) {
-		List<RouteScheduleVO> routes = dao.getScheduleRoute(postId);
-		String title = dao.getScheduleTitle(postId);
-		String budgetDetail = dao.getBudgetDetail(postId);
-		String todoDetail = dao.getTodoDetail(postId);
-
-		String myScheduleId = dao.copyToMySchedule(title, budgetDetail, todoDetail, userId);
-		if (myScheduleId == null) {
+		try {
+			dao.deleteVisitItem(scheduleId);
+			dao.deletePostSchedule(scheduleId);
+			session.commit();
+			return true;
+		} catch (Exception e) {
 			session.rollback();
 			return false;
 		}
-
-		if (routes != null && !routes.isEmpty()) {
-			for (RouteScheduleVO route : routes) {
-				if (!dao.copyToVisitItem(myScheduleId, route)) {
-					session.rollback();
-					return false;
-				}
+	}
+	
+	public List<PostScheduleVO> getPostScheduleList(String sortOrder, String keyword) {
+		if (keyword == null || keyword.trim().isEmpty()) {
+			switch (sortOrder) {
+				case "like":  return getPostScheduleListLike();
+				case "view":  return getPostScheduleListView();
+				case "title": return getPostScheduleListTitle();
+				default:      return getPostScheduleListLatest();
+			}
+		} else {
+			switch (sortOrder) {
+				case "like":  return getPostScheduleListLike(keyword);
+				case "view":  return getPostScheduleListView(keyword);
+				case "title": return getPostScheduleListTitle(keyword);
+				default:      return getPostScheduleListLatest(keyword);
 			}
 		}
+	}
 
-		session.commit();
-		return true;
+	public List<PostScheduleVO> getUserPostScheduleList(String userId, String sortOrder, String keyword) {
+		if (keyword == null || keyword.trim().isEmpty()) {
+			switch (sortOrder) {
+				case "like":  return getUserPostScheduleListLike(userId);
+				case "view":  return getUserPostScheduleListView(userId);
+				case "title": return getUserPostScheduleListTitle(userId);
+				default:      return getUserPostScheduleListLatest(userId);
+			}
+		} else {
+			switch (sortOrder) {
+				case "like":  return getUserPostScheduleListLike(userId, keyword);
+				case "view":  return getUserPostScheduleListView(userId, keyword);
+				case "title": return getUserPostScheduleListTitle(userId, keyword);
+				default:      return getUserPostScheduleListLatest(userId, keyword);
+			}
+		}
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListLike() {
+		return dao.getPostScheduleListLike();
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListView() {
+		return dao.getPostScheduleListView();
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListTitle() {
+		return dao.getPostScheduleListTitle();
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListLatest() {
+		return dao.getPostScheduleListLatest();
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListLike(String keyword) {
+		return dao.getPostScheduleListLike(keyword);
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListView(String keyword) {
+		return dao.getPostScheduleListView(keyword);
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
+		return dao.getPostScheduleListTitle(keyword);
+	}
+	
+	private List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
+		return dao.getPostScheduleListLatest(keyword);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
+		return dao.getUserPostScheduleListLike(userId);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListView(String userId) {
+		return dao.getUserPostScheduleListView(userId);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
+		return dao.getUserPostScheduleListTitle(userId);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
+		return dao.getUserPostScheduleListLatest(userId);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
+		return dao.getUserPostScheduleListLike(userId, keyword);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
+		return dao.getUserPostScheduleListView(userId, keyword);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
+		return dao.getUserPostScheduleListTitle(userId, keyword);
+	}
+	
+	private List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
+		return dao.getUserPostScheduleListLatest(userId, keyword);
+	}
+	
+	public String getBudgetDetail(String postId) {
+		return dao.getBudgetDetail(postId);
+	}
+	
+	public String getTodoDetail(String postId) {
+		return dao.getTodoDetail(postId);
+	}
+	
+	public List<RouteScheduleVO> getScheduleRoute(String postId) {
+		return dao.getScheduleRoute(postId);
+	}
+	
+	public List<MapScheduleVO> getMapSchedule(String postId) {
+		return dao.getMapSchedule(postId);
+	}
+	
+	public String getScheduleTitle (String postId) {
+		return dao.getScheduleTitle(postId);
+	}
+	
+	public int getLikeCount(String postId) {
+		return dao.getLikeCount(postId);
+	}
+	
+	public int getViewCount(String postId) {
+		return dao.getViewCount(postId);
+	}
+	
+	public boolean plusLike(String postId) {
+		try {
+	        boolean result = dao.plusLike(postId);
+	        session.commit();
+	        return result;
+	    } catch (Exception e) {
+	        session.rollback();
+	        return false;
+	    }
+	}
+	
+	public boolean plusView(String postId) {
+		try {
+	        boolean result = dao.plusView(postId);
+	        session.commit();
+	        return result;
+	    } catch (Exception e) {
+	        session.rollback();
+	        return false;
+	    }
+	}
+	
+	public String getUserId(String postId) {
+		return dao.getUserId(postId);
+	}
+	
+
+	public boolean addToMySchedule(String postId, String userId) {
+		try {
+			String title        = dao.getScheduleTitle(postId);
+			String budgetDetail = dao.getBudgetDetail(postId);
+			String todoDetail   = dao.getTodoDetail(postId);
+			List<RouteScheduleVO> routes = dao.getScheduleRoute(postId);
+
+			String myScheduleId = dao.copyToMySchedule(title, budgetDetail, todoDetail, userId);
+			for (RouteScheduleVO route : routes) {
+				dao.copyToVisitItem(myScheduleId, route);
+			}
+			session.commit();
+			return true;
+		} catch (Exception e) {
+			session.rollback();
+			return false;
+		}
 	}
 }
 

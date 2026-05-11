@@ -8,7 +8,7 @@ import com.letsgo.place.model.vo.RouteScheduleVO;
 public interface PostScheduleServiceInterface {
 
     boolean deletePostScheduleAndVisitItem(String scheduleId);
-
+   
     List<PostScheduleVO> getPostScheduleListLike();
 
     List<PostScheduleVO> getPostScheduleListView();
