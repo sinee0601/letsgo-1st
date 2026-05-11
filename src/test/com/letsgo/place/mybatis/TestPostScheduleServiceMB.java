@@ -8,6 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
+
 
 
 public class TestPostScheduleServiceMB {

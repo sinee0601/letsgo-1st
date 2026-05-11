@@ -22,6 +22,10 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 		session = DBCPMybatis.getSqlSession();
 		dao = new PostScheduleDAOMB(session);
 	}
+	
+	public void close() {
+		session.close();
+	}
 
 	public boolean deletePostScheduleAndVisitItem(String scheduleId) {
 		try {
@@ -71,67 +75,67 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 		}
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListLike() {
+	public List<PostScheduleVO> getPostScheduleListLike() {
 		return dao.getPostScheduleListLike();
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListView() {
+	public List<PostScheduleVO> getPostScheduleListView() {
 		return dao.getPostScheduleListView();
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListTitle() {
+	public List<PostScheduleVO> getPostScheduleListTitle() {
 		return dao.getPostScheduleListTitle();
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListLatest() {
+	public List<PostScheduleVO> getPostScheduleListLatest() {
 		return dao.getPostScheduleListLatest();
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListLike(String keyword) {
+	public List<PostScheduleVO> getPostScheduleListLike(String keyword) {
 		return dao.getPostScheduleListLike(keyword);
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListView(String keyword) {
+	public List<PostScheduleVO> getPostScheduleListView(String keyword) {
 		return dao.getPostScheduleListView(keyword);
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
+	public List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
 		return dao.getPostScheduleListTitle(keyword);
 	}
 	
-	private List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
+	public List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
 		return dao.getPostScheduleListLatest(keyword);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
+	public List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
 		return dao.getUserPostScheduleListLike(userId);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListView(String userId) {
+	public List<PostScheduleVO> getUserPostScheduleListView(String userId) {
 		return dao.getUserPostScheduleListView(userId);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
+	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
 		return dao.getUserPostScheduleListTitle(userId);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
+	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
 		return dao.getUserPostScheduleListLatest(userId);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
+	public List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
 		return dao.getUserPostScheduleListLike(userId, keyword);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
+	public List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
 		return dao.getUserPostScheduleListView(userId, keyword);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
+	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
 		return dao.getUserPostScheduleListTitle(userId, keyword);
 	}
 	
-	private List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
+	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
 		return dao.getUserPostScheduleListLatest(userId, keyword);
 	}
 	
