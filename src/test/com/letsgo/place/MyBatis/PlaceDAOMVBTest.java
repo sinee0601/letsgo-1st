@@ -1,4 +1,4 @@
-package test.com.letsgo.place.MyBatis;
+package test.com.letsgo.place.mybatis;
 
 import static org.junit.Assert.*;
 

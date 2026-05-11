@@ -1,4 +1,4 @@
-package test.com.letsgo.place.MyBatis;
+﻿package test.com.letsgo.place.mybatis;
 
 import static org.junit.Assert.*;
 
@@ -9,12 +9,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.MyScheduleDAOMB;
-import com.letsgo.place.model.ColleagueVO;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.MyScheduleDAOMB;
 
 public class TestMyScheduleDAOMB {
 
@@ -44,7 +44,7 @@ public class TestMyScheduleDAOMB {
 	@Test
 	public void getMyScheduleListAllByDate_existingUser_returnsItems() {
 		List<MyScheduleVO> result = dao.getMyScheduleListAllByDate("user01");
-		assertFalse("user01의 일정 목록이 비어 있으면 안 됩니다", result.isEmpty());
+		assertFalse("user01", result.isEmpty());
 	}
 
 	@Test
@@ -218,3 +218,4 @@ public class TestMyScheduleDAOMB {
 	}
 
 }
+

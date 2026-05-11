@@ -1,4 +1,4 @@
-package test.com.letsgo.place.model;
+﻿package test.com.letsgo.place.model;
 
 import static org.junit.Assert.*;
 
@@ -11,11 +11,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.PostScheduleDAO;
-import com.letsgo.place.model.PostScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.PostScheduleDAO;
+import com.letsgo.place.model.vo.PostScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 
 public class TestPostScheduleDAO {
 	private PostScheduleDAO dao;
@@ -154,3 +154,4 @@ public class TestPostScheduleDAO {
 
 
 }
+

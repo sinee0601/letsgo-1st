@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.model.RouteScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
 public class MyScheduleBudgetDetailUIAction implements Action {
@@ -36,3 +36,4 @@ public class MyScheduleBudgetDetailUIAction implements Action {
 	}
 
 }
+

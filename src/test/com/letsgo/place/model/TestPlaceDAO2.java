@@ -1,0 +1,90 @@
+﻿package test.com.letsgo.place.model;
+
+import static org.junit.Assert.*;
+
+import java.sql.Connection;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.dao.PlaceDAO;
+import com.letsgo.place.model.vo.PlaceVO;
+import com.letsgo.place.model.vo.VisitItemVO;
+
+public class TestPlaceDAO2 {
+
+	private Connection conn;
+
+	private PlaceDAO dao;
+	
+	@Before
+	public void setup() throws Exception {
+		conn = DBCP.getConnection();
+		conn.setAutoCommit(false);
+		dao = new PlaceDAO(conn);
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		if (conn != null) {
+			conn.rollback();
+			conn.close();
+		}
+	}
+	
+	@Test
+	public void 바구니에_담긴_플레이스_상세_정보() throws Exception {
+		List<PlaceVO> places = dao.getPlaces();
+		assertNotNull(places);
+		assertFalse("플레이스 목록이 없으면 안됨.", places.isEmpty());
+		PlaceVO first = places.get(0);
+		assertNotNull(first.getTitle());
+		assertNotNull(first.getAddr1());
+		assertNotNull(first.getMapx());
+		assertNotNull(first.getMapy());
+
+		System.out.println("첫 번째: " + first.getTitle() + " / " + first.getAddr1());
+	}
+
+	@Test
+	public void 플레이스_상세조회() throws Exception {
+		PlaceVO place = dao.getPlaceById("1");
+		assertNotNull(place);
+		assertNotNull(place.getTitle());
+		System.out.println("제목: " + place.getTitle());
+		System.out.println("주소: " + place.getAddr1());
+		System.out.println("좌표: " + place.getMapx() + ", " + place.getMapy());
+
+	}
+
+	@Test
+	public void 방문지_조회() throws Exception {
+	    List<VisitItemVO> list = dao.getVisitItemsByScheduleId("P023"); 
+	    assertNotNull(list);
+	    assertFalse(list.isEmpty());
+	    for (VisitItemVO vo : list) {
+	        System.out.println("순서: " + vo.getVisitOrder());
+	        System.out.println("장소ID: " + vo.getPlaceId());
+	        System.out.println("다음까지 거리: " + vo.getDistanceToNext());
+	    }
+	}
+
+	@Test
+	public void 좋아요_카운트() throws Exception {
+	    boolean result = dao.setCounting("9"); 
+	    assertTrue(result);
+	    System.out.println("좋아요 카운트 결과: " + result);
+	}
+   
+
+}
+
+
+
+
+
+
+

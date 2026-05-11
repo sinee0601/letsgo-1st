@@ -1,4 +1,4 @@
-package com.letsgo.place.service;
+﻿package com.letsgo.place.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -7,19 +7,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.letsgo.place.model.ColleagueVO;
-import com.letsgo.place.model.DBCP;
-import com.letsgo.place.model.MapScheduleVO;
-import com.letsgo.place.model.MyScheduleDAO;
-import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.RouteScheduleVO;
+import org.apache.ibatis.session.SqlSession;
 
-public class MyScheduleService {
+import com.letsgo.place.model.vo.ColleagueVO;
+import com.letsgo.place.model.dao.DBCP;
+import com.letsgo.place.model.vo.MapScheduleVO;
+import com.letsgo.place.model.dao.MyScheduleDAO;
+import com.letsgo.place.model.dao.MyScheduleDAOInterface;
+import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.model.vo.RouteScheduleVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.MyScheduleDAOMB;
 
-	private MyScheduleDAO dao;
+public class MyScheduleService implements MyScheduleServiceInterface {
+
+	private MyScheduleDAOInterface dao;
 
 	private Connection conn;
-
+	
 	public MyScheduleService() throws ClassNotFoundException, SQLException {
 		conn = DBCP.getConnection();
 		dao = new MyScheduleDAO(conn);
@@ -490,3 +495,4 @@ public class MyScheduleService {
 	}
 
 }
+

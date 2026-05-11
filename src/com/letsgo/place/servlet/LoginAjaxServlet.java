@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.model.UserDAO;
-import com.letsgo.place.model.UserVO;
+import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.model.vo.UserVO;
 
 @WebServlet("/loginAjax")
 public class LoginAjaxServlet extends HttpServlet {
@@ -48,3 +48,4 @@ public class LoginAjaxServlet extends HttpServlet {
 		}
 	}
 }
+

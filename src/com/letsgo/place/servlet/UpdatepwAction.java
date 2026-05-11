@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.model.UserDAO;
+import com.letsgo.place.model.dao.UserDAO;
 
 public class UpdatepwAction implements Action{
 
@@ -46,3 +46,4 @@ public class UpdatepwAction implements Action{
 	}
 
 }
+
