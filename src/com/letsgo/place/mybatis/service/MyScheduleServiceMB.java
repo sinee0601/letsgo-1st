@@ -23,7 +23,7 @@ public class MyScheduleServiceMB implements MyScheduleServiceInterface {
 
 	public MyScheduleServiceMB() {
 	}
-
+	
 	@Override
 	public List<MyScheduleVO> getMyScheduleListAllByDate(String userId) {
 		SqlSession session = DBCPMybatis.getSqlSession();

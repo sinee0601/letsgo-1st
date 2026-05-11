@@ -22,10 +22,6 @@ public class TestMyScheduleServiceMB {
 		service = new MyScheduleServiceMB();
 	}
 	
-	@After
-	public void teardown(){
-		service.close();
-	}
 
 	@Test
 	public void getMyScheduleListAllByDate_returnsNonNull() {
