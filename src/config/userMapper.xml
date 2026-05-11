@@ -2,13 +2,13 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userMapper">
 
-	<select id="login" parameterType="com.letsgo.place.model.UserVO" 
+	<select id="login" parameterType="com.letsgo.place.model.vo.UserVO" 
 	resultType="com.letsgo.place.model.UserVO">
 		SELECT NAME, EMAIL FROM USERS 
 		WHERE USER_ID = #{userID} AND PASSWORD = #{password}
 	</select>
 	
-	<insert id="signUp" parameterType="com.letsgo.place.model.UserVO">
+	<insert id="signUp" parameterType="com.letsgo.place.model.vo.UserVO">
 		INSERT INTO USERS (USER_ID, EMAIL, NAME, PASSWORD) 
 		VALUES (#{userID}, #{email}, #{name}, #{password})
 	</insert>
@@ -19,12 +19,12 @@
 		WHERE USER_ID = #{userID}
 	</select>
 	
-	<update id="updatePassword" parameterType="com.letsgo.place.model.UserVO">
+	<update id="updatePassword" parameterType="com.letsgo.place.model.vo.UserVO">
 		UPDATE USERS SET PASSWORD = #{password}
 		WHERE USER_ID = #{userID} AND EMAIL = #{email}
 	</update>
 	
-	<select id="findUserId" parameterType="com.letsgo.place.model.UserVO"
+	<select id="findUserId" parameterType="com.letsgo.place.model.vo.UserVO"
 		resultType="String" >
 		SELECT USER_ID FROM USERS
 		WHERE NAME = #{name} AND EMAIL = #{email}
