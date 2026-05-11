@@ -145,15 +145,17 @@ public class PlaceServiceMB implements PlaceServiceInterface {
 		return executeRead(dao -> dao.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword));
 	}
 
+	//조회 공통 처리
 	private <T> T executeRead(Function<PlaceDAOInterface, T> action) {
-		try (SqlSession session = DBCPMybatis.getSqlSession()) {
+		return withSession(session -> {
 			PlaceDAOInterface dao = new PlaceDAOMB(session);
 			return action.apply(dao);
-		}
+		});
 	}
 
+	//수정 공통 처리
 	private boolean executeWrite(Function<PlaceDAOInterface, Boolean> action) {
-		try (SqlSession session = DBCPMybatis.getSqlSession()) {
+		return withSession(session -> {
 			PlaceDAOInterface dao = new PlaceDAOMB(session);
 			boolean result = action.apply(dao);
 			if (result) {
@@ -162,8 +164,13 @@ public class PlaceServiceMB implements PlaceServiceInterface {
 				session.rollback();
 			}
 			return result;
-		} catch (RuntimeException e) {
-			throw e;
+		});
+	}
+
+	//세션 생성/ 닫기
+	private <T> T withSession(Function<SqlSession, T> action) {
+		try (SqlSession session = DBCPMybatis.getSqlSession()) {
+			return action.apply(session);
 		}
 	}
 }
