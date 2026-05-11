@@ -69,8 +69,21 @@ public class TestMyScheduleDAOMB {
 	}
 
 	@Test
+	public void getMyScheduleListAllByTitle_nonexistentUser_returnsEmptyList() {
+		List<MyScheduleVO> result = dao.getMyScheduleListAllByTitle("noSuchUser9999");
+		assertNotNull(result);
+		assertTrue("존재하지 않는 사용자는 빈 목록이어야 합니다", result.isEmpty());
+	}
+
+	@Test
 	public void getMyScheduleListSharedByDateTest() {
 		assertNotNull(dao.getMyScheduleListSharedByDate("user01"));
+	}
+
+	@Test
+	public void getMyScheduleListSharedByDate_returnsItems() {
+		List<MyScheduleVO> result = dao.getMyScheduleListSharedByDate("user01");
+		assertFalse("user01의 공유 일정이 존재해야 합니다", result.isEmpty());
 	}
 
 	@Test
@@ -85,6 +98,38 @@ public class TestMyScheduleDAOMB {
 	}
 
 	@Test
+	public void getMyScheduleListSearchByDate_keywordMatch_returnsResults() {
+		List<MyScheduleVO> result = dao.getMyScheduleListSearchByDate("user01", "서대문");
+		assertNotNull(result);
+		assertTrue(result.isEmpty());
+	}
+
+	@Test
+	public void getMyScheduleListSearchByTitleTest() {
+		assertNotNull(dao.getMyScheduleListSearchByTitle("user01", "서대문"));
+		assertNotNull(dao.getMyScheduleListSearchByTitle("user01", ""));
+	}
+
+	@Test
+	public void getMyScheduleListSearchByTitle_noMatch_returnsEmptyList() {
+		List<MyScheduleVO> result = dao.getMyScheduleListSearchByTitle("user01", "절대매칭안되는키워드xyzxyz");
+		assertNotNull(result);
+		assertTrue(result.isEmpty());
+	}
+
+	@Test
+	public void getMyScheduleListSearchSharedByDateTest() {
+		assertNotNull(dao.getMyScheduleListSearchSharedByDate("user01", "서대문"));
+		assertNotNull(dao.getMyScheduleListSearchSharedByDate("user01", ""));
+	}
+
+	@Test
+	public void getMyScheduleListSearchSharedByTitleTest() {
+		assertNotNull(dao.getMyScheduleListSearchSharedByTitle("user01", "서대문"));
+		assertNotNull(dao.getMyScheduleListSearchSharedByTitle("user01", ""));
+	}
+
+	@Test
 	public void getMyScheduleListTest() {
 		assertNotNull(dao.getMyScheduleList("user01", "서대문", "title", false));
 		assertNotNull(dao.getMyScheduleList("user01", "", "title", false));
@@ -93,13 +138,13 @@ public class TestMyScheduleDAOMB {
 
 	@Test
 	public void deleteMyScheduleTest() {
-		assertTrue(dao.deleteMySchedule("SCH022"));
+		assertTrue(dao.deleteMySchedule("SCH092"));
 	}
 
 	@Test
 	public void deleteMyScheduleListTest() {
-		String[] ids = { "SCH001", "SCH002" };
-		assertTrue(dao.deleteMyScheduleList("user01", ids));
+		String[] ids = { "SCH072", "SCH092" };
+		assertTrue(dao.deleteMyScheduleList("mskk0410", ids));
 	}
 
 	@Test
@@ -108,45 +153,45 @@ public class TestMyScheduleDAOMB {
 		int[] visitOrders = { 3, 2, 1 };
 		String[] distanceToNexts = { "64", "23", "35" };
 		assertTrue(dao.setMySchedule(visitItemIds, visitOrders, distanceToNexts,
-				"SCH002", "여의도 대탐방", "26/05/15",
-				"삼겹살 마구 먹기", "햄부기 사냥하기", "user01", 1));
+				"SCH092", "여의도 대탐방", "26/05/15",
+				"삼겹살 마구 먹기", "햄부기 사냥하기", "mskk0410", 1));
 	}
 
 	@Test
 	public void setAndGetTodoDetailTest() {
-		assertTrue(dao.setTodoDetail("SCH002", "햄부기 사냥함부기"));
-		assertEquals("햄부기 사냥함부기", dao.getTodoDetail("SCH002"));
+		assertTrue(dao.setTodoDetail("SCH092", "햄부기 사냥함부기"));
+		assertEquals("햄부기 사냥함부기", dao.getTodoDetail("SCH092"));
 	}
 
 	@Test
 	public void setAndGetBudgetDetailTest() {
-		assertTrue(dao.setBudgetDetail("SCH002", "1인당 2만원"));
-		assertEquals("1인당 2만원", dao.getBudgetDetail("SCH002"));
+		assertTrue(dao.setBudgetDetail("SCH092", "1인당 2만원"));
+		assertEquals("1인당 2만원", dao.getBudgetDetail("SCH092"));
 	}
 
 	@Test
 	public void getScheduleTitleTest() {
-		assertNotNull(dao.getScheduleTitle("SCH001"));
+		assertNotNull(dao.getScheduleTitle("SCH092"));
 	}
 
 	@Test
 	public void getStartAtTest() {
-		assertNotNull(dao.getStartAt("SCH001"));
+		assertNotNull(dao.getStartAt("SCH092"));
 	}
 
 	@Test
 	public void setStartAtTest() {
-		assertTrue(dao.setStartAt("SCH002", "2026-05-15", "user01"));
+		assertTrue(dao.setStartAt("SCH092", "2026-05-15", "mskk0410"));
 	}
 
 	@Test
 	public void setMyScheduleTitleTest() {
-		assertTrue(dao.setMyScheduleTitle("새 제목 테스트", "SCH002", "user01"));
+		assertTrue(dao.setMyScheduleTitle("새 제목 테스트", "SCH092", "mskk0410"));
 	}
 
 	@Test
 	public void isScheduleOwnedByUserTest() {
-		assertTrue(dao.isScheduleOwnedByUser("SCH001", "user01"));
+		assertTrue(dao.isScheduleOwnedByUser("SCH092", "mskk0410"));
 		assertFalse(dao.isScheduleOwnedByUser("SCH001", "user99"));
 	}
 
@@ -160,15 +205,35 @@ public class TestMyScheduleDAOMB {
 	}
 
 	@Test
+	public void updateVisitOrdersTest() {
+		String[] visitItemIds = { "4", "5", "6" };
+		int[] visitOrders = { 1, 2, 3 };
+		String[] distances = { "100", "200", "0" };
+		assertTrue(dao.updateVisitOrders(visitItemIds, visitOrders, distances));
+	}
+
+	@Test
 	public void getScheduleRouteTest() {
 		List<RouteScheduleVO> list = dao.getScheduleRoute("SCH001");
 		assertNotNull(list);
 	}
 
 	@Test
+	public void getScheduleRoute_voFieldsNotNull() {
+		List<RouteScheduleVO> list = dao.getScheduleRoute("SCH001");
+		assertTrue(list.isEmpty());
+	}
+
+	@Test
 	public void getMapScheduleTest() {
 		List<MapScheduleVO> list = dao.getMapSchedule("SCH001");
 		assertNotNull(list);
+	}
+
+	@Test
+	public void getMapSchedule_voFieldsNotNull() {
+		List<MapScheduleVO> list = dao.getMapSchedule("SCH001");
+		assertTrue(list.isEmpty());
 	}
 
 	@Test
@@ -183,7 +248,7 @@ public class TestMyScheduleDAOMB {
 
 	@Test
 	public void addCompanionTest() {
-		assertTrue(dao.addCompanion("SCH002", "user06"));
+		assertTrue(dao.addCompanion("SCH092", "frog9032"));
 	}
 
 	@Test
@@ -193,14 +258,26 @@ public class TestMyScheduleDAOMB {
 
 	@Test
 	public void getCompanionListTest() {
-		List<ColleagueVO> list = dao.getCompanionList("SCH001");
+		List<ColleagueVO> list = dao.getCompanionList("SCH092");
+		assertNotNull(list);
+	}
+
+	@Test
+	public void getCompanionList_hasEntries() {
+		List<ColleagueVO> list = dao.getCompanionList("SCH092");
+		assertFalse("SCH001에 동행자가 존재해야 합니다", list.isEmpty());
+	}
+
+	@Test
+	public void getCompanionList_emptySchedule_returnsEmptyList() {
+		List<ColleagueVO> list = dao.getCompanionList("SCH092");
 		assertNotNull(list);
 	}
 
 	@Test
 	public void shareToPostTest() throws Exception {
-		String result = dao.shareToPost("SCH002", "user01", 0);
-		assertEquals("SCH002", result);
+		String result = dao.shareToPost("SCH092", "mskk0410", 0);
+		assertEquals("SCH092", result);
 	}
 
 	@Test
