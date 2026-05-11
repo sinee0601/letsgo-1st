@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 import com.letsgo.place.model.vo.PlaceVO;
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.service.PlaceServiceInterface;
 import com.letsgo.place.util.JsonStrings;
 
 
@@ -34,7 +34,7 @@ public class LeisureListAjaxServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		try {
-			PlaceService placeService = new PlaceService();
+			PlaceServiceInterface placeService = new PlaceServiceMB();
 			List<PlaceVO> list = "like".equals(sort)
 					? placeService.getLeisurePlacesOrderByLikeDesc()
 					: placeService.getLeisurePlaces();
@@ -60,7 +60,7 @@ public class LeisureListAjaxServlet extends HttpServlet {
 			}
 			json.append(']');
 			out.print(json.toString());
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			out.print("{\"error\":true,\"message\":\"목록을 불러오지 못했습니다.\"}");
 		}

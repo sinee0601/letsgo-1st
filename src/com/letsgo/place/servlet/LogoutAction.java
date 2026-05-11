@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 
 public class LogoutAction implements Action {
 
@@ -19,7 +19,7 @@ public class LogoutAction implements Action {
 			session.invalidate();
 		}
 		request.setAttribute("sortOrder", "like");
-		request.setAttribute("leisurePlaceList", new PlaceService().getLeisurePlacesOrderByLikeDesc());
+		request.setAttribute("leisurePlaceList", new PlaceServiceMB().getLeisurePlacesOrderByLikeDesc());
 		return "index.jsp";
 	}
 }

@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class PlaceLikeSortingAction implements Action {
     @Override
@@ -20,7 +21,7 @@ public class PlaceLikeSortingAction implements Action {
             sort = "distance";
         }
         
-        PlaceService placeService = new PlaceService();//else if가 너무 많아서 리팩토링 생각해보기.
+        PlaceServiceInterface placeService = new PlaceServiceMB();//else if가 너무 많아서 리팩토링 생각해보기.
         
         if ("restaurantUI".equals(redirectCmd)) {
             if ("like".equals(sort)) {

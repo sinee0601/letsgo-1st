@@ -2,7 +2,6 @@ package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 @WebServlet("/placeLikeAjax")
 public class PlaceLikeAjaxServlet extends HttpServlet {
@@ -36,14 +36,7 @@ public class PlaceLikeAjaxServlet extends HttpServlet {
         }
 
        
-        PlaceService service = null;
-        try {
-            service = new PlaceService();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            out.print("{\"result\":\"fail\", \"likeCount\":0}");
-            return;
-        }
+        PlaceServiceInterface service = new PlaceServiceMB();
         service.setPlaceLikeCount(placeId);
 
         //  좋아요 수 조회
