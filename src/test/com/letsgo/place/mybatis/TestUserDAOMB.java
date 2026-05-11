@@ -7,9 +7,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.letsgo.place.DBCPMyBatis.DBCPMybatis;
-import com.letsgo.place.MyBatis.UserDAOMB;
-import com.letsgo.place.model.UserVO;
+import com.letsgo.place.model.vo.UserVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.UserDAOMB;
+
 
 public class TestUserDAOMB {
 
