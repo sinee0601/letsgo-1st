@@ -3,7 +3,7 @@
 
 <mapper namespace="myScheduleMapper">
 
-	<resultMap id="myScheduleResultMap" type="com.letsgo.place.model.MyScheduleVO">
+	<resultMap id="myScheduleResultMap" type="com.letsgo.place.model.vo.MyScheduleVO">
 		<constructor>
 			<arg column="MY_SCHEDULE_ID" javaType="String" />
 			<arg column="SCH_TITLE"      javaType="String" />
@@ -15,7 +15,7 @@
 		</constructor>
 	</resultMap>
 
-	<resultMap id="routeScheduleResultMap" type="com.letsgo.place.model.RouteScheduleVO">
+	<resultMap id="routeScheduleResultMap" type="com.letsgo.place.model.vo.MyScheduleVO">
 		<constructor>
 			<arg column="VISIT_ITEM_ID" javaType="String" />
 			<arg column="VISIT_ORDER"   javaType="String" />
@@ -24,7 +24,7 @@
 		</constructor>
 	</resultMap>
 
-	<resultMap id="mapScheduleResultMap" type="com.letsgo.place.model.MapScheduleVO">
+	<resultMap id="mapScheduleResultMap" type="com.letsgo.place.model.vo.MyScheduleVO">
 		<constructor>
 			<arg column="VISIT_ORDER"      javaType="String" />
 			<arg column="TITLE"            javaType="String" />
@@ -34,7 +34,7 @@
 		</constructor>
 	</resultMap>
 
-	<resultMap id="colleagueResultMap" type="com.letsgo.place.model.ColleagueVO">
+	<resultMap id="colleagueResultMap" type="com.letsgo.place.model.vo.ColleagueVO">
 		<constructor>
 			<arg column="USER_ID"    javaType="String" />
 			<arg column="NAME"       javaType="String" />
@@ -111,24 +111,24 @@
 	<select id="getMyScheduleListSearchByDate" parameterType="map" resultMap="myScheduleResultMap">
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
-		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		ORDER BY START_AT DESC, VISIT_ORDER ASC
 	</select>
 
 	<select id="getMyScheduleListSearchByTitle" parameterType="map" resultMap="myScheduleResultMap">
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
-		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		WHERE s.USER_ID = #{userId} AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		ORDER BY SCH_TITLE ASC, VISIT_ORDER ASC
 	</select>
 
@@ -136,12 +136,12 @@
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		WHERE s.USER_ID = #{userId} AND s.IS_SHARED = 1
-		AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		ORDER BY START_AT DESC, VISIT_ORDER ASC
 	</select>
 
@@ -149,12 +149,12 @@
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		WHERE s.USER_ID = #{userId} AND s.IS_SHARED = 1
-		AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
 		<include refid="scheduleJoins" />
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
-		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+		WHERE ssu.SHARED_USER_ID = #{userId} AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		ORDER BY SCH_TITLE ASC, VISIT_ORDER ASC
 	</select>
 
@@ -164,7 +164,7 @@
 		WHERE s.USER_ID = #{userId}
 		<if test="sharedFilter == true">AND s.IS_SHARED = 1</if>
 		<if test="keyword != null and keyword != ''">
-			AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+			AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		</if>
 		UNION ALL
 		SELECT <include refid="scheduleColumns" />
@@ -172,7 +172,7 @@
 		JOIN SCHEDULE_SHARE_USER ssu ON s.MY_SCHEDULE_ID = ssu.MY_SCHEDULE_ID
 		WHERE ssu.SHARED_USER_ID = #{userId}
 		<if test="keyword != null and keyword != ''">
-			AND (s.TITLE LIKE CONCAT('%', #{keyword}, '%') OR p.TITLE LIKE CONCAT('%', #{keyword}, '%'))
+			AND (s.TITLE LIKE '%' || #{keyword} || '%' OR p.TITLE LIKE '%' || #{keyword} || '%')
 		</if>
 		<choose>
 			<when test="sortType == 'title'">ORDER BY SCH_TITLE ASC, VISIT_ORDER ASC</when>
