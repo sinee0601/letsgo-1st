@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 
 @WebServlet("/signupAjax")
 public class SignupAjaxServlet extends HttpServlet {
@@ -38,7 +38,7 @@ public class SignupAjaxServlet extends HttpServlet {
 		}
 
 		try {
-			UserDAO dao = new UserDAO();
+			UserServiceMB dao = new UserServiceMB();
 			if (dao.idcheck(userId)) {
 				response.getWriter().print("{\"result\":\"fail\",\"message\":\"이미 사용 중인 아이디입니다.\"}");
 				return;

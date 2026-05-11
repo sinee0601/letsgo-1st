@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.letsgo.place.model.dao.UserDAO;
+import com.letsgo.place.mybatis.service.UserServiceMB;
 
 @WebServlet("/updatePwAjax")
 public class UpdatePwAjaxServlet extends HttpServlet {
@@ -37,7 +37,7 @@ public class UpdatePwAjaxServlet extends HttpServlet {
 		}
 
 		try {
-			boolean updated = new UserDAO().updatePassword(userId, email, newPassword);
+			boolean updated = new UserServiceMB().updatePassword(userId, email, newPassword);
 			if (!updated) {
 				response.getWriter().print("{\"result\":\"fail\",\"message\":\"아이디 또는 이메일이 일치하지 않습니다.\"}");
 				return;
