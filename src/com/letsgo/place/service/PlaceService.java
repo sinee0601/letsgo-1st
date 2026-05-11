@@ -141,7 +141,59 @@ public class PlaceService implements PlaceServiceInterface {
 	}
 	
 	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
-		return dao.searchPlaces(placeType, category, keyword, sortType);
+		boolean hasCategory = category != null && !category.trim().isEmpty();
+		boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+		boolean orderByLike = "popular".equals(sortType);
+
+		if (hasCategory && hasKeyword) {
+			return orderByLike
+					? searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword)
+					: searchPlacesByCategoryAndKeywordOrderByTitle(placeType, category, keyword);
+		}
+		if (hasCategory) {
+			return orderByLike
+					? searchPlacesByCategoryOrderByLike(placeType, category)
+					: searchPlacesByCategoryOrderByTitle(placeType, category);
+		}
+		if (hasKeyword) {
+			return orderByLike
+					? searchPlacesByKeywordOrderByLike(placeType, keyword)
+					: searchPlacesByKeywordOrderByTitle(placeType, keyword);
+		}
+		return orderByLike ? searchPlacesOrderByLike(placeType) : searchPlacesOrderByTitle(placeType);
+	}
+
+	public List<PlaceVO> searchPlacesOrderByTitle(String placeType) {
+		return dao.searchPlacesOrderByTitle(placeType);
+	}
+
+	public List<PlaceVO> searchPlacesOrderByLike(String placeType) {
+		return dao.searchPlacesOrderByLike(placeType);
+	}
+
+	public List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category) {
+		return dao.searchPlacesByCategoryOrderByTitle(placeType, category);
+	}
+
+	public List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category) {
+		return dao.searchPlacesByCategoryOrderByLike(placeType, category);
+	}
+
+	public List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword) {
+		return dao.searchPlacesByKeywordOrderByTitle(placeType, keyword);
+	}
+
+	public List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword) {
+		return dao.searchPlacesByKeywordOrderByLike(placeType, keyword);
+	}
+
+	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category,
+			String keyword) {
+		return dao.searchPlacesByCategoryAndKeywordOrderByTitle(placeType, category, keyword);
+	}
+
+	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword) {
+		return dao.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword);
 	}
 	
 	

@@ -42,6 +42,20 @@ public interface PlaceServiceInterface {
 
     PlaceVO getPlaceByPlaceId(String placeId);
 
-    List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType);
+    List<PlaceVO> searchPlacesOrderByTitle(String placeType);
+
+    List<PlaceVO> searchPlacesOrderByLike(String placeType);
+
+    List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category);
+
+    List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category);
+
+    List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword);
+
+    List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword);
+
+    List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category, String keyword);
+
+    List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword);
 }
 

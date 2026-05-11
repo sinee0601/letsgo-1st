@@ -3,6 +3,7 @@
 import com.letsgo.place.service.PlaceServiceInterface;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,115 +15,155 @@ import com.letsgo.place.mybatis.dao.PlaceDAOMB;
 
 public class PlaceServiceMB implements PlaceServiceInterface {
 
-	private PlaceDAOInterface dao;
-	private SqlSession session;
-
 	public PlaceServiceMB() {
-		session = DBCPMybatis.getSqlSession();
-		dao = new PlaceDAOMB(session);
 	}
 
 	@Override
 	public List<PlaceVO> getPlaceByTitle(String placeType, String title) {
-		return dao.getPlaceByTitle(placeType, title);
+		return executeRead(dao -> dao.getPlaceByTitle(placeType, title));
 	}
 
 	@Override
 	public List<PlaceVO> getPlaceByCategory(String placeType, String lclssystm3) {
-		return dao.getPlaceByCategory(placeType, lclssystm3);
+		return executeRead(dao -> dao.getPlaceByCategory(placeType, lclssystm3));
 	}
 
 	@Override
 	public List<PlaceVO> getPlaceOrderByLike(String placeType) {
-		return dao.getPlaceOrderByLike(placeType);
+		return executeRead(dao -> dao.getPlaceOrderByLike(placeType));
 	}
 
 	@Override
 	public List<PlaceVO> getPlaceOrderByTitle(String placeType) {
-		return dao.getPlaceOrderByTitle(placeType);
+		return executeRead(dao -> dao.getPlaceOrderByTitle(placeType));
 	}
 
 	@Override
 	public List<PlaceVO> getPlaceByAddr(String placeType, String addr) {
-		return dao.getPlaceByAddr(placeType, addr);
+		return executeRead(dao -> dao.getPlaceByAddr(placeType, addr));
 	}
 
 	@Override
 	public List<PlaceVO> getPlace(String placeId) {
-		return dao.getPlace(placeId);
+		return executeRead(dao -> dao.getPlace(placeId));
 	}
 
 	@Override
 	public int getPlaceCount(String placeType) {
-		return dao.getPlaceCount(placeType);
+		return executeRead(dao -> dao.getPlaceCount(placeType));
 	}
 
 	@Override
 	public boolean setPlaceLikeCount(String placeId) {
-		boolean result = dao.setPlaceLikeCount(placeId);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
+		return executeWrite(dao -> dao.setPlaceLikeCount(placeId));
 	}
 
 	@Override
 	public int getPlaceLikeCount(String placeType, String placeId) {
-		return dao.getPlaceLikeCount(placeType, placeId);
+		return executeRead(dao -> dao.getPlaceLikeCount(placeType, placeId));
 	}
 
 	@Override
 	public List<PlaceVO> getPlaces() {
-		return dao.getPlaces();
+		return executeRead(PlaceDAOInterface::getPlaces);
 	}
 
 	@Override
 	public boolean insertVisitItem(int visitOrder, int distanceToNext,
 			String placeId, String scheduleId, String scheduleType) {
-		boolean result = dao.insertVisitItem(visitOrder, distanceToNext, placeId, scheduleId, scheduleType);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
+		return executeWrite(dao -> dao.insertVisitItem(visitOrder, distanceToNext, placeId, scheduleId, scheduleType));
 	}
 
 	@Override
 	public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
-		return dao.getLeisurePlacesOrderByLikeDesc();
+		return executeRead(PlaceDAOInterface::getLeisurePlacesOrderByLikeDesc);
 	}
 
 	@Override
 	public List<PlaceVO> getLeisurePlaces() {
-		return dao.getLeisurePlaces();
+		return executeRead(PlaceDAOInterface::getLeisurePlaces);
 	}
 
 	@Override
 	public boolean setCounting(String postId) {
-		boolean result = dao.setCounting(postId);
-		if (result) session.commit();
-		else session.rollback();
-		return result;
+		return executeWrite(dao -> dao.setCounting(postId));
 	}
 
 	@Override
 	public PlaceVO getPlaceById(String placeId) {
-		return dao.getPlaceById(placeId);
+		return executeRead(dao -> dao.getPlaceById(placeId));
 	}
 
 	@Override
 	public List<VisitItemVO> getVisitItemsByScheduleId(String scheduleId) {
-		return dao.getVisitItemsByScheduleId(scheduleId);
+		return executeRead(dao -> dao.getVisitItemsByScheduleId(scheduleId));
 	}
 
 	@Override
 	public PlaceVO getPlaceByPlaceId(String placeId) {
-		return dao.getPlaceByPlaceId(placeId);
+		return executeRead(dao -> dao.getPlaceByPlaceId(placeId));
 	}
 
 	@Override
-	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
-		return null;
+	public List<PlaceVO> searchPlacesOrderByTitle(String placeType) {
+		return executeRead(dao -> dao.searchPlacesOrderByTitle(placeType));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesOrderByLike(String placeType) {
+		return executeRead(dao -> dao.searchPlacesOrderByLike(placeType));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category) {
+		return executeRead(dao -> dao.searchPlacesByCategoryOrderByTitle(placeType, category));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category) {
+		return executeRead(dao -> dao.searchPlacesByCategoryOrderByLike(placeType, category));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword) {
+		return executeRead(dao -> dao.searchPlacesByKeywordOrderByTitle(placeType, keyword));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword) {
+		return executeRead(dao -> dao.searchPlacesByKeywordOrderByLike(placeType, keyword));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category,
+			String keyword) {
+		return executeRead(dao -> dao.searchPlacesByCategoryAndKeywordOrderByTitle(placeType, category, keyword));
+	}
+
+	@Override
+	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword) {
+		return executeRead(dao -> dao.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword));
+	}
+
+	private <T> T executeRead(Function<PlaceDAOInterface, T> action) {
+		try (SqlSession session = DBCPMybatis.getSqlSession()) {
+			PlaceDAOInterface dao = new PlaceDAOMB(session);
+			return action.apply(dao);
+		}
+	}
+
+	private boolean executeWrite(Function<PlaceDAOInterface, Boolean> action) {
+		try (SqlSession session = DBCPMybatis.getSqlSession()) {
+			PlaceDAOInterface dao = new PlaceDAOMB(session);
+			boolean result = action.apply(dao);
+			if (result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			return result;
+		} catch (RuntimeException e) {
+			throw e;
+		}
 	}
 }
-
-
-
-
