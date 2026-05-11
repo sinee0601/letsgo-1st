@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class UpdateRouteOrderAction implements Action {
 
@@ -32,7 +32,7 @@ public class UpdateRouteOrderAction implements Action {
 			}
 		}
 		
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 
 		if (visitItemIds != null && visitOrders != null) {
 			String[] distances = new String[visitItemIds.length];

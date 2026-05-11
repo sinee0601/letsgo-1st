@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.ColleagueVO;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class MyScheduleShareUIAction implements Action {
 
@@ -20,7 +20,7 @@ public class MyScheduleShareUIAction implements Action {
 		String sharedUserId = (String) request.getAttribute("sharedUserId");
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		
-		List<ColleagueVO> list = new MyScheduleService().getCompanionList(myScheduleId);
+		List<ColleagueVO> list = new MyScheduleServiceMB().getCompanionList(myScheduleId);
 		request.setAttribute("colleagueList", list);
 		
 		return "myScheduleShare.jsp";

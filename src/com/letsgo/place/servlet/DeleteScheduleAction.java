@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class DeleteScheduleAction implements Action {
 
@@ -15,7 +15,7 @@ public class DeleteScheduleAction implements Action {
 	public String execute(HttpServletRequest request) throws ClassNotFoundException, SQLException{
 		HttpSession session = request.getSession();
 		String scheduleId = (String) session.getAttribute("currentScheduleId");
-		request.setAttribute("result", new MyScheduleService().deleteMySchedule(scheduleId));
+		request.setAttribute("result", new MyScheduleServiceMB().deleteMySchedule(scheduleId));
 		return "controller?cmd=myScheduleListUI";
 	}
 }

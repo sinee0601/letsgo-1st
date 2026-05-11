@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.ColleagueVO;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class ShareToPostAction implements Action {
 
@@ -25,7 +25,7 @@ public class ShareToPostAction implements Action {
 		int isAnonymous = (isAnonParam != null && isAnonParam.equals("1")) ? 1 : 0;
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		boolean result;
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		String strResult = service.shareToPost(myScheduleId, userId, isAnonymous);
 
 		result = (strResult == null) ? false : true;

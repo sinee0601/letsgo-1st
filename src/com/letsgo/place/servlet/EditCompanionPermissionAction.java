@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.ColleagueVO;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class EditCompanionPermissionAction implements Action {
 
@@ -22,7 +22,7 @@ public class EditCompanionPermissionAction implements Action {
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 
 		
-		request.setAttribute("result", new MyScheduleService().setCompanionPermission(myScheduleId, sharedUserId, permission));
+		request.setAttribute("result", new MyScheduleServiceMB().setCompanionPermission(myScheduleId, sharedUserId, permission));
 		System.out.println(request.getAttribute("result"));
 		return "jsonResult.jsp";
 	}

@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class AddVisitItemAction implements Action {
 
@@ -26,7 +26,7 @@ public class AddVisitItemAction implements Action {
 		String visitOrderStr = request.getParameter("visitOrder");
 		int visitOrder = (visitOrderStr != null) ? Integer.parseInt(visitOrderStr) : 1;
 		
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		boolean result = service.addVisitItem(visitOrder, placeId, myScheduleId);
 		
 		request.setAttribute("addVisitItemResult", result);

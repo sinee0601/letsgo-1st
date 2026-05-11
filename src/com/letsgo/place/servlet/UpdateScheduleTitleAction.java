@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class UpdateScheduleTitleAction implements Action {
 
@@ -24,7 +24,7 @@ public class UpdateScheduleTitleAction implements Action {
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		String title = request.getParameter("title");
 		
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		boolean result = service.setMyScheduleTitle(title, myScheduleId, userId);
 		
 		request.setAttribute("updateTitleResult", result);

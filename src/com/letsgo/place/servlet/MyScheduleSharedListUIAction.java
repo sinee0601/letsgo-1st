@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.MyScheduleVO;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class MyScheduleSharedListUIAction implements Action {
 
@@ -27,7 +27,7 @@ public class MyScheduleSharedListUIAction implements Action {
 			return "login.jsp";
 		}
 
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		List<MyScheduleVO> list;
 
 		boolean hasKeyword = title != null && !title.trim().isEmpty();

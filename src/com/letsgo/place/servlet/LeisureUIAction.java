@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.PlaceVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 import com.letsgo.place.service.PlaceService;
 
 public class LeisureUIAction implements Action {
@@ -28,7 +28,7 @@ public class LeisureUIAction implements Action {
             String scheduleId = (String) session.getAttribute("currentScheduleId");
             String userId = (String) session.getAttribute("loginOK");
             if (scheduleId != null && userId != null) {
-                MyScheduleService svc = new MyScheduleService();
+                MyScheduleServiceMB svc = new MyScheduleServiceMB();
                 List<RouteScheduleVO> routes = svc.getScheduleRoute(scheduleId);
                 session.setAttribute("lockedCartItems", routes);
                 session.setAttribute("fromScheduleMode", Boolean.TRUE);

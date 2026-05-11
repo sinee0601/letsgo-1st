@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class DeleteVisitItemAction implements Action {
 
@@ -23,7 +23,7 @@ public class DeleteVisitItemAction implements Action {
 
 		String visitItemId = request.getParameter("visitItemId");
 		
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		boolean result = service.deleteVisitItemById(visitItemId);
 		
 		request.setAttribute("deleteVisitItemResult", result);

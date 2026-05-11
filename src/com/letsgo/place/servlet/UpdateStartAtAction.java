@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class UpdateStartAtAction implements Action {
 
@@ -25,7 +25,7 @@ public class UpdateStartAtAction implements Action {
 		String startAt = request.getParameter("startAt");
 
 		if (myScheduleId != null && startAt != null && startAt.matches("\\d{4}-\\d{2}-\\d{2}")) {
-			MyScheduleService service = new MyScheduleService();
+			MyScheduleServiceMB service = new MyScheduleServiceMB();
 			service.setStartAt(myScheduleId, startAt, userId);
 		}
 

@@ -1,4 +1,4 @@
-package com.letsgo.place.servlet;
+﻿package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 
 public class AddCompanionAction implements Action {
 
@@ -18,7 +18,7 @@ public class AddCompanionAction implements Action {
 		String sharedUserId = (String) request.getParameter("sharedUserId");
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		boolean flag = service.addCompanion(myScheduleId, sharedUserId);
 		
 		return "controller?cmd=myScheduleShareUI";

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.MapScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 public class MyScheduleRouteManageUIAction implements Action {
 
 	@Override
@@ -32,7 +32,7 @@ public class MyScheduleRouteManageUIAction implements Action {
 		} else {
 			myScheduleId = (String) session.getAttribute("currentScheduleId");
 		}
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceMB service = new MyScheduleServiceMB();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(myScheduleId);
 		String scheduleTitle = service.getScheduleTitle(myScheduleId);
 		List<MapScheduleVO> mapList = service.getMapSchedule(myScheduleId);

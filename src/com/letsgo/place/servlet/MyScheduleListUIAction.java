@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.MyScheduleVO;
 import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
-import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 import com.letsgo.place.service.MyScheduleServiceInterface;
 
 public class MyScheduleListUIAction implements Action {
