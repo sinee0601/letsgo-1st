@@ -21,8 +21,7 @@ import com.letsgo.place.service.MyScheduleService.NewScheduleFromCartResult;
 
 public class MyScheduleServiceMB implements MyScheduleServiceInterface {
 
-	public MyScheduleServiceMB() {
-	}
+
 	
 	@Override
 	public List<MyScheduleVO> getMyScheduleListAllByDate(String userId) {
