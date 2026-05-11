@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis.dao;
+﻿package com.letsgo.place.mybatis.service;
 
 import com.letsgo.place.service.UserServiceInterface;
 
@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.letsgo.place.model.dao.UserDAOInterface;
 import com.letsgo.place.model.vo.UserVO;
+import com.letsgo.place.mybatis.dao.DBCPMybatis;
+import com.letsgo.place.mybatis.dao.UserDAOMB;
 
 public class UserServiceMB implements UserServiceInterface {
 
