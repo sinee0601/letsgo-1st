@@ -7,8 +7,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 import com.letsgo.place.model.vo.PlaceVO;
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class RestaurantUIAction implements Action {
 
@@ -16,7 +17,7 @@ public class RestaurantUIAction implements Action {
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		String sortOrder = request.getParameter("sortOrder");
-		PlaceService placeService = new PlaceService();
+		PlaceServiceInterface placeService = new PlaceServiceMB();
 		
         List<PlaceVO> restaurantPlaceList;
         

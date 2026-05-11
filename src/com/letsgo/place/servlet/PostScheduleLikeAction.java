@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.PostScheduleService;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
 
 
 public class PostScheduleLikeAction implements Action {
@@ -16,7 +16,7 @@ public class PostScheduleLikeAction implements Action {
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		String postId = request.getParameter("postId");
-		PostScheduleService service = new PostScheduleService();
+		PostScheduleServiceMB service = new PostScheduleServiceMB();
 		int likeCount = 0;
 		boolean flag = false;
 

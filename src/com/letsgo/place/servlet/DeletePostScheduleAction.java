@@ -1,17 +1,11 @@
 package com.letsgo.place.servlet;
 
 
-import java.io.IOException;
 import java.sql.SQLException;
-
-import javax.servlet.ServletException;
-
-import java.sql.SQLException;
-
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.service.PostScheduleService;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
 
 public class DeletePostScheduleAction implements Action {
 
@@ -19,7 +13,7 @@ public class DeletePostScheduleAction implements Action {
 	public String execute(HttpServletRequest request) throws ClassNotFoundException, SQLException {
 		String postId = request.getParameter("postId");
 		
-		PostScheduleService service = new PostScheduleService();
+		PostScheduleServiceMB service = new PostScheduleServiceMB();
 		boolean result = service.deletePostScheduleAndVisitItem(postId);
 		
 		request.setAttribute("result", result);

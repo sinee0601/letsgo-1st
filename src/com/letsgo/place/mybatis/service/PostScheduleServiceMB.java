@@ -1,4 +1,4 @@
-﻿package com.letsgo.place.mybatis.service;
+package com.letsgo.place.mybatis.service;
 
 import com.letsgo.place.service.PostScheduleServiceInterface;
 
@@ -15,19 +15,9 @@ import com.letsgo.place.mybatis.dao.PostScheduleDAOMB;
 
 public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 
-	private PostScheduleDAOInterface dao;
-	private SqlSession session;
-
-	public PostScheduleServiceMB() {
-		session = DBCPMybatis.getSqlSession();
-		dao = new PostScheduleDAOMB(session);
-	}
-	
-	public void close() {
-		session.close();
-	}
-
 	public boolean deletePostScheduleAndVisitItem(String scheduleId) {
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
 		try {
 			dao.deleteVisitItem(scheduleId);
 			dao.deletePostSchedule(scheduleId);
@@ -36,10 +26,15 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 		} catch (Exception e) {
 			session.rollback();
 			return false;
+		} finally {
+			session.close();
 		}
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleList(String sortOrder, String keyword) {
+		if (sortOrder == null || sortOrder.trim().isEmpty()) {
+			sortOrder = "latest";
+		}
 		if (keyword == null || keyword.trim().isEmpty()) {
 			switch (sortOrder) {
 				case "like":  return getPostScheduleListLike();
@@ -58,6 +53,9 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 	}
 
 	public List<PostScheduleVO> getUserPostScheduleList(String userId, String sortOrder, String keyword) {
+		if (sortOrder == null || sortOrder.trim().isEmpty()) {
+			sortOrder = "latest";
+		}
 		if (keyword == null || keyword.trim().isEmpty()) {
 			switch (sortOrder) {
 				case "like":  return getUserPostScheduleListLike(userId);
@@ -74,133 +72,243 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 			}
 		}
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListLike() {
-		return dao.getPostScheduleListLike();
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListLike();
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListView() {
-		return dao.getPostScheduleListView();
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListView();
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListTitle() {
-		return dao.getPostScheduleListTitle();
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListTitle();
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListLatest() {
-		return dao.getPostScheduleListLatest();
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListLatest();
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListLike(String keyword) {
-		return dao.getPostScheduleListLike(keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListLike(keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListView(String keyword) {
-		return dao.getPostScheduleListView(keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListView(keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListTitle(String keyword) {
-		return dao.getPostScheduleListTitle(keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListTitle(keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getPostScheduleListLatest(String keyword) {
-		return dao.getPostScheduleListLatest(keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getPostScheduleListLatest(keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListLike(String userId) {
-		return dao.getUserPostScheduleListLike(userId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListLike(userId);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListView(String userId) {
-		return dao.getUserPostScheduleListView(userId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListView(userId);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId) {
-		return dao.getUserPostScheduleListTitle(userId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListTitle(userId);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId) {
-		return dao.getUserPostScheduleListLatest(userId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListLatest(userId);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListLike(String userId, String keyword) {
-		return dao.getUserPostScheduleListLike(userId, keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListLike(userId, keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListView(String userId, String keyword) {
-		return dao.getUserPostScheduleListView(userId, keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListView(userId, keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListTitle(String userId, String keyword) {
-		return dao.getUserPostScheduleListTitle(userId, keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListTitle(userId, keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public List<PostScheduleVO> getUserPostScheduleListLatest(String userId, String keyword) {
-		return dao.getUserPostScheduleListLatest(userId, keyword);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<PostScheduleVO> result = dao.getUserPostScheduleListLatest(userId, keyword);
+		session.close();
+		return result;
 	}
-	
+
 	public String getBudgetDetail(String postId) {
-		return dao.getBudgetDetail(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		String result = dao.getBudgetDetail(postId);
+		session.close();
+		return result;
 	}
-	
+
 	public String getTodoDetail(String postId) {
-		return dao.getTodoDetail(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		String result = dao.getTodoDetail(postId);
+		session.close();
+		return result;
 	}
-	
+
 	public List<RouteScheduleVO> getScheduleRoute(String postId) {
-		return dao.getScheduleRoute(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<RouteScheduleVO> result = dao.getScheduleRoute(postId);
+		session.close();
+		return result;
 	}
-	
+
 	public List<MapScheduleVO> getMapSchedule(String postId) {
-		return dao.getMapSchedule(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		List<MapScheduleVO> result = dao.getMapSchedule(postId);
+		session.close();
+		return result;
 	}
-	
-	public String getScheduleTitle (String postId) {
-		return dao.getScheduleTitle(postId);
+
+	public String getScheduleTitle(String postId) {
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+	    String result = dao.getScheduleTitle(postId);
+		session.close();
+		return result;
 	}
-	
+
 	public int getLikeCount(String postId) {
-		return dao.getLikeCount(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		try {
+			return dao.getLikeCount(postId);
+		} finally {
+			session.close();
+		}
 	}
-	
+
 	public int getViewCount(String postId) {
-		return dao.getViewCount(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		try {
+			return dao.getViewCount(postId);
+		} finally {
+			session.close();
+		}
 	}
-	
+
 	public boolean plusLike(String postId) {
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
 		try {
-	        boolean result = dao.plusLike(postId);
-	        session.commit();
-	        return result;
-	    } catch (Exception e) {
-	        session.rollback();
-	        return false;
-	    }
+			boolean result = dao.plusLike(postId);
+			session.commit();
+			return result;
+		} catch (Exception e) {
+			session.rollback();
+			return false;
+		} finally {
+			session.close();
+		}
 	}
-	
+
 	public boolean plusView(String postId) {
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
 		try {
-	        boolean result = dao.plusView(postId);
-	        session.commit();
-	        return result;
-	    } catch (Exception e) {
-	        session.rollback();
-	        return false;
-	    }
+			boolean result = dao.plusView(postId);
+			session.commit();
+			return result;
+		} catch (Exception e) {
+			session.rollback();
+			return false;
+		} finally {
+			session.close();
+		}
 	}
-	
+
 	public String getUserId(String postId) {
-		return dao.getUserId(postId);
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
+		try {
+			return dao.getUserId(postId);
+		} finally {
+			session.close();
+		}
 	}
-	
 
 	public boolean addToMySchedule(String postId, String userId) {
+		SqlSession session = DBCPMybatis.getSqlSession();
+		PostScheduleDAOInterface dao = new PostScheduleDAOMB(session);
 		try {
 			String title        = dao.getScheduleTitle(postId);
 			String budgetDetail = dao.getBudgetDetail(postId);
 			String todoDetail   = dao.getTodoDetail(postId);
 			List<RouteScheduleVO> routes = dao.getScheduleRoute(postId);
-
 			String myScheduleId = dao.copyToMySchedule(title, budgetDetail, todoDetail, userId);
 			for (RouteScheduleVO route : routes) {
 				dao.copyToVisitItem(myScheduleId, route);
@@ -210,10 +318,8 @@ public class PostScheduleServiceMB implements PostScheduleServiceInterface {
 		} catch (Exception e) {
 			session.rollback();
 			return false;
+		} finally {
+			session.close();
 		}
 	}
 }
-
-
-
-

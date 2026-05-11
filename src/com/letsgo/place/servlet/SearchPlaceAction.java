@@ -7,8 +7,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 import com.letsgo.place.model.vo.PlaceVO;
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class SearchPlaceAction implements Action {
 
@@ -25,9 +26,8 @@ public class SearchPlaceAction implements Action {
             placeType = "LEISURE"; 
         }
 
-        PlaceService placeService = new PlaceService();
-        
-        List<PlaceVO> placeList = placeService.searchPlaces(placeType, category, keyword, sortOrder);
+        PlaceServiceInterface placeService = new PlaceServiceMB();
+        List<PlaceVO> placeList = searchPlaces(placeService, placeType, category, keyword, sortOrder);
         
         int totalCount = placeList.size(); 
         request.setAttribute("totalCount", totalCount);
@@ -45,5 +45,30 @@ public class SearchPlaceAction implements Action {
             return "leisure.jsp";
         }
 	}
+
+    private List<PlaceVO> searchPlaces(PlaceServiceInterface placeService, String placeType, String category,
+            String keyword, String sortOrder) {
+        boolean hasCategory = category != null && !category.trim().isEmpty();
+        boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+        boolean orderByLike = "popular".equals(sortOrder) || "like".equals(sortOrder);
+
+        if (hasCategory && hasKeyword) {
+            return orderByLike
+                    ? placeService.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword)
+                    : placeService.searchPlacesByCategoryAndKeywordOrderByTitle(placeType, category, keyword);
+        }
+        if (hasCategory) {
+            return orderByLike
+                    ? placeService.searchPlacesByCategoryOrderByLike(placeType, category)
+                    : placeService.searchPlacesByCategoryOrderByTitle(placeType, category);
+        }
+        if (hasKeyword) {
+            return orderByLike
+                    ? placeService.searchPlacesByKeywordOrderByLike(placeType, keyword)
+                    : placeService.searchPlacesByKeywordOrderByTitle(placeType, keyword);
+        }
+        return orderByLike ? placeService.searchPlacesOrderByLike(placeType)
+                : placeService.searchPlacesOrderByTitle(placeType);
+    }
 }
 

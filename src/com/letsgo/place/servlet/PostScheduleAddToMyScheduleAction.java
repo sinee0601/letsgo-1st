@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.service.PostScheduleService;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
 
 public class PostScheduleAddToMyScheduleAction implements Action {
 
@@ -18,7 +18,7 @@ public class PostScheduleAddToMyScheduleAction implements Action {
 		String userId = (String) session.getAttribute("loginOK");
 		String postId = request.getParameter("postId");
 
-		PostScheduleService service = new PostScheduleService();
+		PostScheduleServiceMB service = new PostScheduleServiceMB();
 		
 		if (userId == null) {
 			return "login.jsp";

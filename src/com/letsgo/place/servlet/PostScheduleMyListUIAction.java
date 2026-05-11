@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.PostScheduleVO;
-import com.letsgo.place.service.PostScheduleService;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
 
 public class PostScheduleMyListUIAction implements Action {
 
@@ -28,7 +28,7 @@ public class PostScheduleMyListUIAction implements Action {
 			return "login.jsp";
 		}
 	
-		PostScheduleService service = new PostScheduleService();
+		PostScheduleServiceMB service = new PostScheduleServiceMB();
 		List<PostScheduleVO> list = null;
 		
 		// 1. 검색어(title/keyword)가 있는 경우

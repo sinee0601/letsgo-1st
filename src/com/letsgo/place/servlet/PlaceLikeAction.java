@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class PlaceLikeAction implements Action {
     @Override
@@ -16,7 +17,7 @@ public class PlaceLikeAction implements Action {
         String placeId = request.getParameter("placeId");
         String sort = request.getParameter("sortOrder");
         
-        PlaceService placeService = new PlaceService();
+        PlaceServiceInterface placeService = new PlaceServiceMB();
         if (placeId != null && !placeId.trim().isEmpty()) {
             placeService.setPlaceLikeCount(placeId);
         }

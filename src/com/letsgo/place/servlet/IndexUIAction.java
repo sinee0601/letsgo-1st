@@ -7,8 +7,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 import com.letsgo.place.model.vo.PlaceVO;
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class IndexUIAction implements Action {
 
@@ -18,7 +19,7 @@ public class IndexUIAction implements Action {
 		if (sort == null || sort.trim().isEmpty()) {
 			sort = "distance";
 		}
-		PlaceService placeService = new PlaceService();
+		PlaceServiceInterface placeService = new PlaceServiceMB();
 		List<PlaceVO> leisurePlaceList;
 		if ("like".equals(sort)) {
 			leisurePlaceList = placeService.getLeisurePlacesOrderByLikeDesc();

@@ -9,8 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 import com.letsgo.place.model.vo.PlaceVO;
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class AddCartAction implements Action {
 
@@ -48,7 +49,7 @@ public class AddCartAction implements Action {
 			return new IndexUIAction().execute(request);
 		}
 	
-		PlaceService service = new PlaceService();
+		PlaceServiceInterface service = new PlaceServiceMB();
 		PlaceVO place = service.getPlaceById(placeId);
 		if (place != null) {
 			place.setPlaceType(placeType);

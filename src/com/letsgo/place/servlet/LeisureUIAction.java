@@ -8,17 +8,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.letsgo.place.mybatis.service.PlaceServiceMB;
 import com.letsgo.place.model.vo.PlaceVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
-import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
-import com.letsgo.place.service.PlaceService;
+import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.service.PlaceServiceInterface;
 
 public class LeisureUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		List<PlaceVO> leisurePlaceList = new PlaceService().getPlaceOrderByLike("LEISURE");
+		PlaceServiceInterface placeService = new PlaceServiceMB();
+		List<PlaceVO> leisurePlaceList = placeService.getPlaceOrderByLike("LEISURE");
         request.setAttribute("leisurePlaceList", leisurePlaceList);
         request.setAttribute("totalCount", leisurePlaceList.size());
 

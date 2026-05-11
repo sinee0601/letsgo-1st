@@ -22,10 +22,12 @@
     </resultMap>
 
     <resultMap id="routeScheduleResultMap" type="com.letsgo.place.model.vo.RouteScheduleVO">
-        <result property="visitId"       column="VISIT_ITEM_ID"/>
-        <result property="visitOrder"    column="VISIT_ORDER"/>
-        <result property="placeId"       column="PLACE_ID"/>
-        <result property="title"         column="TITLE"/>
+        <result property="visitId"        column="VISIT_ITEM_ID"/>
+        <result property="visitOrder"     column="VISIT_ORDER"/>
+        <result property="placeId"        column="PLACE_ID"/>
+        <result property="title"          column="TITLE"/>
+        <result property="distanceToNext" column="DISTANCE_TO_NEXT"/>
+        <result property="scheduleType"   column="SCHEDULE_TYPE"/>
     </resultMap>
 
     <resultMap id="mapScheduleResultMap" type="com.letsgo.place.model.vo.MapScheduleVO">
@@ -190,7 +192,8 @@
     </select>
 
     <select id="getScheduleRoute" parameterType="String" resultMap="routeScheduleResultMap">
-        SELECT v.VISIT_ITEM_ID, v.VISIT_ORDER, p.PLACE_ID, p.TITLE
+        SELECT v.VISIT_ITEM_ID, v.VISIT_ORDER, p.PLACE_ID, p.TITLE,
+               v.DISTANCE_TO_NEXT, v.SCHEDULE_TYPE
         FROM SCHEDULE_POST sp
         JOIN VISIT_ITEM v ON sp.POST_ID  = v.SCHEDULE_ID
         JOIN PLACE      p ON v.PLACE_ID  = p.PLACE_ID
