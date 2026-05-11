@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.RouteScheduleVO;
-import com.letsgo.place.service.PostScheduleService;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
 
 public class PostScheduleTodoListUIAction implements Action {
 
@@ -25,7 +25,7 @@ public class PostScheduleTodoListUIAction implements Action {
 		}
 		
 		String postId = (String) session.getAttribute("currentPostScheduleId");
-		PostScheduleService service = new PostScheduleService();
+		PostScheduleServiceMB service = new PostScheduleServiceMB();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>)service.getScheduleRoute(postId);
 		String todoDetail = service.getTodoDetail(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.MapScheduleVO;
 import com.letsgo.place.model.vo.RouteScheduleVO;
-import com.letsgo.place.service.PostScheduleService;
+import com.letsgo.place.mybatis.service.PostScheduleServiceMB;
 
 public class PostScheduleDetailAction implements Action {
 
@@ -22,7 +22,7 @@ public class PostScheduleDetailAction implements Action {
 		String userId = (String) session.getAttribute("loginOK");
 		String postId = request.getParameter("postId");
 
-		PostScheduleService service = new PostScheduleService();
+		PostScheduleServiceMB service = new PostScheduleServiceMB();
 		
 		if (userId == null) {
 			return "login.jsp";
