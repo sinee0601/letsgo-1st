@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.vo.MyScheduleVO;
+import com.letsgo.place.mybatis.service.MyScheduleServiceMB;
 import com.letsgo.place.service.MyScheduleService;
+import com.letsgo.place.service.MyScheduleServiceInterface;
 
 public class MyScheduleListUIAction implements Action {
 
@@ -33,7 +35,7 @@ public class MyScheduleListUIAction implements Action {
 		boolean isSortTitle = "title".equals(sortOrder);
 		boolean isShared = "true".equals(sharedFilter);
 
-		MyScheduleService service = new MyScheduleService();
+		MyScheduleServiceInterface service = new MyScheduleServiceMB();
 		List<MyScheduleVO> list;
 
 		if (isShared) {
