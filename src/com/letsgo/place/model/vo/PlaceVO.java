@@ -29,7 +29,10 @@ public class PlaceVO {
 		setMapx(mapx);
 		setMapy(mapy);
 	}
-
+	
+	public PlaceVO() {
+    }
+	
 	public String getPlaceId() {
 		return placeId;
 	}
