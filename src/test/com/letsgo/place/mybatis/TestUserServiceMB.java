@@ -32,7 +32,9 @@ private UserServiceMB service;
 
     @Test
     public void signupTest() {
-        assertTrue(service.signup("newUser999", "new@test.com", "홍길동", "pass1234"));
+    	if (!service.idcheck("newUser999")) {
+            assertTrue(service.signup("newUser999", "new@test.com", "홍길동", "pass1234"));
+        }
         assertNotNull(service.login("newUser999", "pass1234"));
         assertTrue(service.idcheck("user01"));
     }

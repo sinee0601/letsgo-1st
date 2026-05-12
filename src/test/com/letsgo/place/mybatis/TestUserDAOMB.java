@@ -31,7 +31,7 @@ public class TestUserDAOMB {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void loginTest(){
         UserVO result = dao.login("user01", "pass123");
         assertNotNull(result);
@@ -48,13 +48,13 @@ public class TestUserDAOMB {
         assertTrue("중복 ID는 idcheck에서 true여야 합니다", dao.idcheck("user01"));
 	}
 	
-	//@Test
+	@Test
 	public void idcheckTest(){
         assertTrue(dao.idcheck("user01"));
         assertFalse(dao.idcheck("user9999"));
 	}
 
-	//@Test
+	@Test
 	public void updatePasswordTest(){
 		assertTrue(dao.updatePassword("user01", "kim@test.com", "newPass999"));
         assertNotNull(dao.login("user01", "newPass999"));
@@ -62,7 +62,7 @@ public class TestUserDAOMB {
         assertFalse(dao.updatePassword("user9999", "any@email.com", "pass"));
 	}
 	
-	//@Test
+	@Test
 	public void findUserIdByNameAndEmailTest(){
 		String result = dao.findUserIdByNameAndEmail("김철수", "kim@test.com");
         assertNotNull(result);
