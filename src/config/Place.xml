@@ -310,4 +310,50 @@
 		ORDER BY LIKE_COUNT DESC
 	</select>
 
+	<!--
+		장바구니 내 LEISURE 좌표 기준 반경 (km) 내 PLACE 조회.
+		- mapx = 경도(longitude), mapy = 위도(latitude). 컬럼/파라미터 모두 VARCHAR이라 TO_NUMBER 변환
+		- 거리 계산: Haversine 공식 (R = 6371km), 0.017453292519943295 = π/180
+		- category, keywordPattern 은 선택 (null/빈문자열 → 조건 생략)
+		- orderByLike=true → 좋아요순, 그 외 → 거리순 (둘 다 반경 필터 적용)
+	-->
+	<select id="searchNearbyPlaces" parameterType="map" resultType="com.letsgo.place.model.vo.PlaceVO">
+		SELECT placeId, title, firstImage, addr1, mapx, mapy, likeCount, placeType
+		FROM (
+			SELECT PLACE_ID AS placeId,
+			       TITLE AS title,
+			       FIRST_IMAGE AS firstImage,
+			       ADDR1 AS addr1,
+			       MAPX AS mapx,
+			       MAPY AS mapy,
+			       LIKE_COUNT AS likeCount,
+			       #{placeType} AS placeType,
+			       (6371 * 2 * ASIN(SQRT(
+			           POWER(SIN((TO_NUMBER(MAPY) - TO_NUMBER(#{centerLat})) * 0.017453292519943295 / 2), 2)
+			         + COS(TO_NUMBER(MAPY) * 0.017453292519943295)
+			           * COS(TO_NUMBER(#{centerLat}) * 0.017453292519943295)
+			           * POWER(SIN((TO_NUMBER(MAPX) - TO_NUMBER(#{centerLon})) * 0.017453292519943295 / 2), 2)
+			       ))) AS distance_km
+			FROM PLACE
+			WHERE PLACE_TYPE = #{placeType}
+			  AND MAPX IS NOT NULL
+			  AND MAPY IS NOT NULL
+			<if test="category != null and category != ''">
+			  AND LCLSSYSTM3 = #{category}
+			</if>
+			<if test="keywordPattern != null and keywordPattern != ''">
+			  AND (TITLE LIKE #{keywordPattern} OR ADDR1 LIKE #{keywordPattern})
+			</if>
+		)
+		WHERE distance_km &lt;= #{radiusKm}
+		<choose>
+			<when test="orderByLike == true">
+		ORDER BY likeCount DESC, distance_km ASC
+			</when>
+			<otherwise>
+		ORDER BY distance_km ASC
+			</otherwise>
+		</choose>
+	</select>
+
 </mapper>

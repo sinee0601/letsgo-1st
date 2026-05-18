@@ -81,6 +81,11 @@ function startFloatingCart(contextPath) {
 			return;
 		}
 
+		if ((placeType == 'RESTAURANT' || placeType == 'STAY') && !hasLeisurePlace(cartBox)) {
+			alert('레저스포츠를 먼저 장바구니에 담아주세요.');
+			return;
+		}
+
 		saveCartToSession(contextPath, placeId, placeType);
 		addCartRow(cartBox, placeId, placeTitle, placeType);
 		refreshCartCount(cartBox, countText);

@@ -489,6 +489,57 @@ public class PlaceDAO implements PlaceDAOInterface {
         return list;
     }
 
+    // 장바구니 내 LEISURE 좌표 기준 반경(km) 내 PLACE 조회 (식당/숙박)
+    public List<PlaceVO> searchNearbyPlaces(String placeType, String centerLon, String centerLat,
+            double radiusKm, String category, String keyword, boolean orderByLike) {
+        List<PlaceVO> list = new ArrayList<>();
+        boolean hasCategory = category != null && !category.isEmpty();
+        boolean hasKeyword = keyword != null && !keyword.isEmpty();
+
+        StringBuilder sql = new StringBuilder()
+                .append("SELECT place_id, title, first_image, addr1, mapx, mapy, like_count FROM (")
+                .append("  SELECT place_id, title, first_image, addr1, mapx, mapy, like_count, ")
+                .append(PlaceQuery.NEARBY_HAVERSINE_KM_TEMPLATE).append(" AS distance_km")
+                .append("  FROM place WHERE place_type = ?")
+                .append("    AND mapx IS NOT NULL AND mapy IS NOT NULL");
+        if (hasCategory) {
+            sql.append("    AND lclssystm3 = ?");
+        }
+        if (hasKeyword) {
+            sql.append("    AND (title LIKE ? OR addr1 LIKE ?)");
+        }
+        sql.append(") WHERE distance_km <= ? ");
+        sql.append(orderByLike ? "ORDER BY like_count DESC, distance_km ASC" : "ORDER BY distance_km ASC");
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int idx = 1;
+            // Haversine 템플릿 바인딩 순서: (mapy 기준차), (centerLat), (mapx 기준차)
+            stmt.setString(idx++, centerLat);
+            stmt.setString(idx++, centerLat);
+            stmt.setString(idx++, centerLon);
+            stmt.setString(idx++, placeType);
+            if (hasCategory) {
+                stmt.setString(idx++, category);
+            }
+            if (hasKeyword) {
+                String pattern = "%" + keyword + "%";
+                stmt.setString(idx++, pattern);
+                stmt.setString(idx++, pattern);
+            }
+            stmt.setDouble(idx++, radiusKm);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                            rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"),
+                            rs.getInt("like_count"), placeType));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     // 카테고리와 키워드 조건을 모두 만족하는 장소를 좋아요순으로 조회
     public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category,
             String keyword) {

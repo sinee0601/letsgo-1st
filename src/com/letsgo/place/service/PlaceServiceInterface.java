@@ -57,5 +57,9 @@ public interface PlaceServiceInterface {
     List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category, String keyword);
 
     List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword);
+
+    // 장바구니 내 LEISURE 좌표 기준 반경(km) 내 PLACE 조회 (식당/숙박)
+    List<PlaceVO> searchNearbyPlaces(String placeType, String centerLon, String centerLat,
+            double radiusKm, String category, String keyword, boolean orderByLike);
 }
 

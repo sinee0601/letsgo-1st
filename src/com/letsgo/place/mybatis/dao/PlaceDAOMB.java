@@ -195,4 +195,18 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		return session.selectOne("PlaceMapper.getPlaceByPlaceId", placeId);
 	}
 
+	@Override
+	public List<PlaceVO> searchNearbyPlaces(String placeType, String centerLon, String centerLat,
+			double radiusKm, String category, String keyword, boolean orderByLike) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("placeType", placeType);
+		params.put("centerLon", centerLon);
+		params.put("centerLat", centerLat);
+		params.put("radiusKm", radiusKm);
+		params.put("category", category);
+		params.put("keywordPattern", (keyword == null || keyword.isEmpty()) ? null : "%" + keyword + "%");
+		params.put("orderByLike", orderByLike);
+		return session.selectList("PlaceMapper.searchNearbyPlaces", params);
+	}
+
 }
