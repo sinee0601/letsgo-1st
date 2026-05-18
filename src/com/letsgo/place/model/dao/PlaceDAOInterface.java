@@ -82,5 +82,10 @@ public interface PlaceDAOInterface {
     // 카테고리 + 키워드 조건 좋아요순 검색
     List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword);
 
-   
+    // 장바구니 내 LEISURE 좌표 기준 반경(km) 내 PLACE 조회 (식당/숙박)
+    //  - category/keyword 는 옵션 (null 또는 빈문자열이면 조건 미적용)
+    //  - orderByLike=true 면 좋아요순, false 면 거리순 (둘 다 반경 필터 내)
+    List<PlaceVO> searchNearbyPlaces(String placeType, String centerLon, String centerLat,
+            double radiusKm, String category, String keyword, boolean orderByLike);
+
 }

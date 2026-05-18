@@ -145,6 +145,13 @@ public class PlaceServiceMB implements PlaceServiceInterface {
 		return executeRead(dao -> dao.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword));
 	}
 
+	@Override
+	public List<PlaceVO> searchNearbyPlaces(String placeType, String centerLon, String centerLat,
+			double radiusKm, String category, String keyword, boolean orderByLike) {
+		return executeRead(dao -> dao.searchNearbyPlaces(
+				placeType, centerLon, centerLat, radiusKm, category, keyword, orderByLike));
+	}
+
 	//조회 공통 처리
 	private <T> T executeRead(Function<PlaceDAOInterface, T> action) {
 		return withSession(session -> {

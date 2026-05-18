@@ -195,8 +195,11 @@ public class PlaceService implements PlaceServiceInterface {
 	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword) {
 		return dao.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword);
 	}
-	
-	
+
+	public List<PlaceVO> searchNearbyPlaces(String placeType, String centerLon, String centerLat,
+			double radiusKm, String category, String keyword, boolean orderByLike) {
+		return dao.searchNearbyPlaces(placeType, centerLon, centerLat, radiusKm, category, keyword, orderByLike);
+	}
 
 }
 

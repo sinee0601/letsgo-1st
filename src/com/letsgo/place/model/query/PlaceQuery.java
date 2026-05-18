@@ -55,5 +55,21 @@ public interface PlaceQuery {
 	String SET_COUNTING_SQL = "UPDATE place SET like_count = like_count + 1 WHERE place_id = ?";
 
 	String INSERT_VISIT_ITEM_SQL = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE) VALUES ((SELECT NVL(MAX(VISIT_ITEM_ID), 0) + 1 FROM VISIT_ITEM), ?, ?, ?, ?, ?)";
+
+	/*
+	 * 장바구니 내 LEISURE 좌표 기준 반경(km) 내 PLACE 조회 (식당/숙박).
+	 *  - Haversine 공식 (지구 반경 6371km, 0.017453292519943295 = π/180)
+	 *  - mapx = 경도, mapy = 위도
+	 *  - 바인딩 순서: placeType, [category], [keywordPattern x2], centerLat(=mapy), centerLat, centerLon(=mapx), radiusKm,
+	 *                그리고 ORDER BY 가 distance 인 경우 centerLat, centerLat, centerLon 추가
+	 *  - 동적 WHERE/ORDER 조합이 복잡해 호출 측에서 직접 SQL 을 조립한다 (PlaceDAO 참고)
+	 */
+	String NEARBY_HAVERSINE_KM_TEMPLATE =
+			"(6371 * 2 * ASIN(SQRT(" +
+			"  POWER(SIN((TO_NUMBER(MAPY) - TO_NUMBER(?)) * 0.017453292519943295 / 2), 2)" +
+			" + COS(TO_NUMBER(MAPY) * 0.017453292519943295)" +
+			"   * COS(TO_NUMBER(?) * 0.017453292519943295)" +
+			"   * POWER(SIN((TO_NUMBER(MAPX) - TO_NUMBER(?)) * 0.017453292519943295 / 2), 2)" +
+			")))";
 }
 
