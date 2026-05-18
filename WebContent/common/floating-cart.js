@@ -202,7 +202,23 @@ function saveCartToSession(contextPath, placeId, placeType) {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
 		body: data
+	}).then(function (response) {
+		if (response.ok) {
+			showCartToast('장바구니에 담았습니다');
+		}
 	});
+}
+
+function showCartToast(message) {
+	var toast = document.createElement('div');
+	toast.className = 'cart-toast';
+	toast.textContent = message;
+	document.body.appendChild(toast);
+	setTimeout(function () {
+		if (toast.parentNode) {
+			toast.parentNode.removeChild(toast);
+		}
+	}, 2500);
 }
 
 function addCartRow(cartBox, placeId, placeTitle, placeType) {
