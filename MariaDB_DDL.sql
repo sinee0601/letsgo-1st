@@ -1,5 +1,3 @@
--- MariaDB 기준 DDL
-
 CREATE TABLE users
 (
     user_id  VARCHAR(50)  NOT NULL,
@@ -7,7 +5,7 @@ CREATE TABLE users
     name     VARCHAR(50)  NOT NULL,
     password VARCHAR(255) NOT NULL,
     CONSTRAINT pk_users PRIMARY KEY (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE place
@@ -16,64 +14,65 @@ CREATE TABLE place
     title       VARCHAR(255) NOT NULL,
     addr1       VARCHAR(255),
     addr2       VARCHAR(255),
-    mapx        DOUBLE(50) NOT NULL,
-    mapy        DOUBLE(50) NOT NULL,
-    first_image VARCHAR(255),
-    like_count  INT(50) DEFAULT 0,
+    mapx        VARCHAR(100) NOT NULL,
+    mapy        VARCHAR(100) NOT NULL,
+    first_image TEXT,
+    like_count  BIGINT DEFAULT 0,
     place_type  VARCHAR(20)  NOT NULL,
     lclssystm1  VARCHAR(50),
     lclssystm2  VARCHAR(50),
     lclssystm3  VARCHAR(50),
     CONSTRAINT pk_place PRIMARY KEY (place_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE my_schedule
 (
     my_schedule_id VARCHAR(50)  NOT NULL,
     title          VARCHAR(255) NOT NULL,
     start_at       DATETIME     NOT NULL,
-    budget_details VARCHAR(255),
-    todo_details   VARCHAR(255),
-    is_shared      INT(1) DEFAULT 0,
+    budget_details TEXT,
+    todo_details   TEXT,
+    is_shared      TINYINT(1) DEFAULT 0,
     user_id        VARCHAR(50)  NOT NULL,
     CONSTRAINT pk_my_schedule PRIMARY KEY (my_schedule_id),
-    CONSTRAINT fk_schedule_user FOREIGN KEY (user_id) REFERENCES users (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    CONSTRAINT fk_schedule_user FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE SCHEDULE_POST
+CREATE TABLE schedule_post
 (
-    POST_ID        VARCHAR(50)  NOT NULL,
-    TITLE          VARCHAR(255) NOT NULL,
-    LIKE_COUNT     INT(50) DEFAULT 0,
-    VIEW_COUNT     INT(50) DEFAULT 0,
-    BUDGET_DETAILS VARCHAR(255),
-    TODO_DETAILS   VARCHAR(255),
-    POSTED_AT      DATE          NOT NULL,
-    IS_ANONYMOUS   NUMBER(1)     NOT NULL,
-    USER_ID        VARCHAR2(20)  NOT NULL,
-    CONSTRAINT PK_POST PRIMARY KEY (POST_ID),
-    CONSTRAINT FK_POST_USER FOREIGN KEY (USER_ID) REFERENCES USERS (USER_ID)
-);
+    post_id        VARCHAR(50)  NOT NULL,
+    title          VARCHAR(255) NOT NULL,
+    like_count     BIGINT DEFAULT 0,
+    view_count     BIGINT DEFAULT 0,
+    budget_details TEXT,
+    todo_details   TEXT,
+    posted_at      DATETIME     NOT NULL,
+    is_anonymous   TINYINT(1)   NOT NULL,
+    user_id        VARCHAR(50)  NOT NULL,
+    CONSTRAINT pk_schedule_post PRIMARY KEY (post_id),
+    CONSTRAINT fk_post_user FOREIGN KEY (user_id) REFERENCES users (user_id)
+) DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE VISIT_ITEM
+CREATE TABLE visit_item
 (
-    VISIT_ITEM_ID    NUMBER(50)   NOT NULL,
-    VISIT_ORDER      NUMBER(10)   NOT NULL,
-    DISTANCE_TO_NEXT NUMBER(20),
-    PLACE_ID         VARCHAR2(20) NOT NULL,
-    SCHEDULE_ID      VARCHAR2(20) NOT NULL,
-    SCHEDULE_TYPE    VARCHAR2(20) NOT NULL,
-    CONSTRAINT PK_VISIT_ITEM PRIMARY KEY (VISIT_ITEM_ID),
-    CONSTRAINT FK_VISIT_PLACE FOREIGN KEY (PLACE_ID) REFERENCES PLACE (PLACE_ID)
-);
+    visit_item_id    BIGINT       NOT NULL AUTO_INCREMENT,
+    visit_order      INT          NOT NULL,
+    distance_to_next DOUBLE,
+    place_id         VARCHAR(20)  NOT NULL,
+    schedule_id      VARCHAR(50)  NOT NULL,
+    schedule_type    VARCHAR(20)  NOT NULL,
+    CONSTRAINT pk_visit_item PRIMARY KEY (visit_item_id),
+    CONSTRAINT fk_visit_place FOREIGN KEY (place_id) REFERENCES place (place_id),
+    CONSTRAINT chk_schedule_type CHECK (schedule_type IN ('MY_SCHEDULE', 'POST'))
+) DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE SCHEDULE_SHARE_USER
+CREATE TABLE schedule_share_user
 (
-    SHARE_ID       NUMBER(50)   NOT NULL,
-    PERMISSION     VARCHAR2(10) NOT NULL,
-    MY_SCHEDULE_ID VARCHAR2(20) NOT NULL,
-    SHARED_USER_ID VARCHAR2(20) NOT NULL,
-    CONSTRAINT PK_SHARE PRIMARY KEY (SHARE_ID),
-    CONSTRAINT FK_SHARE_SCHEDULE FOREIGN KEY (MY_SCHEDULE_ID) REFERENCES MY_SCHEDULE (MY_SCHEDULE_ID) ON DELETE CASCADE,
-    CONSTRAINT FK_SHARE_USER FOREIGN KEY (SHARED_USER_ID) REFERENCES USERS (USER_ID)
-);
+    share_id       BIGINT       NOT NULL AUTO_INCREMENT,
+    permission     VARCHAR(10)  NOT NULL,
+    my_schedule_id VARCHAR(50)  NOT NULL,
+    shared_user_id VARCHAR(50)  NOT NULL,
+    CONSTRAINT pk_schedule_share_user PRIMARY KEY (share_id),
+    CONSTRAINT fk_share_schedule FOREIGN KEY (my_schedule_id) REFERENCES my_schedule (my_schedule_id) ON DELETE CASCADE,
+    CONSTRAINT fk_share_user FOREIGN KEY (shared_user_id) REFERENCES users (user_id) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8mb4;
