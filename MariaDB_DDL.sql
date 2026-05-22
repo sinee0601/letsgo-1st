@@ -69,10 +69,13 @@ CREATE TABLE visit_item
 CREATE TABLE schedule_share_user
 (
     share_id       BIGINT       NOT NULL AUTO_INCREMENT,
-    permission     VARCHAR(10)  NOT NULL,
+    permission     VARCHAR(10)  NOT NULL
+,
     my_schedule_id VARCHAR(50)  NOT NULL,
     shared_user_id VARCHAR(50)  NOT NULL,
     CONSTRAINT pk_schedule_share_user PRIMARY KEY (share_id),
     CONSTRAINT fk_share_schedule FOREIGN KEY (my_schedule_id) REFERENCES my_schedule (my_schedule_id) ON DELETE CASCADE,
     CONSTRAINT fk_share_user FOREIGN KEY (shared_user_id) REFERENCES users (user_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE *;
