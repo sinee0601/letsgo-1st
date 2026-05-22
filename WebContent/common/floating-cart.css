@@ -114,3 +114,28 @@
     border-bottom: 1px solid #ddd;
     padding: 4px 6px;
 }
+
+/* 장바구니 담기 성공 toast — 자동 fade in/out, 2.5초 후 제거 */
+.cart-toast {
+    position: fixed;
+    bottom: 115px;
+    left: 50%;
+    background-color: rgba(40, 40, 40, 0.95);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    z-index: 2000;
+    pointer-events: none;
+    white-space: nowrap;
+    animation: cartToastInOut 2.5s ease forwards;
+}
+
+@keyframes cartToastInOut {
+    0%   { opacity: 0; transform: translate(-50%, 12px); }
+    10%  { opacity: 1; transform: translate(-50%, 0); }
+    85%  { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -8px); }
+}

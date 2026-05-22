@@ -48,7 +48,13 @@ public class AddCartAction implements Action {
 			request.setAttribute("cartMessage", "숙박은 1개만 담을 수 있습니다.");
 			return new IndexUIAction().execute(request);
 		}
-	
+
+		// 식당/숙박은 레저 좌표 기준으로 조회되므로 레저가 먼저 담겨 있어야 한다
+		if (("RESTAURANT".equals(placeType) || "STAY".equals(placeType)) && !hasLeisurePlace(cartList)) {
+			request.setAttribute("cartMessage", "레저스포츠를 먼저 장바구니에 담아주세요.");
+			return new IndexUIAction().execute(request);
+		}
+
 		PlaceServiceInterface service = new PlaceServiceMB();
 		PlaceVO place = service.getPlaceById(placeId);
 		if (place != null) {
