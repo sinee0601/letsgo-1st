@@ -33,23 +33,6 @@
 > **FrontController + Command(Action) 패턴**의 Model2 MVC 구조입니다.
 > 하나의 `FrontControllerServlet`이 모든 요청을 받아, `ActionFactory`가 요청 URI에 맞는 `Action`을 생성·실행하도록 하여 **요청 분기와 비즈니스 처리를 분리**했습니다.
 
-```
-[Browser]
-   │  HTTP Request (*.do)
-   ▼
-[FrontControllerServlet]  ──▶  [ActionFactory]  ──▶  [Action / UIAction]
-   │  (요청 단일 진입점)           (URI → Action 매핑)         │
-   │                                                          ▼
-   │                                                     [Service]  ── 트랜잭션·비즈니스 로직
-   │                                                          │
-   │                                                          ▼
-   │                                            [DAO (JDBC) / DAO_MB (MyBatis)]
-   │                                                          │
-   ▼                                                          ▼
-[JSP / HTML View]  ◀── 화면 반환                        [ Oracle / MariaDB ]
-       ▲
-       └── AjaxServlet + Gson (JSON) ── 비동기 통신
-```
 
 | 계층 | 구성 요소 | 역할 |
 |------|-----------|------|
